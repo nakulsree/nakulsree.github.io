@@ -1,0 +1,85 @@
+{
+  "id": "ev-charging-intelligence",
+  "title": "EV Charging Intelligence: Price Forecasting & Market Optimization",
+  "subtitle": "24-Hour Ahead Electricity Price Forecasting + Nash Equilibrium Pricing for the I-210 Corridor",
+  "author": "Nakul Sreekanth",
+  "team": "Purdue VIP-ORSOL Initiative",
+  "competition": "SAS Global Forum Curiosity Cup 2026",
+  "award": "Finalist (Forecasting Track)",
+  "date": "2026",
+  "tags": [
+    "LSTM",
+    "ARIMA",
+    "Time Series Forecasting",
+    "Nash Equilibrium",
+    "Discrete-Choice Modeling",
+    "Nonlinear Optimization",
+    "Electricity Markets",
+    "EV Infrastructure",
+    "Renewable Energy",
+    "Leakage Prevention",
+    "Game Theory"
+  ],
+  "tech_stack": [
+    "Python (TensorFlow/Keras)",
+    "SAS Viya / PROC OPTMODEL",
+    "CAISO OASIS API",
+    "Caltrans PeMS",
+    "OpenChargeMap API"
+  ],
+  "domain": "Energy Markets / EV Infrastructure / Sustainable Transportation",
+  "modules": [
+    {
+      "name": "Forecasting",
+      "description": "24-hour ahead real-time electricity price forecasting for CAISO SP15 zone",
+      "award": "SAS Global Forum Curiosity Cup 2026 Finalist",
+      "model": "Stacked LSTM (128→64→32) + ARIMA/SARIMA/ARIMAX benchmark"
+    },
+    {
+      "name": "Optimization",
+      "description": "Nash equilibrium pricing model for 51 EV charging stations on I-210 corridor",
+      "model": "Logit discrete-choice demand + iterative best-response via PROC OPTMODEL"
+    }
+  ],
+  "data": {
+    "forecasting": {
+      "n_observations": 28000,
+      "n_features": 51,
+      "target": "LMP_RTM_SP15 ($/MWh)",
+      "split": "60/20/20 chronological",
+      "test_observations": 5567
+    },
+    "optimization": {
+      "stations": 51,
+      "corridor": "I-210 (California)",
+      "n_observations": 1224,
+      "sources": ["CAISO OASIS", "Caltrans PeMS", "OpenChargeMap", "DESL"]
+    }
+  },
+  "metrics": {
+    "lstm_mae": 10.99,
+    "lstm_rmse": 16.05,
+    "lstm_r2": 0.48,
+    "lstm_test_obs": 5567,
+    "lstm_early_stopping_epoch": 18,
+    "lstm_best_val_epoch": 3,
+    "optimization_stations": 51,
+    "optimization_station_hours": 1224,
+    "optimization_peak_utilization": "200-300%+",
+    "optimization_convergence_threshold": 0.01
+  },
+  "key_findings": [
+    "LSTM achieves test MAE of ~$10.99/MWh and R²≈0.48 on 5,567 out-of-sample forecasts",
+    "Both LSTM and ARMA struggle with 17-21h ramp hours — a genuine information limit, not a modeling failure",
+    "Nash equilibrium prices remain stable despite peak demand surges — competition prevents opportunistic pricing",
+    "Stations exceed 200-300% of rated capacity during afternoon/evening — physical constraints dominate, not pricing power",
+    "Profits are evenly distributed across all 51 stations, confirming near-competitive market structure",
+    "Expanding capacity is more effective than adjusting prices for reducing congestion on the corridor"
+  ],
+  "github_url": "https://github.com/nakulsree/Portofolio",
+  "thumbnail": "assets/images/ev-charging-intelligence-thumbnail.svg",
+  "portfolio_url": "ev-charging-intelligence.html",
+  "featured": true,
+  "difficulty": "Advanced",
+  "estimated_read_time_minutes": 9
+}

@@ -1,0 +1,91 @@
+{
+  "id": "power-outage-forecasting",
+  "title": "Power Outage Forecasting Under Extreme Weather",
+  "subtitle": "A Routing-Based Ensemble Framework for County-Level Prediction",
+  "author": "Nakul Sreekanth",
+  "date": "2026-03-30",
+  "competition": "IISE 2026 Analytics Competition",
+  "tags": [
+    "Forecasting",
+    "Ensemble Learning",
+    "LightGBM",
+    "Time Series",
+    "Extreme Events",
+    "Zero-Inflated Models",
+    "Bayesian Optimization",
+    "Feature Engineering",
+    "Model Interpretability"
+  ],
+  "tech_stack": [
+    "Python",
+    "LightGBM",
+    "PyTorch (MLP)",
+    "Optuna",
+    "scikit-learn",
+    "NumPy",
+    "pandas"
+  ],
+  "domain": "Infrastructure / Utilities / Extreme Weather",
+  "problem_type": "Count regression · Zero-inflated · Extreme tail forecasting",
+  "data": {
+    "scope": "83 Michigan counties",
+    "period": "April 1 – June 30, 2023",
+    "granularity": "Hourly",
+    "n_observations": 179363,
+    "n_features_raw": 109,
+    "n_features_engineered": 349,
+    "target": "Hourly power outage count per county",
+    "zero_fraction": 0.7047,
+    "missing_values": false
+  },
+  "architecture": {
+    "stages": 4,
+    "n_regimes": 4,
+    "n_models_total": 336,
+    "horizon_hours": 48,
+    "validation": "5-fold expanding window",
+    "components": [
+      "LightGBM Router (multiclass classifier)",
+      "LightGBM + Huber Loss (Class 2 & 3)",
+      "LightGBM + Log-Log Transform (Class 2 & 3)",
+      "MLP (128→64, ReLU, MSE, Adam) (Class 2 & 3)",
+      "LightGBM Meta-Learner",
+      "Magnitude-scaled adaptive prediction intervals"
+    ]
+  },
+  "metrics": {
+    "base_ensemble": {
+      "s1_rmse": 3.971,
+      "s2_tail_rmse": 43.497,
+      "s3_f1": 0.675,
+      "s4_winkler": 89.378
+    },
+    "full_model": {
+      "s1_rmse": 2.256,
+      "s2_tail_rmse": 27.793,
+      "s3_f1": 0.696,
+      "s3_precision": 0.893,
+      "s3_recall": 0.571,
+      "s4_winkler": 9.495
+    },
+    "improvement": {
+      "s1_rmse_pct": 43.2,
+      "s2_tail_rmse_pct": 36.1,
+      "s3_f1_pct": 3.2,
+      "s4_winkler_pct": 89.4
+    }
+  },
+  "key_findings": [
+    "89% Winkler score improvement over global residual quantile baseline via magnitude-scaled adaptive prediction intervals",
+    "Complete structural feature separation: zero overlap between router (temporal autocorrelation) and severity (meteorological physics) feature sets",
+    "Top severity drivers: Lifted Index (+0.028 Huber delta), Geopotential Height at 400mb (+0.017), Specific Humidity at 2m (+0.006)",
+    "Meta-learner alone contributes 43.2% RMSE reduction by exploiting out-of-fold regressor disagreement signals",
+    "336 models trained across 48 hourly horizons, 7 model types, using direct multi-step forecasting"
+  ],
+  "thumbnail": "assets/images/power-outage-forecasting-thumbnail.svg",
+  "portfolio_url": "power-outage-forecasting.html",
+  "github_url": "https://github.com/nakulsreekanth",
+  "featured": true,
+  "difficulty": "Advanced",
+  "estimated_read_time_minutes": 8
+}

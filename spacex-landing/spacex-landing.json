@@ -1,0 +1,77 @@
+{
+  "id": "spacex-landing-prediction",
+  "title": "SpaceX Falcon 9 First Stage Landing Prediction",
+  "subtitle": "End-to-End Data Science Pipeline: API Collection → Web Scraping → SQL EDA → Geospatial Analytics → Dash Dashboard → ML Classification",
+  "author": "Nakul Sreekanth",
+  "attribution": "Based on IBM Data Science Professional Certificate capstone materials (IBM Corporation 2021-2022). Modified, analyzed, and adapted by Nakul Sreekanth.",
+  "date": "2024",
+  "tags": [
+    "Machine Learning",
+    "Binary Classification",
+    "REST API",
+    "Web Scraping",
+    "SQL",
+    "Geospatial Analytics",
+    "Plotly Dash",
+    "End-to-End Pipeline",
+    "scikit-learn",
+    "Folium"
+  ],
+  "tech_stack": [
+    "Python",
+    "pandas",
+    "scikit-learn",
+    "BeautifulSoup",
+    "Folium",
+    "Plotly Dash",
+    "SQLite",
+    "ipython-sql",
+    "seaborn",
+    "matplotlib",
+    "requests"
+  ],
+  "pipeline_stages": 7,
+  "notebooks": [
+    "1__Collecting_the_data.ipynb",
+    "1b__Webscraping_from_Wikepedia.ipynb",
+    "2__Data_Wrangling_and_Exploratory_Data_Analysis.ipynb",
+    "2b__SQL_for_EDA_Updated.ipynb",
+    "2c__EDA_for_Data_Visualisation.ipynb",
+    "3__Visual_Analytics_with_Folium.ipynb",
+    "3b__Dashboard_spacex_dash_app.py",
+    "Machine_Learning_Prediction_Update.ipynb"
+  ],
+  "target": "Class (binary: 1=successful first-stage landing, 0=failed)",
+  "class_balance": "~67% positive (successful landings)",
+  "train_test_split": "80/20",
+  "cv_folds": 10,
+  "preprocessing": "StandardScaler (fit on train only)",
+  "ml_results": {
+    "logistic_regression": {
+      "cv_accuracy": 0.8464,
+      "test_accuracy": 0.8333,
+      "best_params": {"C": 0.01, "penalty": "l2", "solver": "lbfgs"}
+    },
+    "svm": {
+      "cv_accuracy": 0.8482,
+      "test_accuracy": 0.8333,
+      "best_params": {"C": 1.0, "gamma": 0.03162, "kernel": "sigmoid"}
+    },
+    "decision_tree": {
+      "cv_accuracy": 0.8893,
+      "test_accuracy": 0.8333,
+      "best_params": {"criterion": "entropy", "max_depth": 10, "max_features": "sqrt", "min_samples_leaf": 2, "min_samples_split": 5, "splitter": "random"}
+    },
+    "knn": {
+      "cv_accuracy": 0.8482,
+      "test_accuracy": 0.8333,
+      "best_params": {"algorithm": "auto", "n_neighbors": 10, "p": 1}
+    }
+  },
+  "github_url": "https://github.com/nakulsree/Portofolio",
+  "thumbnail": "assets/images/spacex-landing-thumbnail.svg",
+  "portfolio_url": "spacex-landing.html",
+  "featured": true,
+  "difficulty": "Intermediate",
+  "estimated_read_time_minutes": 8
+}

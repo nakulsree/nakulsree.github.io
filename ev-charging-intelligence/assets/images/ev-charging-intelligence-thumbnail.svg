@@ -1,0 +1,149 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450" role="img" aria-label="EV Charging Intelligence project thumbnail — dual-module forecasting and optimization framework">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#080b10"/>
+      <stop offset="100%" style="stop-color:#0d1018"/>
+    </linearGradient>
+    <linearGradient id="orangeG" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#ff7c3a"/>
+      <stop offset="100%" style="stop-color:#ff9660"/>
+    </linearGradient>
+    <linearGradient id="blueG" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#4facfe"/>
+      <stop offset="100%" style="stop-color:#00f2fe"/>
+    </linearGradient>
+    <linearGradient id="priceL" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#4facfe; stop-opacity:0.8"/>
+      <stop offset="100%" style="stop-color:#4facfe; stop-opacity:0.1"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="4" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="softglow">
+      <feGaussianBlur stdDeviation="14" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="450" fill="url(#bg)"/>
+
+  <!-- Grid -->
+  <g stroke="#ff7c3a" stroke-opacity="0.03" stroke-width="1">
+    <line x1="0" y1="60" x2="800" y2="60"/>  <line x1="0" y1="120" x2="800" y2="120"/>
+    <line x1="0" y1="180" x2="800" y2="180"/> <line x1="0" y1="240" x2="800" y2="240"/>
+    <line x1="0" y1="300" x2="800" y2="300"/> <line x1="0" y1="360" x2="800" y2="360"/>
+    <line x1="0" y1="420" x2="800" y2="420"/>
+  </g>
+  <g stroke="#4facfe" stroke-opacity="0.025" stroke-width="1">
+    <line x1="100" y1="0" x2="100" y2="450"/> <line x1="200" y1="0" x2="200" y2="450"/>
+    <line x1="300" y1="0" x2="300" y2="450"/> <line x1="400" y1="0" x2="400" y2="450"/>
+    <line x1="500" y1="0" x2="500" y2="450"/> <line x1="600" y1="0" x2="600" y2="450"/>
+    <line x1="700" y1="0" x2="700" y2="450"/>
+  </g>
+
+  <!-- Ambient blobs -->
+  <ellipse cx="680" cy="80" rx="200" ry="130" fill="#ff7c3a" fill-opacity="0.05" filter="url(#softglow)"/>
+  <ellipse cx="130" cy="350" rx="160" ry="110" fill="#4facfe" fill-opacity="0.04" filter="url(#softglow)"/>
+
+  <!-- Award badge -->
+  <rect x="30" y="18" width="320" height="28" rx="14" fill="rgba(255,208,96,0.08)" stroke="rgba(255,208,96,0.25)" stroke-width="1"/>
+  <text x="47" y="36" font-family="system-ui,sans-serif" font-size="12" fill="#ffd060">★</text>
+  <text x="64" y="36" font-family="system-ui,sans-serif" font-size="11" fill="#ffd060" font-weight="600">SAS Global Forum Curiosity Cup 2026 Finalist</text>
+
+  <!-- Title -->
+  <text x="30" y="78" font-family="system-ui,sans-serif" font-weight="900" font-size="26" fill="#e4eaf4" letter-spacing="-1">EV Charging Intelligence</text>
+  <text x="30" y="98" font-family="system-ui,sans-serif" font-size="12" fill="#7288a8">Price Forecasting &amp; Market Optimization · I-210 Corridor · SP15 Zone</text>
+
+  <!-- KPI Boxes -->
+  <rect x="30" y="112" width="100" height="48" rx="7" fill="#111620" stroke="#1a2235" stroke-width="1"/>
+  <text x="80" y="131" font-family="system-ui,sans-serif" font-weight="900" font-size="16" fill="#4facfe" text-anchor="middle" filter="url(#glow)">$10.99</text>
+  <text x="80" y="149" font-family="system-ui,sans-serif" font-size="8.5" fill="#3d5070" text-anchor="middle">Test MAE</text>
+
+  <rect x="140" y="112" width="100" height="48" rx="7" fill="#111620" stroke="#1a2235" stroke-width="1"/>
+  <text x="190" y="131" font-family="system-ui,sans-serif" font-weight="900" font-size="16" fill="#4facfe" text-anchor="middle" filter="url(#glow)">R²=0.48</text>
+  <text x="190" y="149" font-family="system-ui,sans-serif" font-size="8.5" fill="#3d5070" text-anchor="middle">Out-of-Sample</text>
+
+  <rect x="250" y="112" width="100" height="48" rx="7" fill="#111620" stroke="#1a2235" stroke-width="1"/>
+  <text x="300" y="131" font-family="system-ui,sans-serif" font-weight="900" font-size="16" fill="#ff7c3a" text-anchor="middle" filter="url(#glow)">51</text>
+  <text x="300" y="149" font-family="system-ui,sans-serif" font-size="8.5" fill="#3d5070" text-anchor="middle">Stations Modeled</text>
+
+  <rect x="360" y="112" width="100" height="48" rx="7" fill="#111620" stroke="#1a2235" stroke-width="1"/>
+  <text x="410" y="131" font-family="system-ui,sans-serif" font-weight="900" font-size="16" fill="#ff7c3a" text-anchor="middle" filter="url(#glow)">~28K</text>
+  <text x="410" y="149" font-family="system-ui,sans-serif" font-size="8.5" fill="#3d5070" text-anchor="middle">Hourly Obs.</text>
+
+  <!-- === LSTM / Price Forecast chart (left) === -->
+  <rect x="30" y="178" width="360" height="200" rx="8" fill="#111620" stroke="#1a2235" stroke-width="1"/>
+  <text x="48" y="198" font-family="system-ui,sans-serif" font-size="10" fill="#4facfe" font-weight="700" text-transform="uppercase">LSTM Forecast · SP15 Real-Time Price</text>
+  <text x="48" y="212" font-family="system-ui,sans-serif" font-size="8" fill="#3d5070">24h ahead · test MAE $10.99 · R²≈0.48</text>
+
+  <!-- Price chart area -->
+  <!-- Actual price (jagged, realistic) -->
+  <polyline
+    points="48,340 66,310 84,270 102,260 120,300 138,320 156,290 174,240 192,200 210,280 228,340 246,330 264,290 268,275 280,250 298,310 316,330 334,300 352,320 370,340"
+    fill="none" stroke="#4facfe" stroke-width="1.5" stroke-opacity="0.8"/>
+  <!-- Predicted (smoother) -->
+  <polyline
+    points="48,338 66,316 84,278 102,264 120,295 138,318 156,296 174,252 192,220 210,278 228,330 246,326 264,296 280,262 298,308 316,324 334,306 352,318 370,336"
+    fill="none" stroke="#ff7c3a" stroke-width="1.5" stroke-dasharray="4,2" stroke-opacity="0.9"/>
+  <!-- Evening ramp shading -->
+  <rect x="192" y="190" width="72" height="155" fill="rgba(255,59,48,0.06)" rx="2"/>
+  <text x="228" y="206" font-family="system-ui,sans-serif" font-size="8" fill="#ff3b30" text-anchor="middle">17-21h ramp</text>
+
+  <!-- Legend -->
+  <line x1="48" y1="360" x2="68" y2="360" stroke="#4facfe" stroke-width="1.5"/>
+  <text x="72" y="364" font-family="system-ui,sans-serif" font-size="8" fill="#7288a8">Actual</text>
+  <line x1="110" y1="360" x2="130" y2="360" stroke="#ff7c3a" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <text x="134" y="364" font-family="system-ui,sans-serif" font-size="8" fill="#7288a8">LSTM Forecast</text>
+
+  <!-- Y axis label -->
+  <text x="40" y="280" font-family="system-ui,sans-serif" font-size="8" fill="#3d5070" text-anchor="middle" transform="rotate(-90 40 280)">Price ($/MWh)</text>
+
+  <!-- === Optimization chart (right) === -->
+  <rect x="410" y="178" width="360" height="200" rx="8" fill="#111620" stroke="#1a2235" stroke-width="1"/>
+  <text x="428" y="198" font-family="system-ui,sans-serif" font-size="10" fill="#ff7c3a" font-weight="700">Nash Equilibrium · I-210 Corridor</text>
+  <text x="428" y="212" font-family="system-ui,sans-serif" font-size="8" fill="#3d5070">Demand vs. Equilibrium Price · 51 Stations</text>
+
+  <!-- Demand bar chart (soft blue) -->
+  <rect x="428" y="320" width="14" height="25"  rx="2" fill="#4facfe" fill-opacity="0.3"/>
+  <rect x="448" y="310" width="14" height="35"  rx="2" fill="#4facfe" fill-opacity="0.35"/>
+  <rect x="468" y="295" width="14" height="50"  rx="2" fill="#4facfe" fill-opacity="0.4"/>
+  <rect x="488" y="285" width="14" height="60"  rx="2" fill="#4facfe" fill-opacity="0.4"/>
+  <rect x="508" y="275" width="14" height="70"  rx="2" fill="#4facfe" fill-opacity="0.45"/>
+  <rect x="528" y="265" width="14" height="80"  rx="2" fill="#4facfe" fill-opacity="0.5"/>
+  <rect x="548" y="245" width="14" height="100" rx="2" fill="#4facfe" fill-opacity="0.55"/>
+  <rect x="568" y="225" width="14" height="120" rx="2" fill="#4facfe" fill-opacity="0.65"/>
+  <rect x="588" y="255" width="14" height="90"  rx="2" fill="#4facfe" fill-opacity="0.55"/>
+  <rect x="608" y="285" width="14" height="60"  rx="2" fill="#4facfe" fill-opacity="0.4"/>
+  <rect x="628" y="300" width="14" height="45"  rx="2" fill="#4facfe" fill-opacity="0.35"/>
+  <rect x="648" y="310" width="14" height="35"  rx="2" fill="#4facfe" fill-opacity="0.3"/>
+  <!-- Demand label -->
+  <text x="567" y="220" font-family="system-ui,sans-serif" font-size="8" fill="#4facfe" text-anchor="middle">Peak hr 18</text>
+  <!-- Stable price line -->
+  <line x1="428" y1="305" x2="742" y2="305" stroke="#ff7c3a" stroke-width="1.5" stroke-dasharray="none" filter="url(#glow)"/>
+  <text x="744" y="309" font-family="system-ui,sans-serif" font-size="8" fill="#ff7c3a">Stable price</text>
+
+  <!-- Capacity overload indicators -->
+  <text x="568" y="240" font-family="system-ui,sans-serif" font-size="7.5" fill="#ff3b30" text-anchor="middle">200-300%</text>
+  <text x="568" y="249" font-family="system-ui,sans-serif" font-size="7.5" fill="#ff3b30" text-anchor="middle">over capacity</text>
+
+  <!-- Legend -->
+  <rect x="428" y="356" width="12" height="8" rx="2" fill="#4facfe" fill-opacity="0.5"/>
+  <text x="444" y="364" font-family="system-ui,sans-serif" font-size="8" fill="#7288a8">Demand</text>
+  <line x1="490" y1="360" x2="510" y2="360" stroke="#ff7c3a" stroke-width="1.5"/>
+  <text x="514" y="364" font-family="system-ui,sans-serif" font-size="8" fill="#7288a8">Equilibrium price</text>
+
+  <!-- Finding summary boxes -->
+  <rect x="30" y="390" width="167" height="44" rx="6" fill="#111620" stroke="#1a2235" stroke-width="1"/>
+  <text x="48" y="408" font-family="system-ui,sans-serif" font-size="9" fill="#7288a8">Forecasting</text>
+  <text x="48" y="423" font-family="system-ui,sans-serif" font-size="9" fill="#4facfe" font-weight="700">LSTM + ARIMA dual approach</text>
+
+  <rect x="207" y="390" width="183" height="44" rx="6" fill="#111620" stroke="#1a2235" stroke-width="1"/>
+  <text x="225" y="408" font-family="system-ui,sans-serif" font-size="9" fill="#7288a8">Optimization</text>
+  <text x="225" y="423" font-family="system-ui,sans-serif" font-size="9" fill="#ff7c3a" font-weight="700">Nash equilibrium · logit demand</text>
+
+  <rect x="410" y="390" width="360" height="44" rx="6" fill="rgba(255,208,96,0.05)" stroke="rgba(255,208,96,0.2)" stroke-width="1"/>
+  <text x="428" y="408" font-family="system-ui,sans-serif" font-size="9" fill="#ffd060">★ Capacity constraints — not pricing power — drive corridor performance</text>
+  <text x="428" y="423" font-family="system-ui,sans-serif" font-size="9" fill="#3d5070">Nakul Sreekanth · Purdue VIP-ORSOL · SAS Curiosity Cup 2026</text>
+</svg>

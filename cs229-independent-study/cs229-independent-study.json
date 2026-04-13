@@ -1,0 +1,113 @@
+{
+  "id": "cs229-independent-study",
+  "title": "Stanford CS229 Machine Learning — Independent Study",
+  "subtitle": "10 Algorithms Implemented from Mathematical First Principles",
+  "author": "Nakul Sreekanth",
+  "type": "independent_study",
+  "NOT_A_PROJECT": true,
+  "note": "This is explicitly framed as independent self-study, not an original project. Problem structure and scaffolding belong to Stanford CS229. The mathematical implementations are original work.",
+  "source_course": "Stanford CS229 Machine Learning (publicly available materials)",
+  "period": "2023-2024",
+  "tags": [
+    "Machine Learning Theory",
+    "Algorithms from Scratch",
+    "Independent Study",
+    "Stanford CS229",
+    "Mathematical Foundations",
+    "Supervised Learning",
+    "Unsupervised Learning",
+    "Reinforcement Learning"
+  ],
+  "algorithms_implemented": [
+    {
+      "id": "01",
+      "name": "Logistic Regression via Newton's Method",
+      "category": "Supervised / Classification",
+      "key_equation": "theta := theta - H^{-1} grad_theta l(theta)",
+      "file": "p01e-1_My_Implementation.ipynb"
+    },
+    {
+      "id": "02",
+      "name": "Gaussian Discriminant Analysis (GDA)",
+      "category": "Generative / Classification",
+      "key_equation": "mu_j = sum(1[y=j]*x) / sum(1[y=j])",
+      "file": "p01e-1_My_Implementation.ipynb"
+    },
+    {
+      "id": "03",
+      "name": "Positive-Unlabeled (PU) Learning with Correction",
+      "category": "Label Noise / Correction",
+      "key_equation": "P(t=1|x) = h(x) / alpha, alpha = E[h(x)|y=1]",
+      "file": "p02cde_My_Implementation.ipynb"
+    },
+    {
+      "id": "04",
+      "name": "Poisson Regression (Generalized Linear Model)",
+      "category": "GLM / Count Regression",
+      "key_equation": "d_l/d_theta_j = sum(y_i - exp(theta^T x_i)) * x_ij",
+      "file": "p03d_PS1-3_My_Implementation.ipynb"
+    },
+    {
+      "id": "05",
+      "name": "EM Algorithm for Gaussian Mixture Models",
+      "category": "Unsupervised + Semi-supervised",
+      "key_equation": "w_j = phi_j * N(x; mu_j, Sigma_j) / sum_k phi_k * N(x; mu_k, Sigma_k)",
+      "file": "P03_MyImplementation.ipynb"
+    },
+    {
+      "id": "06",
+      "name": "Locally Weighted Regression",
+      "category": "Non-Parametric / Regression",
+      "key_equation": "w_i = exp(-||x_i - x||^2 / (2*tau^2)), theta = (X^T W X)^{-1} X^T W y",
+      "file": "p05b_My_Implementation.ipynb"
+    },
+    {
+      "id": "07",
+      "name": "Kernel Perceptron (Dual Form)",
+      "category": "Kernels / Online Learning",
+      "key_equation": "f(x) = sign(sum_i alpha_i * y_i * K(x_i, x))",
+      "file": "p05_MyImplementation.ipynb"
+    },
+    {
+      "id": "08",
+      "name": "Independent Component Analysis (ICA)",
+      "category": "Unsupervised / Source Separation",
+      "key_equation": "W := W + alpha * ((W^T)^{-1} - sign(Wx)*x^T)",
+      "prior": "Laplace distribution",
+      "file": "p04_ica.py",
+      "result": "5-channel audio source separation"
+    },
+    {
+      "id": "09",
+      "name": "Naive Bayes Spam Classifier + SVM",
+      "category": "NLP / Classification",
+      "key_equation": "phi_{k|y=j} = (sum(1[x=k, y=j]) + 1) / (sum(1[y=j]) + |V|)",
+      "file": "p06_MyImplementation.ipynb",
+      "results": {
+        "naive_bayes_accuracy": 0.9785,
+        "svm_accuracy": 0.9695,
+        "optimal_svm_radius": 0.1,
+        "top_spam_words": ["claim", "won", "prize", "tone", "urgent!"]
+      }
+    },
+    {
+      "id": "10",
+      "name": "Reinforcement Learning — CartPole via Value Iteration",
+      "category": "MDP / RL",
+      "key_equation": "V(s) = R(s) + gamma * max_a sum_{s'} P(s'|s,a) V(s')",
+      "file": "p06_cartpole_MyImplementation.ipynb",
+      "params": {
+        "num_states": 163,
+        "gamma": 0.995,
+        "tolerance": 0.01,
+        "convergence_criterion": "20 consecutive single-iteration VI convergences"
+      }
+    }
+  ],
+  "github_url": "https://github.com/nakulsree/Portofolio",
+  "thumbnail": "assets/images/cs229-independent-study-thumbnail.svg",
+  "portfolio_url": "cs229-independent-study.html",
+  "featured": false,
+  "portfolio_section": "foundations",
+  "display_note": "Present in a separate 'Foundations' or 'Background' section of the portfolio index, clearly distinguished from original projects."
+}

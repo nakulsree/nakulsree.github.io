@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Routing-based ensemble for county-level power outage forecasting under extreme weather. Four-stage LightGBM + MLP pipeline achieving 89% Winkler score improvement over baseline." />
+  <meta name="keywords" content="power outage forecasting, LightGBM, ensemble learning, time series, extreme weather, Michigan, data science, machine learning" />
+  <meta name="author" content="Nakul Sreekanth" />
+  <meta property="og:title" content="Power Outage Forecasting | Nakul Sreekanth" />
+  <meta property="og:description" content="A routing-based ensemble for county-level power outage forecasting under extreme weather conditions in Michigan." />
+  <meta property="og:type" content="website" />
+  <title>Power Outage Forecasting — Nakul Sreekanth</title>
+  <link rel="stylesheet" href="assets/css/power-outage-forecasting.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Grid overlay -->
+  <div class="grid-overlay" aria-hidden="true"></div>
+  <!-- Ambient glow blobs -->
+  <div class="glow glow-1" aria-hidden="true"></div>
+  <div class="glow glow-2" aria-hidden="true"></div>
+
+  <!-- ── NAV ── -->
+  <nav class="nav" role="navigation" aria-label="Page navigation">
+    <a href="#" class="nav-brand">NS<span class="accent">.</span></a>
+    <div class="nav-links">
+      <a href="#summary">Summary</a>
+      <a href="#data">Data</a>
+      <a href="#approach">Method</a>
+      <a href="#results">Results</a>
+      <a href="#skills">Skills</a>
+    </div>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <header class="hero" role="banner">
+    <div class="hero-inner">
+      <div class="hero-meta">
+        <span class="tag">Forecasting</span>
+        <span class="tag">Ensemble ML</span>
+        <span class="tag">Time Series</span>
+        <span class="tag">Extreme Events</span>
+      </div>
+      <h1 class="hero-title">
+        <span class="hero-title-line line-1">Power Outage</span>
+        <span class="hero-title-line line-2">Forecasting</span>
+        <span class="hero-title-line line-3 muted">Under Extreme Weather</span>
+      </h1>
+      <p class="hero-sub">A routing-based ensemble framework for 48-hour county-level outage prediction across Michigan's 83 counties.</p>
+
+      <div class="hero-stats">
+        <div class="stat-card">
+          <span class="stat-val">89<span class="stat-pct">%</span></span>
+          <span class="stat-label">Winkler Score Improvement</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-val">43<span class="stat-pct">%</span></span>
+          <span class="stat-label">RMSE Reduction (Meta-Learner)</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-val">336</span>
+          <span class="stat-label">Models Trained</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-val">0.696</span>
+          <span class="stat-label">Detection F1 Score</span>
+        </div>
+      </div>
+
+      <div class="hero-cta">
+        <a href="https://github.com/nakulsree/Portofolio" class="btn btn-primary" target="_blank" rel="noopener noreferrer">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+          View on GitHub
+        </a>
+        <a href="#approach" class="btn btn-secondary">Read the Method ↓</a>
+      </div>
+    </div>
+
+    <!-- Thumbnail chart -->
+    <div class="hero-visual" aria-label="Architecture diagram preview">
+      <div class="arch-preview">
+        <div class="arch-node node-input">Input<br/><span>349 features</span></div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-node node-router">Router<br/><span>LightGBM</span></div>
+        <div class="arch-branches">
+          <div class="arch-branch branch-0">Zero<br/><span>ŷ = 0</span></div>
+          <div class="arch-branch branch-1">Low<br/><span>µ₁</span></div>
+          <div class="arch-branch branch-2">Moderate<br/><span>Huber·Log·MLP</span></div>
+          <div class="arch-branch branch-3">Extreme<br/><span>Huber·Log·MLP</span></div>
+        </div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-node node-meta">Meta-Learner<br/><span>LightGBM</span></div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-node node-out">ŷ ± 95% PI</div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ── EXECUTIVE SUMMARY ── -->
+    <section id="summary" class="section" aria-labelledby="summary-heading">
+      <div class="section-inner">
+        <div class="section-label">01 / Overview</div>
+        <h2 id="summary-heading">Executive Summary</h2>
+        <div class="summary-grid">
+          <div class="summary-text">
+            <p>This project addresses a deceptively hard forecasting problem: predicting hourly power outage counts across all 83 Michigan counties, 48 hours ahead. The difficulty is structural — roughly <strong>70% of county-hours record zero outages</strong>, yet the rare extreme events (a single storm can spike a county to 23,346 outages in one hour) are precisely what utilities need to anticipate.</p>
+            <p>Rather than fitting one global model that inevitably under-weights the tail, the approach partitions the prediction problem into <strong>four data-driven magnitude regimes</strong> and trains specialized models for each. A LightGBM meta-learner then refines the routing using out-of-fold disagreement signals across all base models, correcting boundary misclassifications at inference time.</p>
+            <p>The resulting framework achieves an <strong>89% reduction in Winkler score</strong> over a global residual quantile baseline and a <strong>43% reduction in normal-case RMSE</strong> from the meta-learner alone — with prediction intervals calibrated to be narrow during quiet periods and appropriately wide during extreme events.</p>
+          </div>
+          <div class="summary-aside">
+            <div class="aside-card">
+              <div class="aside-icon">⚡</div>
+              <div class="aside-label">Competition Context</div>
+              <div class="aside-val">IISE 2026 Analytics Competition — University challenge, real-world Michigan outage dataset</div>
+            </div>
+            <div class="aside-card">
+              <div class="aside-icon">📅</div>
+              <div class="aside-label">Forecast Horizon</div>
+              <div class="aside-val">48 hours ahead (direct multi-step, no autoregressive rollout)</div>
+            </div>
+            <div class="aside-card">
+              <div class="aside-icon">🗺️</div>
+              <div class="aside-label">Scope</div>
+              <div class="aside-val">83 Michigan counties × 48 hourly horizons × 4 regime-specialized models</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── PROBLEM STATEMENT ── -->
+    <section id="problem" class="section section-alt" aria-labelledby="problem-heading">
+      <div class="section-inner">
+        <div class="section-label">02 / Problem</div>
+        <h2 id="problem-heading">Problem Statement</h2>
+        <div class="problem-layout">
+          <div class="problem-text">
+            <p>Standard regression on power outage counts fails because the target distribution violates the assumptions of a single global model:</p>
+            <ul class="problem-list">
+              <li><strong>Severe zero-inflation:</strong> 70.47% of county-hours record zero outages. A mean-squared-error objective is dominated by these structural zeros, predicting near-zero for most samples.</li>
+              <li><strong>Heavy tails:</strong> Variance exceeds the mean by more than 10×. The June 26, 2023 storm drove CAPE to 14.6× its seasonal background, producing county-averaged hourly counts of 1,040 — a regime completely unlike the quiet baseline.</li>
+              <li><strong>Event-driven, non-periodic structure:</strong> Unlike electricity demand, outages have no day-of-week or hour-of-day cycle. The distribution is punctuated by rare, physically catastrophic events rather than smooth seasonality.</li>
+              <li><strong>Competing objectives:</strong> Minimizing normal-period error (s1) and capturing extreme-event severity (s2/s3) pull the gradient in opposite directions for any single loss function.</li>
+            </ul>
+          </div>
+          <div class="stats-panel">
+            <div class="dist-header">Target Distribution</div>
+            <div class="dist-row">
+              <span class="dist-key">% Zero county-hours</span>
+              <span class="dist-val accent-text">70.47%</span>
+            </div>
+            <div class="dist-row">
+              <span class="dist-key">Mean outages</span>
+              <span class="dist-val">45.25</span>
+            </div>
+            <div class="dist-row">
+              <span class="dist-key">Median outages</span>
+              <span class="dist-val">0</span>
+            </div>
+            <div class="dist-row">
+              <span class="dist-key">Std. deviation</span>
+              <span class="dist-val">452.27</span>
+            </div>
+            <div class="dist-row">
+              <span class="dist-key">Skewness</span>
+              <span class="dist-val accent-text">26.37</span>
+            </div>
+            <div class="dist-row">
+              <span class="dist-key">95th percentile</span>
+              <span class="dist-val">100</span>
+            </div>
+            <div class="dist-row">
+              <span class="dist-key">99th percentile</span>
+              <span class="dist-val">933</span>
+            </div>
+            <div class="dist-row">
+              <span class="dist-key">Maximum</span>
+              <span class="dist-val accent-text">23,346</span>
+            </div>
+            <div class="dist-note">Coefficient of variation &gt; 10× — extreme overdispersion</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── BUSINESS IMPACT ── -->
+    <section id="impact" class="section" aria-labelledby="impact-heading">
+      <div class="section-inner">
+        <div class="section-label">03 / Impact</div>
+        <h2 id="impact-heading">Why This Matters</h2>
+        <div class="impact-grid">
+          <div class="impact-card">
+            <div class="impact-icon" aria-hidden="true">🔧</div>
+            <h3>Crew Pre-Positioning</h3>
+            <p>Accurate 48-hour outage forecasts allow utilities to pre-deploy repair crews to high-risk counties before a storm makes landfall, reducing mean restoration time.</p>
+          </div>
+          <div class="impact-card">
+            <div class="impact-icon" aria-hidden="true">🏥</div>
+            <h3>Critical Infrastructure</h3>
+            <p>Hospitals, water treatment, and emergency services depend on power continuity. Reliable event detection (F1 = 0.696, precision = 0.893) enables targeted load protection protocols.</p>
+          </div>
+          <div class="impact-card">
+            <div class="impact-icon" aria-hidden="true">📊</div>
+            <h3>Calibrated Uncertainty</h3>
+            <p>Prediction intervals that scale with outage magnitude let planners distinguish between "uncertain quiet period" and "uncertain extreme event" — fundamentally different planning scenarios.</p>
+          </div>
+          <div class="impact-card">
+            <div class="impact-icon" aria-hidden="true">🌩️</div>
+            <h3>Severe Weather Readiness</h3>
+            <p>Michigan's Great Lakes geography amplifies severe convective risk. A single June 2023 storm affected all 83 counties simultaneously — illustrating the stakes of getting the tail right.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── DATA ── -->
+    <section id="data" class="section section-alt" aria-labelledby="data-heading">
+      <div class="section-inner">
+        <div class="section-label">04 / Data</div>
+        <h2 id="data-heading">Data Summary</h2>
+
+        <div class="data-layout">
+          <div class="data-col">
+            <h3>Sources & Scale</h3>
+            <ul class="data-list">
+              <li><strong>Coverage:</strong> 83 Michigan counties, April 1–June 30, 2023</li>
+              <li><strong>Granularity:</strong> Hourly, 2,161 timestamps per county</li>
+              <li><strong>Total samples:</strong> ~179,363 county-hour observations</li>
+              <li><strong>Missing values:</strong> None</li>
+              <li><strong>Target:</strong> Integer hourly outage count per county</li>
+            </ul>
+
+            <h3>Key Feature Families</h3>
+            <ul class="data-list">
+              <li>109 raw meteorological variables (temperature, humidity, pressure, wind, CAPE, CIN, lifted index, geopotential height, precipitation, cloud diagnostics)</li>
+              <li>Land-surface characteristics (vegetation type, leaf area index)</li>
+              <li>Tracked household count per county</li>
+            </ul>
+          </div>
+
+          <div class="data-col">
+            <h3>Preprocessing</h3>
+            <ul class="data-list">
+              <li>All meteorological variables shifted 1 hour backward relative to the target to prevent data leakage — no future weather enters the feature vector</li>
+              <li>Class boundary threshold P80 (≈299 outages) recomputed within each fold on training data only</li>
+              <li>Class weights set inversely proportional to class frequency for cost-sensitive routing</li>
+            </ul>
+
+            <h3>Feature Engineering</h3>
+            <div class="fe-grid">
+              <div class="fe-item">
+                <div class="fe-name">Temporal Lags</div>
+                <div class="fe-desc">yc,t−h for h ∈ {1,2,3,4,5,6,7,10,24,48} — captures storm persistence</div>
+              </div>
+              <div class="fe-item">
+                <div class="fe-name">EWM Transforms</div>
+                <div class="fe-desc">Exponentially-weighted moving averages of all 109 met. variables — smooths transient noise</div>
+              </div>
+              <div class="fe-item">
+                <div class="fe-name">Calendar Features</div>
+                <div class="fe-desc">Hour, day-of-week, minute-of-day, county identifier</div>
+              </div>
+              <div class="fe-item">
+                <div class="fe-name">Total Dimensionality</div>
+                <div class="fe-desc"><strong>349 features</strong> (109 raw + 219 EWM + 10 lags + 11 calendar/ID)</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="storm-callout">
+          <div class="storm-label">⚡ Dominant Training Event — June 26, 2023</div>
+          <div class="storm-stats">
+            <div class="storm-stat"><span>CAPE</span><strong>212 J/kg</strong><em>14.6× seasonal mean</em></div>
+            <div class="storm-stat"><span>PWAT</span><strong>34.85 mm</strong><em>2.35× background</em></div>
+            <div class="storm-stat"><span>Peak hourly outages</span><strong>1,040</strong><em>county-averaged</em></div>
+            <div class="storm-stat"><span>Duration</span><strong>~24 hrs</strong><em>all 83 counties affected</em></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── APPROACH ── -->
+    <section id="approach" class="section" aria-labelledby="approach-heading">
+      <div class="section-inner">
+        <div class="section-label">05 / Methodology</div>
+        <h2 id="approach-heading">Approach & Architecture</h2>
+
+        <div class="stages">
+
+          <div class="stage-card" data-stage="1">
+            <div class="stage-num">Stage 1</div>
+            <div class="stage-title">Multi-Class Router</div>
+            <div class="stage-body">
+              <p>A <strong>LightGBM classifier</strong> assigns each county-hour to one of four magnitude regimes, identified via k-means clustering on the non-zero outage distribution (k=3 selected by silhouette score, boundaries validated by Wasserstein distance):</p>
+              <ul>
+                <li><strong>Class 0:</strong> Zero outages (structural zeros)</li>
+                <li><strong>Class 1:</strong> Low activity [1, 10)</li>
+                <li><strong>Class 2:</strong> Moderate [10, P80 ≈ 299]</li>
+                <li><strong>Class 3:</strong> Extreme tail (&gt;P80)</li>
+              </ul>
+              <p>Class 0 predicts exactly zero; Class 1 predicts the within-class training mean. Diversity is reserved for Classes 2 and 3 where tail underprediction was the primary failure mode.</p>
+            </div>
+          </div>
+
+          <div class="stage-card" data-stage="2">
+            <div class="stage-num">Stage 2</div>
+            <div class="stage-title">Regime-Specific Regressors</div>
+            <div class="stage-body">
+              <p>Three complementary regressors trained independently for Classes 2 and 3:</p>
+              <ul>
+                <li><strong>LightGBM + Huber Loss:</strong> Downweights extreme residuals while preserving gradient signal for moderate values. Transition parameter δ tuned per regime.</li>
+                <li><strong>LightGBM + Log-Log Transform:</strong> Models ỹ = log(1 + log(1 + y)), yielding near-Gaussian residuals within Class 3 and stable gradients at extreme counts.</li>
+                <li><strong>MLP (128→64, ReLU, MSE):</strong> Introduces smooth non-linear feature interactions beyond tree-split approximations. Adam optimizer with L2 decay.</li>
+              </ul>
+              <p>Final class prediction: arithmetic mean of successfully trained regressors.</p>
+              <div class="code-block" role="img" aria-label="Log-log transformation formula">ỹ = log(1 + log(1 + y))<br/>ŷ = exp(exp(ŷ˜) − 1) − 1</div>
+            </div>
+          </div>
+
+          <div class="stage-card" data-stage="3">
+            <div class="stage-num">Stage 3</div>
+            <div class="stage-title">Bayesian Hyperparameter Optimization</div>
+            <div class="stage-body">
+              <p>Model parameters tuned via <strong>Tree-structured Parzen Estimator (TPE)</strong> in Optuna with successive halving pruning. Key parameters:</p>
+              <ul>
+                <li>Tree depth, learning rate, regularization strength</li>
+                <li>Huber transition parameter δ (optimized independently for Classes 2 and 3)</li>
+              </ul>
+              <p>Objective: F1 score on the most recent validation fold, representing conditions closest to the test window. Parameters optimized <em>independently per regime</em>, reflecting the fundamentally different error landscapes of moderate vs. extreme events.</p>
+            </div>
+          </div>
+
+          <div class="stage-card" data-stage="4">
+            <div class="stage-num">Stage 4</div>
+            <div class="stage-title">Meta-Learner</div>
+            <div class="stage-body">
+              <p>A second <strong>LightGBM classifier</strong> trained on a 10-dimensional out-of-fold meta-feature vector:</p>
+              <div class="code-block" role="img" aria-label="Meta-feature vector definition">z = [p₀, p₁, p₂, p₃, ŷ¹L, ŷ²L, ŷ³L, ŷ¹H, ŷ²H, ŷ³H]</div>
+              <p>Exposes: router soft-probability uncertainty, regressor agreement or disagreement across models, and patterns in which model performs best per meteorological configuration. Trained entirely on out-of-fold predictions to prevent overfitting to in-sample behavior.</p>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="validation-block">
+          <h3>Validation Strategy</h3>
+          <p><strong>5-fold expanding window:</strong> each fold adds ~2 weeks of data and holds out the following block. Fold boundaries mirror the day-of-week composition of the test window. Final test predictions average all five fold models.</p>
+        </div>
+
+        <div class="pi-block">
+          <h3>Prediction Interval Construction</h3>
+          <p>A <strong>magnitude-scaled adaptive approach</strong> replaces the inadequate fixed-width global residual quantile baseline:</p>
+          <div class="code-block" role="img" aria-label="Prediction interval formula">
+            L = max(0, 0.75 · ŷ)<br/>
+            U = max(L + 3, 1.35 · ŷ)
+          </div>
+          <p>Scale parameters (0.75, 1.35) and minimum width (3) jointly tuned on out-of-fold residuals from all five folds, targeting ~95% empirical coverage across 175,296 validation samples while minimizing expected Winkler score under the competition's penalty structure.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── RESULTS ── -->
+    <section id="results" class="section section-alt" aria-labelledby="results-heading">
+      <div class="section-inner">
+        <div class="section-label">06 / Results</div>
+        <h2 id="results-heading">Results</h2>
+
+        <div class="results-table-wrap">
+          <table class="results-table" aria-label="Out-of-fold validation performance metrics">
+            <caption>Out-of-fold validation performance. Lower is better for s1, s2, s4; higher is better for s3.</caption>
+            <thead>
+              <tr>
+                <th scope="col">Model Configuration</th>
+                <th scope="col">s1 RMSE ↓</th>
+                <th scope="col">s2 Tail RMSE ↓</th>
+                <th scope="col">s3 F1 ↑</th>
+                <th scope="col">s4 Winkler ↓</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="row-base">
+                <td>Stage 2 Base Ensemble</td>
+                <td>3.971</td>
+                <td>43.497</td>
+                <td>0.675</td>
+                <td>89.378</td>
+              </tr>
+              <tr class="row-full">
+                <td><strong>Full Model (All 4 Stages)</strong></td>
+                <td><strong>2.256</strong></td>
+                <td><strong>27.793</strong></td>
+                <td><strong>0.696</strong></td>
+                <td><strong>9.495</strong></td>
+              </tr>
+              <tr class="row-imp">
+                <td class="imp-label">Improvement</td>
+                <td class="imp-val">43.2%</td>
+                <td class="imp-val">36.1%</td>
+                <td class="imp-val">+3.2%</td>
+                <td class="imp-val highlight">89.4%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Feature importance visual -->
+        <div class="fi-section">
+          <h3>Feature Importance: Structural Separation</h3>
+          <p class="fi-desc">Gain-based importance aggregated across all 336 trained models reveals a <strong>complete structural separation</strong> between routing and severity features — zero overlap between the two feature sets.</p>
+
+          <div class="fi-panels">
+            <div class="fi-panel">
+              <div class="fi-panel-title">Router (Detection) — Top Features</div>
+              <div class="fi-panel-sub">Answers: <em>When is an outage occurring?</em></div>
+              <div class="fi-bars">
+                <div class="fi-row">
+                  <span class="fi-name">time since nonzero</span>
+                  <div class="fi-bar-wrap"><div class="fi-bar" style="width:100%" data-val="0.131"></div></div>
+                  <span class="fi-score">0.131</span>
+                </div>
+                <div class="fi-row">
+                  <span class="fi-name">outage lag 1h</span>
+                  <div class="fi-bar-wrap"><div class="fi-bar" style="width:88%" data-val="0.115"></div></div>
+                  <span class="fi-score">0.115</span>
+                </div>
+                <div class="fi-row">
+                  <span class="fi-name">outage lag 2h</span>
+                  <div class="fi-bar-wrap"><div class="fi-bar" style="width:24%" data-val="0.032"></div></div>
+                  <span class="fi-score">0.032</span>
+                </div>
+              </div>
+              <div class="fi-note">Driven entirely by temporal autocorrelation — physically valid: storms persist for hours.</div>
+            </div>
+
+            <div class="fi-panel fi-panel-severity">
+              <div class="fi-panel-title">Severity Regressor (Extreme) — Top Features</div>
+              <div class="fi-panel-sub">Answers: <em>How severe will it be?</em></div>
+              <div class="fi-bars">
+                <div class="fi-row">
+                  <span class="fi-name">lftx4 ewm mean (Lifted Index)</span>
+                  <div class="fi-bar-wrap"><div class="fi-bar fi-bar-sev" style="width:100%" data-val="0.033"></div></div>
+                  <span class="fi-score">0.033</span>
+                </div>
+                <div class="fi-row">
+                  <span class="fi-name">gh_4 ewm mean (Geopotential 400mb)</span>
+                  <div class="fi-bar-wrap"><div class="fi-bar fi-bar-sev" style="width:61%" data-val="0.020"></div></div>
+                  <span class="fi-score">0.020</span>
+                </div>
+                <div class="fi-row">
+                  <span class="fi-name">d2m ewm mean (Dewpoint)</span>
+                  <div class="fi-bar-wrap"><div class="fi-bar fi-bar-sev" style="width:42%" data-val="0.014"></div></div>
+                  <span class="fi-score">0.014</span>
+                </div>
+                <div class="fi-row">
+                  <span class="fi-name">sh2 ewm mean (Specific Humidity)</span>
+                  <div class="fi-bar-wrap"><div class="fi-bar fi-bar-sev" style="width:24%" data-val="0.008"></div></div>
+                  <span class="fi-score">0.008</span>
+                </div>
+              </div>
+              <div class="fi-note">Driven exclusively by meteorological physics — zero temporal features in top drivers.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Key insights -->
+        <div class="insights">
+          <h3>Key Insights</h3>
+          <div class="insight-list">
+            <div class="insight-item">
+              <div class="insight-num">01</div>
+              <div class="insight-text">
+                <strong>The meta-learner's 43% RMSE gain comes from exploiting regressor disagreement</strong> — when the three base regressors disagree, that disagreement is a signal about routing uncertainty at the Class 2/3 boundary, which the meta-learner learns to correct.
+              </div>
+            </div>
+            <div class="insight-item">
+              <div class="insight-num">02</div>
+              <div class="insight-text">
+                <strong>The Winkler improvement (89%) is primarily architectural, not parametric</strong> — the magnitude-scaled interval directly addresses the heteroscedasticity that defeats any fixed-width approach.
+              </div>
+            </div>
+            <div class="insight-item">
+              <div class="insight-num">03</div>
+              <div class="insight-text">
+                <strong>Precision (0.893) substantially exceeds recall (0.571)</strong> — predicted non-zero events are highly reliable, but ~43% of actual outage county-hours are missed, predominantly low-signal events with absent outage history and weak meteorological forcing.
+              </div>
+            </div>
+            <div class="insight-item">
+              <div class="insight-num">04</div>
+              <div class="insight-text">
+                <strong>The Lifted Index's LOW→HIGH importance shift (+0.028) is the largest of any feature</strong>, consistent across both Huber and LogLog frameworks — confirming it as the primary thermodynamic driver of severe outage magnitude in Michigan.
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── WHAT I LEARNED ── -->
+    <section id="learned" class="section" aria-labelledby="learned-heading">
+      <div class="section-inner">
+        <div class="section-label">07 / Reflections</div>
+        <h2 id="learned-heading">What I Learned</h2>
+        <div class="learned-grid">
+
+          <div class="learn-card">
+            <div class="learn-icon">🧩</div>
+            <h3>Mixture-of-Experts Over Single Complex Models</h3>
+            <p>When relationships between features and targets are highly complex, a single over-parameterized model (even transformers and LSTMs) can fail to overfit the training data in meaningful ways. Decomposing into specialized sub-models — each optimized for a distinct regime — consistently outperformed any single architecture attempted.</p>
+          </div>
+
+          <div class="learn-card">
+            <div class="learn-icon">⚖️</div>
+            <h3>Loss Function Design for Skewed Data</h3>
+            <p>With severely right-skewed targets, standard MSE is not robust to outliers — yet those outliers are often the most important predictions. The solution was a deliberate ensemble of loss functions: Huber for moderate events, log-log transformation for extreme counts, and standard MSE in the MLP for capturing spikes. Each loss function encodes a different tradeoff between robustness and tail sensitivity.</p>
+          </div>
+
+          <div class="learn-card">
+            <div class="learn-icon">📏</div>
+            <h3>Loss Normalization Across Components</h3>
+            <p>When combining heterogeneous losses (e.g., F1 from a classifier alongside count-scale regression loss), normalization is critical. Unnormalized losses on different scales cause one component to dominate the training signal, which can silently degrade performance on the component whose loss appears smaller in magnitude.</p>
+          </div>
+
+          <div class="learn-card">
+            <div class="learn-icon">🚫</div>
+            <h3>Strict Data Leakage Prevention in Time Series</h3>
+            <p>In a real forecasting problem, present-period variables cannot be used to predict the present target — in practice, those variables won't exist at inference time. All meteorological features were shifted one hour backward relative to the target, and the class boundary threshold was recomputed within each training fold only. This discipline is non-negotiable for valid out-of-sample evaluation.</p>
+          </div>
+
+          <div class="learn-card">
+            <div class="learn-icon">🔁</div>
+            <h3>Expanding Window vs. Standard Cross-Validation</h3>
+            <p>Standard k-fold shuffles temporal order, causing future data to "leak" into training folds for time series. Expanding window validation preserves chronological order — each fold adds more data and holds out the next block — making it the only valid cross-validation scheme for this problem structure.</p>
+          </div>
+
+          <div class="learn-card">
+            <div class="learn-icon">🔎</div>
+            <h3>Early Hyperparameter Tuning ROI Assessment</h3>
+            <p>Extensive Bayesian optimization (Optuna, TPE) can yield diminishing returns — in this project, early iterations sometimes produced &lt;5% improvement across hours of compute. The lesson: run a short pilot of hyperparameter search first, assess marginal gain per trial, and only invest deep if the trajectory is promising. Architecture choices often matter more than fine-grained parameter tuning.</p>
+          </div>
+
+          <div class="learn-card">
+            <div class="learn-icon">🧪</div>
+            <h3>Ablation as a Debugging Strategy</h3>
+            <p>Building incrementally — starting from the base model and adding one component at a time — allowed pinpointing exactly which architectural decision (e.g., the meta-learner, the log-log transform, the magnitude-scaled intervals) drove which performance change. This ablation discipline made the results interpretable and the paper's claims defensible.</p>
+          </div>
+
+          <div class="learn-card">
+            <div class="learn-icon">🌡️</div>
+            <h3>Physical Interpretability Validates Architecture</h3>
+            <p>The zero-overlap between router and severity features is not just a performance result — it is a physical validation. The fact that detection relies on temporal autocorrelation while severity relies on atmospheric thermodynamics confirms that the two-stage architecture is capturing genuinely different sub-problems, not just partitioning noise.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ── SKILLS ── -->
+    <section id="skills" class="section section-alt" aria-labelledby="skills-heading">
+      <div class="section-inner">
+        <div class="section-label">08 / Skills</div>
+        <h2 id="skills-heading">Skills Demonstrated</h2>
+        <div class="skills-cloud">
+          <span class="skill-tag skill-core">Ensemble Learning</span>
+          <span class="skill-tag skill-core">LightGBM</span>
+          <span class="skill-tag skill-core">Custom Loss Functions</span>
+          <span class="skill-tag skill-core">Forecasting</span>
+          <span class="skill-tag skill-secondary">Bayesian Hyperparameter Optimization</span>
+          <span class="skill-tag skill-secondary">Optuna / TPE</span>
+          <span class="skill-tag skill-secondary">MLP / Neural Networks</span>
+          <span class="skill-tag skill-secondary">Feature Engineering</span>
+          <span class="skill-tag skill-core">Model Interpretability</span>
+          <span class="skill-tag skill-secondary">Expanding Window Validation</span>
+          <span class="skill-tag skill-secondary">Prediction Interval Calibration</span>
+          <span class="skill-tag skill-core">Extreme Value / Tail Modeling</span>
+          <span class="skill-tag skill-secondary">Zero-Inflated Distributions</span>
+          <span class="skill-tag skill-secondary">Data Leakage Prevention</span>
+          <span class="skill-tag skill-core">Statistical Reasoning</span>
+          <span class="skill-tag skill-secondary">k-means Clustering</span>
+          <span class="skill-tag skill-secondary">Winkler Score Optimization</span>
+          <span class="skill-tag skill-secondary">Mixture-of-Experts Architecture</span>
+          <span class="skill-tag skill-secondary">Reproducible ML Pipelines</span>
+          <span class="skill-tag skill-secondary">Gain-Based Feature Importance</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── CTA ── -->
+    <section class="section cta-section" aria-labelledby="cta-heading">
+      <div class="section-inner cta-inner">
+        <h2 id="cta-heading">Read the Full Paper</h2>
+        <p>The complete methodology, mathematical formulation, and feature analysis are available in the conference paper submitted to IISE 2026.</p>
+        <div class="cta-buttons">
+          <a href="https://github.com/nakulsree/Portofolio" class="btn btn-primary btn-lg" target="_blank" rel="noopener noreferrer">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+            GitHub Repo
+          </a>
+          <a href="#summary" class="btn btn-secondary btn-lg">Back to Top ↑</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <div class="footer-inner">
+      <span>Nakul Sreekanth · Data Science Portfolio</span>
+      <span class="footer-sep">·</span>
+      <span>IISE Analytics Competition 2026</span>
+    </div>
+  </footer>
+
+  <script src="assets/js/power-outage-forecasting.js"></script>
+</body>
+</html>

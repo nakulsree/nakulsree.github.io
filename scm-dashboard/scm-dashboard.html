@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Full-stack Supply Chain Management dashboard built with PHP, PostgreSQL, and Chart.js. Role-based analytical platform featuring complex SQL queries, disruption analytics, and financial health scoring across a multi-tier supply network." />
+  <meta name="keywords" content="supply chain management, PHP, PostgreSQL, SQL, full-stack, dashboard, data visualization, Chart.js, role-based access, disruption analytics" />
+  <meta name="author" content="Nakul Sreekanth" />
+  <meta property="og:title" content="SCM Intelligence Dashboard | Nakul Sreekanth" />
+  <meta property="og:description" content="Full-stack supply chain management platform with role-based analytics, complex PostgreSQL queries, and real-time KPI dashboards." />
+  <meta property="og:type" content="website" />
+  <title>SCM Intelligence Dashboard — Nakul Sreekanth</title>
+  <link rel="stylesheet" href="assets/css/scm-dashboard.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <div class="scanlines" aria-hidden="true"></div>
+  <div class="grid-bg" aria-hidden="true"></div>
+  <div class="ambient a1" aria-hidden="true"></div>
+  <div class="ambient a2" aria-hidden="true"></div>
+
+  <!-- ── NAV ── -->
+  <nav class="nav" role="navigation" aria-label="Page navigation">
+    <a href="https://github.com/nakulsree/Portofolio" class="nav-brand" target="_blank" rel="noopener noreferrer">NS<span class="dot">.</span></a>
+    <div class="nav-links">
+      <a href="#overview">Overview</a>
+      <a href="#architecture">Architecture</a>
+      <a href="#sql">SQL</a>
+      <a href="#analytics">Analytics</a>
+      <a href="#skills">Skills</a>
+    </div>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <header class="hero" role="banner">
+    <div class="hero-left">
+      <div class="hero-tags">
+        <span class="htag">Full-Stack Web</span>
+        <span class="htag">PostgreSQL</span>
+        <span class="htag">Analytics Dashboard</span>
+        <span class="htag">Team Project</span>
+      </div>
+
+      <h1 class="hero-title">
+        <span class="ht-top">Supply Chain</span>
+        <span class="ht-main">Intelligence</span>
+        <span class="ht-main ht-accent">Dashboard</span>
+      </h1>
+
+      <p class="hero-desc">
+        A role-based analytical platform for supply chain operations — built on PHP, PostgreSQL, and Chart.js. Supports two distinct user roles with dedicated dashboards for on-time delivery tracking, disruption risk scoring, financial health monitoring, and distributor route analytics.
+      </p>
+
+      <div class="hero-team" aria-label="Team members">
+        <div class="team-label">Team of 6 · Purdue University</div>
+        <div class="team-members">
+          <span>Domenica Forno</span><span>Mark Rapp</span><span>Laura Ortiz</span>
+          <span>Jacob Lavra</span><span>Aditya Kumar</span><span class="me">Nakul Sreekanth</span>
+        </div>
+      </div>
+
+      <div class="hero-ctas">
+        <a href="https://github.com/nakulsree/Portofolio" class="cta-primary" target="_blank" rel="noopener noreferrer">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+          View on GitHub
+        </a>
+        <a href="#architecture" class="cta-secondary">Explore the System ↓</a>
+      </div>
+    </div>
+
+    <!-- Tech stack panel -->
+    <div class="hero-right">
+      <div class="tech-panel" aria-label="Technology stack">
+        <div class="tp-title">Technology Stack</div>
+        <div class="tp-layers">
+          <div class="tp-layer">
+            <div class="tp-layer-label">Frontend</div>
+            <div class="tp-chips">
+              <span class="chip chip-html">HTML5</span>
+              <span class="chip chip-css">CSS3</span>
+              <span class="chip chip-js">JavaScript</span>
+              <span class="chip chip-js">Chart.js</span>
+            </div>
+          </div>
+          <div class="tp-layer">
+            <div class="tp-layer-label">Backend</div>
+            <div class="tp-chips">
+              <span class="chip chip-php">PHP 8</span>
+              <span class="chip chip-php">PDO</span>
+              <span class="chip chip-php">Sessions</span>
+            </div>
+          </div>
+          <div class="tp-layer">
+            <div class="tp-layer-label">Database</div>
+            <div class="tp-chips">
+              <span class="chip chip-db">PostgreSQL</span>
+              <span class="chip chip-db">Prepared Stmts</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="tp-kpis">
+          <div class="tp-kpi">
+            <div class="tp-kval">10</div>
+            <div class="tp-klabel">PHP pages</div>
+          </div>
+          <div class="tp-kpi">
+            <div class="tp-kval">2</div>
+            <div class="tp-klabel">User roles</div>
+          </div>
+          <div class="tp-kpi">
+            <div class="tp-kval">30+</div>
+            <div class="tp-klabel">SQL queries</div>
+          </div>
+          <div class="tp-kpi">
+            <div class="tp-kval">12+</div>
+            <div class="tp-klabel">DB tables</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ── OVERVIEW ── -->
+    <section id="overview" class="section" aria-labelledby="overview-heading">
+      <div class="section-inner">
+        <div class="section-label">01 / Overview</div>
+        <h2 id="overview-heading">Executive Summary</h2>
+        <div class="overview-cols">
+          <div class="overview-text">
+            <p>This project is a full-stack web application designed to give supply chain operations teams analytical visibility across their entire network. Built as a team of six at Purdue University, it integrates data from multiple supply chain entities — manufacturers, distributors, and retailers — into a unified dashboard with role-specific views and real-time KPI calculations.</p>
+            <p>Two distinct user roles drive the design. <strong>Supply Chain Managers</strong> access operational views: company search and drill-down, shipment transactions, distributor performance by route, and disruption monitoring with active alerts. <strong>Senior Managers</strong> access strategic views: financial health scoring across all companies and regions, quarterly trend analysis, and a criticality scoring algorithm that identifies which companies pose the highest systemic risk if disrupted.</p>
+            <p>All database interactions use <strong>PDO prepared statements</strong>, enforcing parameterized query execution throughout and preventing SQL injection at every input boundary. XSS prevention via <code>htmlspecialchars()</code> is applied consistently at all output points.</p>
+          </div>
+          <div class="overview-cards">
+            <div class="oc-card">
+              <div class="oc-icon" aria-hidden="true">🏭</div>
+              <div class="oc-title">Multi-Tier Network</div>
+              <div class="oc-body">Models Manufacturers, Distributors, and Retailers across multiple continents, with upstream/downstream dependency tracking via a self-referential DependsOn table.</div>
+            </div>
+            <div class="oc-card">
+              <div class="oc-icon" aria-hidden="true">🔐</div>
+              <div class="oc-title">Role-Based Access</div>
+              <div class="oc-body">Session-managed authentication separates Supply Chain Manager and Senior Manager views. Each role sees tailored navigation and data appropriate to their operational scope.</div>
+            </div>
+            <div class="oc-card">
+              <div class="oc-icon" aria-hidden="true">📊</div>
+              <div class="oc-title">Embedded Analytics</div>
+              <div class="oc-body">Chart.js visualizations are driven by live PHP data: bar, line, stacked, and heatmap charts across every major module, with dynamic filter state preserved across page loads.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── DATABASE SCHEMA ── -->
+    <section id="schema" class="section section-alt" aria-labelledby="schema-heading">
+      <div class="section-inner">
+        <div class="section-label">02 / Database</div>
+        <h2 id="schema-heading">Data Model</h2>
+        <p class="section-intro">The PostgreSQL schema supports a multi-tier supply chain with 12+ tables, linking companies, locations, shipments, financial reports, and disruption events through foreign key relationships.</p>
+
+        <div class="schema-grid">
+          <div class="schema-group">
+            <div class="sg-label">Core Entities</div>
+            <div class="sg-tables">
+              <div class="st-card"><span class="st-name">Company</span><span class="st-desc">CompanyID, CompanyName, Type, TierLevel, LocationID</span></div>
+              <div class="st-card"><span class="st-name">Manufacturer</span><span class="st-desc">CompanyID, FactoryCapacity</span></div>
+              <div class="st-card"><span class="st-name">Distributor</span><span class="st-desc">CompanyID</span></div>
+              <div class="st-card"><span class="st-name">Retailer</span><span class="st-desc">CompanyID</span></div>
+              <div class="st-card"><span class="st-name">Location</span><span class="st-desc">LocationID, City, CountryName, ContinentName</span></div>
+            </div>
+          </div>
+          <div class="schema-group">
+            <div class="sg-label">Logistics & Transactions</div>
+            <div class="sg-tables">
+              <div class="st-card"><span class="st-name">Shipping</span><span class="st-desc">ShipmentID, Source/Dest CompanyID, DistributorID, ProductID, Quantity, PromisedDate, ActualDate</span></div>
+              <div class="st-card"><span class="st-name">Receiving</span><span class="st-desc">ReceivingID, ShipmentID, ReceiverCompanyID, QuantityReceived, ReceivedDate</span></div>
+              <div class="st-card"><span class="st-name">InventoryAdjustment</span><span class="st-desc">CompanyID, ProductID, QuantityChange, AdjustmentDate</span></div>
+              <div class="st-card"><span class="st-name">Product</span><span class="st-desc">ProductID, ProductName, Category</span></div>
+              <div class="st-card"><span class="st-name">OperatesLogistics</span><span class="st-desc">DistributorID, FromCompanyID, ToCompanyID</span></div>
+            </div>
+          </div>
+          <div class="schema-group">
+            <div class="sg-label">Risk & Finance</div>
+            <div class="sg-tables">
+              <div class="st-card"><span class="st-name">DisruptionEvent</span><span class="st-desc">EventID, EventDate, EventRecoveryDate, CategoryID</span></div>
+              <div class="st-card"><span class="st-name">ImpactsCompany</span><span class="st-desc">EventID, AffectedCompanyID, ImpactLevel (Low/Medium/High)</span></div>
+              <div class="st-card"><span class="st-name">DisruptionCategory</span><span class="st-desc">CategoryID, CategoryName</span></div>
+              <div class="st-card"><span class="st-name">FinancialReport</span><span class="st-desc">CompanyID, RepYear, Quarter, HealthScore</span></div>
+              <div class="st-card"><span class="st-name">DependsOn</span><span class="st-desc">UpstreamCompanyID, DownstreamCompanyID (self-referential)</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── ARCHITECTURE ── -->
+    <section id="architecture" class="section" aria-labelledby="arch-heading">
+      <div class="section-inner">
+        <div class="section-label">03 / Architecture</div>
+        <h2 id="arch-heading">System Architecture</h2>
+        <p class="section-intro">The application is organized around two role-based portals, each with dedicated pages for different analytical tasks.</p>
+
+        <div class="role-split">
+
+          <div class="role-card role-scm">
+            <div class="role-badge">Supply Chain Manager</div>
+            <div class="role-desc">Operational visibility — real-time monitoring, company drill-downs, and transaction ledger.</div>
+            <div class="page-list">
+              <div class="pl-item">
+                <div class="pl-name">Overview</div>
+                <div class="pl-desc">KPI cards: total companies, total shipments, on-time delivery rate, active disruption count — computed live from the database.</div>
+              </div>
+              <div class="pl-item">
+                <div class="pl-name">Company Explorer</div>
+                <div class="pl-desc">Searchable, filterable table (name, type, tier, region) with clickable rows linking to per-company detail views. On-time rate computed per company via JOIN + CASE WHEN aggregation.</div>
+              </div>
+              <div class="pl-item">
+                <div class="pl-name">Company Detail</div>
+                <div class="pl-desc">Deep dive per company: upstream/downstream dependency graph (DependsOn), factory utilization (Manufacturer), route table (Distributor), product mix with volume share, full transaction history, delay histogram, financial health trend line, and disruption event log.</div>
+              </div>
+              <div class="pl-item">
+                <div class="pl-name">Disruptions</div>
+                <div class="pl-desc">8 analytics modules: disruption frequency per company (events/month), recovery time histogram, high-impact disruption rate, total downtime, regional heatmap (2D: region × month), severity distribution, and active alert table for unresolved events.</div>
+              </div>
+              <div class="pl-item">
+                <div class="pl-name">Transactions</div>
+                <div class="pl-desc">Unified ledger via UNION ALL across Shipping, Receiving, and InventoryAdjustment tables. Supports 6 simultaneous filters. Aggregate metrics recalculated on each filter change.</div>
+              </div>
+              <div class="pl-item">
+                <div class="pl-name">Distributor Details</div>
+                <div class="pl-desc">Per-distributor analytics: shipment volume over time, on-time rate by route, status distribution, and disruption exposure score per route. Supports route and product sub-filters.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="role-card role-sm">
+            <div class="role-badge role-badge-sm">Senior Manager</div>
+            <div class="role-desc">Strategic oversight — financial health trends, regional risk, and network criticality scoring.</div>
+            <div class="page-list">
+              <div class="pl-item">
+                <div class="pl-name">Financial Overview</div>
+                <div class="pl-desc">Average financial health score by company, by type (Manufacturer / Distributor / Retailer), and by region. Quarterly trend line for any selected company. Year range filter updates all views simultaneously.</div>
+              </div>
+              <div class="pl-item">
+                <div class="pl-name">Disruptions &amp; Risk</div>
+                <div class="pl-desc">Regional disruption overview (stacked bar: high-impact vs. other), criticality scoring (downstream partners × high-impact events), event-level affected company drill-down, recovery time by region and category, disruption exposure score by region, and top-affected company ranking.</div>
+              </div>
+              <div class="pl-item">
+                <div class="pl-name">Companies &amp; Logistics</div>
+                <div class="pl-desc">Top distributors by shipment volume, per-distributor route and shipment detail, delay ranking with on-time percentage, and an add-company form that inserts into both the Company table and the appropriate subtype table (Manufacturer/Distributor/Retailer) in a single transaction.</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ── SQL HIGHLIGHTS ── -->
+    <section id="sql" class="section section-alt" aria-labelledby="sql-heading">
+      <div class="section-inner">
+        <div class="section-label">04 / SQL</div>
+        <h2 id="sql-heading">SQL Design Highlights</h2>
+        <p class="section-intro">All queries use PDO prepared statements with positional parameter binding. Dynamic WHERE clauses are constructed programmatically and params are accumulated in order to match the SQL string.</p>
+
+        <div class="sql-cards">
+
+          <div class="sql-card">
+            <div class="sql-card-title">UNION ALL — Unified Transaction Ledger</div>
+            <div class="sql-card-body">
+              <p>The transactions page unifies three structurally different tables (Shipping, Receiving, InventoryAdjustment) into a flat ledger using UNION ALL. Each branch computes a normalized Status column via CASE WHEN on date comparisons, and a DelayDays column using <code>EXTRACT(DAY FROM (ActualDate::timestamp - PromisedDate::timestamp))</code>. The outer query then applies a status filter and aggregation — requiring careful parameter ordering across three independent WHERE clauses before the outer status param.</p>
+              <div class="sql-snippet" role="img" aria-label="Simplified UNION ALL query structure">
+                <span class="sql-kw">SELECT</span> Date, <span class="sql-kw">CASE WHEN</span> ActualDate &lt;= PromisedDate <span class="sql-kw">THEN</span> <span class="sql-str">'Delivered'</span> ... <span class="sql-kw">END AS</span> Status<br/>
+                <span class="sql-kw">FROM</span> Shipping s <span class="sql-kw">JOIN</span> ... <span class="sql-kw">WHERE</span> s.PromisedDate <span class="sql-kw">BETWEEN</span> ? <span class="sql-kw">AND</span> ?<br/>
+                <span class="sql-kw">UNION ALL</span><br/>
+                <span class="sql-kw">SELECT</span> ReceivedDate, <span class="sql-kw">CASE WHEN</span> ReceivedDate &lt;= PromisedDate ...<br/>
+                <span class="sql-kw">FROM</span> Receiving r <span class="sql-kw">JOIN</span> Shipping s ...<br/>
+                <span class="sql-kw">UNION ALL</span><br/>
+                <span class="sql-kw">SELECT</span> AdjustmentDate, <span class="sql-str">'Adjustment'</span> <span class="sql-kw">AS</span> Status <span class="sql-kw">FROM</span> InventoryAdjustment
+              </div>
+            </div>
+          </div>
+
+          <div class="sql-card">
+            <div class="sql-card-title">Criticality Score — Subquery JOIN</div>
+            <div class="sql-card-body">
+              <p>The Senior Manager disruptions page computes a criticality score for each company as the product of two independently aggregated subqueries: the number of downstream companies in the DependsOn graph, and the number of high-impact disruption events in the selected date range. Companies with high downstream reach AND high disruption exposure score highest — identifying systemic risk nodes in the supply network.</p>
+              <div class="sql-snippet" role="img" aria-label="Criticality score computation query">
+                <span class="sql-kw">SELECT</span> c.CompanyName,<br/>
+                &nbsp;&nbsp;COALESCE(ds.DownstreamCount, 0) * COALESCE(hi.HighImpactCount, 0) <span class="sql-kw">AS</span> Criticality<br/>
+                <span class="sql-kw">FROM</span> Company c<br/>
+                <span class="sql-kw">LEFT JOIN</span> (<span class="sql-kw">SELECT</span> UpstreamCompanyID, <span class="sql-kw">COUNT</span>(*) <span class="sql-kw">FROM</span> DependsOn <span class="sql-kw">GROUP BY</span> ...) ds<br/>
+                &nbsp;&nbsp;<span class="sql-kw">ON</span> c.CompanyID = ds.CompanyID<br/>
+                <span class="sql-kw">LEFT JOIN</span> (<span class="sql-kw">SELECT</span> AffectedCompanyID, <span class="sql-kw">COUNT</span>(*) <span class="sql-kw">FROM</span> ImpactsCompany<br/>
+                &nbsp;&nbsp;<span class="sql-kw">WHERE</span> ImpactLevel = <span class="sql-str">'High'</span> <span class="sql-kw">AND</span> EventDate <span class="sql-kw">BETWEEN</span> ? <span class="sql-kw">AND</span> ? ...) hi<br/>
+                &nbsp;&nbsp;<span class="sql-kw">ON</span> c.CompanyID = hi.CompanyID<br/>
+                <span class="sql-kw">ORDER BY</span> Criticality <span class="sql-kw">DESC</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="sql-card">
+            <div class="sql-card-title">Disruption Exposure Score</div>
+            <div class="sql-card-body">
+              <p>Used across both the SCM and Senior Manager portals, the disruption exposure formula weights high-impact events double: <strong>Exposure = Total Disruptions + 2 × High-Impact Events</strong>. This is computed via a single aggregation using conditional COUNT with CASE WHEN, requiring no subquery. The result is used both as a sortable table column and as a Chart.js bar chart.</p>
+              <div class="sql-snippet" role="img" aria-label="Exposure score query">
+                <span class="sql-kw">SELECT</span> l.ContinentName,<br/>
+                &nbsp;&nbsp;<span class="sql-kw">COUNT</span>(<span class="sql-kw">DISTINCT</span> de.EventID) <span class="sql-kw">AS</span> TotalDisruptions,<br/>
+                &nbsp;&nbsp;<span class="sql-kw">COUNT</span>(<span class="sql-kw">DISTINCT CASE WHEN</span> ic.ImpactLevel = <span class="sql-str">'High'</span><br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="sql-kw">THEN</span> de.EventID <span class="sql-kw">ELSE NULL END</span>) <span class="sql-kw">AS</span> HighImpact,<br/>
+                &nbsp;&nbsp;(TotalDisruptions + 2 * HighImpact) <span class="sql-kw">AS</span> ExposureScore<br/>
+                <span class="sql-kw">FROM</span> DisruptionEvent de<br/>
+                <span class="sql-kw">JOIN</span> ImpactsCompany ic ... <span class="sql-kw">JOIN</span> Company c ... <span class="sql-kw">JOIN</span> Location l ...<br/>
+                <span class="sql-kw">GROUP BY</span> l.ContinentName <span class="sql-kw">ORDER BY</span> ExposureScore <span class="sql-kw">DESC</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="sql-card">
+            <div class="sql-card-title">Dynamic WHERE Clause Construction</div>
+            <div class="sql-card-body">
+              <p>Most pages support multi-filter queries where filter inputs from GET parameters are optional. The pattern accumulates SQL condition strings and matching parameter values in parallel arrays, then implodes conditions and executes via PDO with positional binding. This avoids string interpolation and keeps every filter parameterized regardless of which combination is active — a clean approach to dynamic query building in PHP without an ORM.</p>
+              <div class="sql-snippet" role="img" aria-label="Dynamic WHERE clause pattern">
+                <span class="sql-kw">$sql</span> = <span class="sql-str">"SELECT ... WHERE 1=1"</span>;<br/>
+                <span class="sql-kw">$params</span> = [];<br/>
+                <span class="sql-kw">if</span> ($searchName !== <span class="sql-str">''</span>) {<br/>
+                &nbsp;&nbsp;<span class="sql-kw">$sql</span> .= <span class="sql-str">" AND c.CompanyName LIKE ?"</span>;<br/>
+                &nbsp;&nbsp;<span class="sql-kw">$params</span>[] = <span class="sql-str">'%'</span> . $searchName . <span class="sql-str">'%'</span>;<br/>
+                }<br/>
+                <span class="sql-kw">if</span> ($typeFilter !== <span class="sql-str">'All'</span>) { ... }<br/>
+                $stmt-&gt;execute($params);
+              </div>
+            </div>
+          </div>
+
+          <div class="sql-card">
+            <div class="sql-card-title">Delay Statistics with STDDEV</div>
+            <div class="sql-card-body">
+              <p>The company detail page computes on-time rate, average delay, and delay standard deviation in a single query using <code>STDDEV_SAMP()</code> — a PostgreSQL aggregate function applied to <code>EXTRACT(DAY FROM (ActualDate - PromisedDate))</code>. A companion query buckets individual shipments into delay bins for a Chart.js histogram. This gives operators both summary statistics and the full distribution in one page load.</p>
+              <div class="sql-snippet" role="img" aria-label="Delay statistics query">
+                <span class="sql-kw">SELECT</span><br/>
+                &nbsp;&nbsp;<span class="sql-kw">COUNT</span>(*) <span class="sql-kw">AS</span> TotalShipments,<br/>
+                &nbsp;&nbsp;<span class="sql-kw">AVG</span>(<span class="sql-kw">EXTRACT</span>(DAY <span class="sql-kw">FROM</span> (ActualDate::timestamp - PromisedDate::timestamp))) <span class="sql-kw">AS</span> AvgDelay,<br/>
+                &nbsp;&nbsp;<span class="sql-kw">STDDEV_SAMP</span>(<span class="sql-kw">EXTRACT</span>(DAY <span class="sql-kw">FROM</span> (ActualDate::timestamp - PromisedDate::timestamp))) <span class="sql-kw">AS</span> StdDelay<br/>
+                <span class="sql-kw">FROM</span> Shipping s<br/>
+                <span class="sql-kw">WHERE</span> s.SourceCompanyID = ? <span class="sql-kw">AND</span> s.ActualDate <span class="sql-kw">IS NOT NULL</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="sql-card">
+            <div class="sql-card-title">Regional Heatmap — 2D Pivot in PHP</div>
+            <div class="sql-card-body">
+              <p>The disruptions page renders a color-coded heatmap of disruption count by region × month. The SQL returns a flat (region, YYYY-MM, count) result set. PHP post-processes it into a 2D associative array keyed by region and month, which the HTML template iterates as a table with computed background colors — from white (0) through yellow (5–10) to red (15+). No pivot extension required: pure PHP reshaping of a flat aggregate.</p>
+              <div class="sql-snippet" role="img" aria-label="Regional heatmap query">
+                <span class="sql-kw">SELECT</span> l.ContinentName, <span class="sql-kw">TO_CHAR</span>(de.EventDate, <span class="sql-str">'YYYY-MM'</span>) <span class="sql-kw">AS</span> Month,<br/>
+                &nbsp;&nbsp;<span class="sql-kw">COUNT</span>(<span class="sql-kw">DISTINCT</span> de.EventID) <span class="sql-kw">AS</span> Count<br/>
+                <span class="sql-kw">FROM</span> DisruptionEvent de <span class="sql-kw">JOIN</span> ... <span class="sql-kw">JOIN</span> Location l<br/>
+                <span class="sql-kw">GROUP BY</span> l.ContinentName, <span class="sql-kw">TO_CHAR</span>(de.EventDate, <span class="sql-str">'YYYY-MM'</span>)<br/>
+                <span class="sql-kw">ORDER BY</span> l.ContinentName, Month<br/>
+                <span class="sql-comment">-- PHP: $heatmap[$region][$month] = $count</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ── ANALYTICS FEATURES ── -->
+    <section id="analytics" class="section" aria-labelledby="analytics-heading">
+      <div class="section-inner">
+        <div class="section-label">05 / Analytics</div>
+        <h2 id="analytics-heading">Key Analytics Features</h2>
+
+        <div class="analytics-grid">
+
+          <div class="af-card">
+            <div class="af-icon" aria-hidden="true">⏱️</div>
+            <h3>On-Time Delivery Rate</h3>
+            <p>Computed via conditional aggregation: <code>SUM(CASE WHEN ActualDate ≤ PromisedDate THEN 1 ELSE 0 END) / COUNT(*)</code>. Calculated at the network level (overview), per company (explorer), per distributor (logistics), and per route — all driven by the same pattern with different GROUP BY keys.</p>
+          </div>
+
+          <div class="af-card">
+            <div class="af-icon" aria-hidden="true">🚨</div>
+            <h3>Disruption Frequency (Events/Month)</h3>
+            <p>Rather than raw counts, the disruptions page normalizes by observation window: it computes the number of months between filter start and end dates in PHP, then divides total disruption count per company by that figure — giving a monthly disruption rate that's comparable across different date ranges.</p>
+          </div>
+
+          <div class="af-card">
+            <div class="af-icon" aria-hidden="true">🏦</div>
+            <h3>Financial Health Scoring</h3>
+            <p>FinancialReport records contain a HealthScore per company per quarter. The Senior Manager view aggregates by company, type, and region; a company detail chart renders the quarterly trend. Scores are classified as Healthy (≥75), Watch (50–74), or At Risk (&lt;50) — thresholds enforced consistently in PHP across all display contexts.</p>
+          </div>
+
+          <div class="af-card">
+            <div class="af-icon" aria-hidden="true">🗺️</div>
+            <h3>Recovery Time Analysis</h3>
+            <p>Recovery time is computed as <code>EXTRACT(DAY FROM (EventRecoveryDate - EventDate))</code>. The disruptions page bins individual recovery times into a histogram (0–5, 5–10, 10–15, 15–20, 20+ days) — processed in PHP — and also computes average recovery time by both region and disruption category.</p>
+          </div>
+
+          <div class="af-card">
+            <div class="af-icon" aria-hidden="true">🔗</div>
+            <h3>Upstream / Downstream Dependency</h3>
+            <p>The DependsOn table stores directed dependency relationships. The company detail page executes two separate queries — one traversing UpstreamCompanyID to find who the company depends on, one traversing DownstreamCompanyID to find who depends on it — rendering both as linked lists that navigate to other company detail views.</p>
+          </div>
+
+          <div class="af-card">
+            <div class="af-icon" aria-hidden="true">📦</div>
+            <h3>Distributor Disruption Exposure by Route</h3>
+            <p>The distributor detail page computes an exposure score per route: it joins Shipping with ImpactsCompany on both the source and destination company IDs, counting total disruptions and high-impact events. The formula <code>Total + 2 × High</code> weights severity, producing a comparable risk ranking across all routes for a given distributor.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ── WHAT I LEARNED ── -->
+    <section id="learned" class="section section-alt" aria-labelledby="learned-heading">
+      <div class="section-inner">
+        <div class="section-label">06 / Reflections</div>
+        <h2 id="learned-heading">What I Learned</h2>
+        <div class="learned-grid">
+
+          <div class="lc">
+            <div class="lc-icon">🛡️</div>
+            <h3>Security Is a Design Decision, Not an Afterthought</h3>
+            <p>Applying PDO prepared statements and <code>htmlspecialchars()</code> consistently across 10+ pages required establishing a discipline early — not patching individually. The pattern of accumulating SQL condition strings and params in parallel arrays made this manageable across dynamic multi-filter queries without ever resorting to string interpolation.</p>
+          </div>
+
+          <div class="lc">
+            <div class="lc-icon">🧩</div>
+            <h3>Dynamic Query Building Without an ORM</h3>
+            <p>Building dynamic WHERE clauses manually exposed the trade-offs that ORMs abstract away: parameter ordering must match the SQL string exactly, positional binding means every new filter adds a param at a specific position, and UNION ALL queries multiply this complexity across branches. Understanding this mechanics is fundamental to debugging query-related bugs at the database layer.</p>
+          </div>
+
+          <div class="lc">
+            <div class="lc-icon">📊</div>
+            <h3>PHP-to-JS Data Bridging</h3>
+            <p>Rendering server-side query results as Chart.js visualizations requires <code>json_encode()</code> to embed PHP arrays as JavaScript variables in a script block. This is a simple pattern, but it surfaces an important constraint: the full result set must fit in the page at render time — there's no lazy loading or streaming. For large datasets, this would require pagination or a separate AJAX endpoint.</p>
+          </div>
+
+          <div class="lc">
+            <div class="lc-icon">🗄️</div>
+            <h3>PostgreSQL-Specific Syntax Matters</h3>
+            <p>Functions like <code>DATE_TRUNC</code>, <code>TO_CHAR</code>, <code>EXTRACT</code>, <code>STDDEV_SAMP</code>, and the <code>::timestamp</code> cast operator are PostgreSQL-specific. Code written against these functions is not portable to MySQL or SQLite without rewriting. Knowing which features are standard SQL vs. dialect-specific is practically important for project portability.</p>
+          </div>
+
+          <div class="lc">
+            <div class="lc-icon">👥</div>
+            <h3>Collaborative Development Requires Shared Conventions</h3>
+            <p>In a team of six, inconsistent naming (column names in lowercase from PDO vs. uppercase in SQL, mixed date format handling, varying filter state management) created integration friction. Establishing a shared config, consistent column name conventions, and a shared CSS baseline early would have reduced the time spent resolving page-level inconsistencies later.</p>
+          </div>
+
+          <div class="lc">
+            <div class="lc-icon">🔄</div>
+            <h3>Role-Based Design Changes What Data You Need</h3>
+            <p>Building two separate dashboards for different roles — not just hiding UI elements, but designing entirely different query strategies — clarified how operational and strategic questions require different granularities of data. An operations user needs per-shipment detail; an executive user needs aggregated health scores and risk rankings. Conflating these into a single view serves neither user well.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ── SKILLS ── -->
+    <section id="skills" class="section" aria-labelledby="skills-heading">
+      <div class="section-inner">
+        <div class="section-label">07 / Skills</div>
+        <h2 id="skills-heading">Skills Demonstrated</h2>
+        <div class="skills-layout">
+          <div class="skill-group">
+            <div class="sg-head">Database & SQL</div>
+            <div class="sg-tags">
+              <span class="stag stag-primary">PostgreSQL</span>
+              <span class="stag stag-primary">Complex JOINs</span>
+              <span class="stag stag-primary">UNION ALL</span>
+              <span class="stag stag-primary">Aggregate Functions</span>
+              <span class="stag stag-secondary">DATE_TRUNC / EXTRACT</span>
+              <span class="stag stag-secondary">STDDEV_SAMP</span>
+              <span class="stag stag-secondary">Conditional Aggregation</span>
+              <span class="stag stag-secondary">Subquery JOINs</span>
+              <span class="stag stag-secondary">Dynamic WHERE Clauses</span>
+            </div>
+          </div>
+          <div class="skill-group">
+            <div class="sg-head">Backend Engineering</div>
+            <div class="sg-tags">
+              <span class="stag stag-primary">PHP 8</span>
+              <span class="stag stag-primary">PDO Prepared Statements</span>
+              <span class="stag stag-primary">Session Management</span>
+              <span class="stag stag-secondary">Role-Based Access Control</span>
+              <span class="stag stag-secondary">XSS Prevention</span>
+              <span class="stag stag-secondary">GET/POST Filter Handling</span>
+              <span class="stag stag-secondary">Server-Side Data Shaping</span>
+            </div>
+          </div>
+          <div class="skill-group">
+            <div class="sg-head">Frontend & Visualization</div>
+            <div class="sg-tags">
+              <span class="stag stag-primary">Chart.js</span>
+              <span class="stag stag-primary">PHP→JS Data Bridging</span>
+              <span class="stag stag-secondary">Responsive Tables</span>
+              <span class="stag stag-secondary">Dynamic Dropdowns</span>
+              <span class="stag stag-secondary">Heatmap Rendering</span>
+              <span class="stag stag-secondary">Stacked / Line / Bar Charts</span>
+            </div>
+          </div>
+          <div class="skill-group">
+            <div class="sg-head">Domain & Design</div>
+            <div class="sg-tags">
+              <span class="stag stag-primary">Supply Chain Analytics</span>
+              <span class="stag stag-secondary">KPI Dashboard Design</span>
+              <span class="stag stag-secondary">Risk Scoring Algorithms</span>
+              <span class="stag stag-secondary">Schema Design</span>
+              <span class="stag stag-secondary">Team Collaboration</span>
+              <span class="stag stag-secondary">Full-Stack Integration</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── CTA ── -->
+    <section class="section cta-section" aria-labelledby="cta-heading">
+      <div class="section-inner cta-inner">
+        <h2 id="cta-heading">View the Full Project</h2>
+        <p>Source code, PHP pages, and CSS are all available on GitHub.</p>
+        <div class="cta-buttons">
+          <a href="https://github.com/nakulsree/Portofolio" class="cta-primary cta-lg" target="_blank" rel="noopener noreferrer">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+            GitHub Repo
+          </a>
+          <a href="#overview" class="cta-secondary cta-lg">Back to Top ↑</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <div class="footer-inner">
+      <span>Nakul Sreekanth · Data Science Portfolio</span>
+      <span class="fsep">·</span>
+      <span>Supply Chain Intelligence Dashboard · Purdue University · Team of 6</span>
+    </div>
+  </footer>
+
+  <script src="assets/js/scm-dashboard.js"></script>
+</body>
+</html>

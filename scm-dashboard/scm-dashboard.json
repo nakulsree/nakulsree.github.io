@@ -1,0 +1,65 @@
+{
+  "id": "scm-dashboard",
+  "title": "Supply Chain Intelligence Dashboard",
+  "subtitle": "Full-Stack Role-Based Analytics Platform for Supply Chain Operations",
+  "author": "Nakul Sreekanth",
+  "team": ["Domenica Forno", "Mark Rapp", "Laura Ortiz", "Jacob Lavra", "Aditya Kumar", "Nakul Sreekanth"],
+  "institution": "Purdue University",
+  "date": "2025",
+  "tags": [
+    "Full-Stack Web",
+    "PHP",
+    "PostgreSQL",
+    "SQL",
+    "Chart.js",
+    "Role-Based Access Control",
+    "Supply Chain Analytics",
+    "Dashboard Design",
+    "Data Visualization"
+  ],
+  "tech_stack": {
+    "frontend": ["HTML5", "CSS3", "JavaScript", "Chart.js"],
+    "backend": ["PHP 8", "PDO Prepared Statements", "Session Management"],
+    "database": ["PostgreSQL", "Dynamic Query Building"]
+  },
+  "project_type": "Full-Stack Web Application",
+  "domain": "Supply Chain Management / Operations Analytics",
+  "architecture": {
+    "pages_total": 10,
+    "user_roles": 2,
+    "sql_queries": "30+",
+    "db_tables": "12+",
+    "roles": [
+      {
+        "name": "Supply Chain Manager",
+        "pages": ["overview", "companies", "company_view", "disruptions", "transactions", "distributors"]
+      },
+      {
+        "name": "Senior Manager",
+        "pages": ["sm_overview", "sm_disruptions", "sm_companies_logistics"]
+      }
+    ]
+  },
+  "sql_highlights": [
+    "UNION ALL unified transaction ledger (Shipping + Receiving + InventoryAdjustment)",
+    "Criticality score via dual LEFT JOIN subqueries (downstream count × high-impact events)",
+    "Disruption exposure score: Total + 2×High using conditional COUNT DISTINCT",
+    "Dynamic WHERE clause construction with parallel param arrays",
+    "STDDEV_SAMP for delay distribution statistics",
+    "Regional heatmap: 2D pivot via PHP post-processing of flat SQL aggregate",
+    "On-time rate via conditional aggregation (CASE WHEN ActualDate <= PromisedDate)",
+    "Self-referential DependsOn table for upstream/downstream dependency traversal"
+  ],
+  "db_tables": [
+    "Company", "Manufacturer", "Distributor", "Retailer", "Location",
+    "Shipping", "Receiving", "InventoryAdjustment", "InventoryTransaction",
+    "Product", "SuppliesProduct", "FinancialReport",
+    "DisruptionEvent", "DisruptionCategory", "ImpactsCompany", "DependsOn", "OperatesLogistics"
+  ],
+  "github_url": "https://github.com/nakulsree/Portofolio",
+  "thumbnail": "assets/images/scm-dashboard-thumbnail.svg",
+  "portfolio_url": "scm-dashboard.html",
+  "featured": true,
+  "difficulty": "Intermediate-Advanced",
+  "estimated_read_time_minutes": 7
+}

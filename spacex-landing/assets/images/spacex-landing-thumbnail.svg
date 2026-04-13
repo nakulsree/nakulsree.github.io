@@ -1,0 +1,178 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450" role="img" aria-label="SpaceX Falcon 9 Landing Prediction project thumbnail — 7-stage pipeline and model comparison chart">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#04050f"/>
+      <stop offset="100%" style="stop-color:#070916"/>
+    </linearGradient>
+    <linearGradient id="bodyGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#1a1a2e"/>
+      <stop offset="100%" style="stop-color:#0f3460"/>
+    </linearGradient>
+    <linearGradient id="plume" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#6349ff;stop-opacity:0.8"/>
+      <stop offset="100%" style="stop-color:#c77dff;stop-opacity:0"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="softglow">
+      <feGaussianBlur stdDeviation="18" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="450" fill="url(#bg)"/>
+
+  <!-- Stars -->
+  <circle cx="45" cy="30" r="1" fill="#6349ff" opacity="0.7"/>
+  <circle cx="120" cy="15" r="1.5" fill="white" opacity="0.5"/>
+  <circle cx="200" cy="45" r="1" fill="#818cf8" opacity="0.6"/>
+  <circle cx="340" cy="20" r="1" fill="white" opacity="0.4"/>
+  <circle cx="450" cy="38" r="1.5" fill="#c77dff" opacity="0.5"/>
+  <circle cx="600" cy="12" r="1" fill="white" opacity="0.6"/>
+  <circle cx="720" cy="35" r="1" fill="#6349ff" opacity="0.7"/>
+  <circle cx="780" cy="60" r="1.5" fill="white" opacity="0.3"/>
+  <circle cx="55" cy="200" r="1" fill="#818cf8" opacity="0.5"/>
+  <circle cx="170" cy="380" r="1" fill="white" opacity="0.4"/>
+  <circle cx="700" cy="300" r="1.5" fill="#c77dff" opacity="0.6"/>
+  <circle cx="760" cy="400" r="1" fill="white" opacity="0.5"/>
+
+  <!-- Nebula glow -->
+  <ellipse cx="680" cy="80" rx="220" ry="150" fill="#6349ff" fill-opacity="0.05" filter="url(#softglow)"/>
+  <ellipse cx="100" cy="380" rx="150" ry="100" fill="#c77dff" fill-opacity="0.04" filter="url(#softglow)"/>
+
+  <!-- Grid -->
+  <g stroke="#6349ff" stroke-opacity="0.03" stroke-width="1">
+    <line x1="0" y1="50" x2="800" y2="50"/> <line x1="0" y1="100" x2="800" y2="100"/>
+    <line x1="0" y1="150" x2="800" y2="150"/> <line x1="0" y1="200" x2="800" y2="200"/>
+    <line x1="0" y1="250" x2="800" y2="250"/> <line x1="0" y1="300" x2="800" y2="300"/>
+    <line x1="0" y1="350" x2="800" y2="350"/> <line x1="0" y1="400" x2="800" y2="400"/>
+    <line x1="50" y1="0" x2="50" y2="450"/> <line x1="100" y1="0" x2="100" y2="450"/>
+    <line x1="200" y1="0" x2="200" y2="450"/> <line x1="300" y1="0" x2="300" y2="450"/>
+    <line x1="400" y1="0" x2="400" y2="450"/> <line x1="500" y1="0" x2="500" y2="450"/>
+    <line x1="600" y1="0" x2="600" y2="450"/> <line x1="700" y1="0" x2="700" y2="450"/>
+  </g>
+
+  <!-- ── TITLE ── -->
+  <text x="30" y="52" font-family="system-ui,sans-serif" font-weight="900" font-size="22" fill="#e0e4ff" letter-spacing="0.5">SpaceX Falcon 9</text>
+  <text x="30" y="76" font-family="system-ui,sans-serif" font-weight="900" font-size="22" fill="#6349ff" letter-spacing="0.5" filter="url(#glow)">Landing Prediction</text>
+  <text x="30" y="94" font-family="system-ui,sans-serif" font-size="11" fill="#6b74b8">End-to-End Pipeline · API + Scraping + SQL + Folium + Dash + ML · 7 Stages</text>
+
+  <!-- KPI row -->
+  <rect x="30" y="106" width="78" height="44" rx="6" fill="#0c0e22" stroke="#161a3a" stroke-width="1"/>
+  <text x="69" y="124" font-family="system-ui,sans-serif" font-weight="900" font-size="18" fill="#6349ff" text-anchor="middle" filter="url(#glow)">83.3%</text>
+  <text x="69" y="140" font-family="system-ui,sans-serif" font-size="8" fill="#343860" text-anchor="middle">Test Accuracy</text>
+
+  <rect x="116" y="106" width="60" height="44" rx="6" fill="#0c0e22" stroke="#161a3a" stroke-width="1"/>
+  <text x="146" y="124" font-family="system-ui,sans-serif" font-weight="900" font-size="18" fill="#6349ff" text-anchor="middle" filter="url(#glow)">4</text>
+  <text x="146" y="140" font-family="system-ui,sans-serif" font-size="8" fill="#343860" text-anchor="middle">ML Models</text>
+
+  <rect x="184" y="106" width="60" height="44" rx="6" fill="#0c0e22" stroke="#161a3a" stroke-width="1"/>
+  <text x="214" y="124" font-family="system-ui,sans-serif" font-weight="900" font-size="18" fill="#6349ff" text-anchor="middle" filter="url(#glow)">7</text>
+  <text x="214" y="140" font-family="system-ui,sans-serif" font-size="8" fill="#343860" text-anchor="middle">Pipeline Stages</text>
+
+  <rect x="252" y="106" width="66" height="44" rx="6" fill="#0c0e22" stroke="#161a3a" stroke-width="1"/>
+  <text x="285" y="124" font-family="system-ui,sans-serif" font-weight="900" font-size="18" fill="#6349ff" text-anchor="middle" filter="url(#glow)">10×</text>
+  <text x="285" y="140" font-family="system-ui,sans-serif" font-size="8" fill="#343860" text-anchor="middle">CV Folds</text>
+
+  <!-- ── Pipeline stages column ── -->
+  <!-- Stage bars -->
+  <g font-family="system-ui,sans-serif" font-size="9" fill="#6b74b8">
+    <rect x="30" y="170" width="310" height="22" rx="4" fill="#0c0e22" stroke="rgba(99,73,255,0.3)" stroke-width="1"/>
+    <text x="46" y="184" fill="#6349ff" font-weight="700">01</text>
+    <text x="70" y="184">SpaceX REST API Collection</text>
+    <rect x="30" y="196" width="310" height="22" rx="4" fill="#0c0e22" stroke="#161a3a" stroke-width="1"/>
+    <text x="46" y="210" fill="#6349ff" font-weight="700">02</text>
+    <text x="70" y="210">Wikipedia Web Scraping (BeautifulSoup)</text>
+    <rect x="30" y="222" width="310" height="22" rx="4" fill="#0c0e22" stroke="#161a3a" stroke-width="1"/>
+    <text x="46" y="236" fill="#6349ff" font-weight="700">03</text>
+    <text x="70" y="236">Data Wrangling + Label Engineering</text>
+    <rect x="30" y="248" width="310" height="22" rx="4" fill="#0c0e22" stroke="#161a3a" stroke-width="1"/>
+    <text x="46" y="262" fill="#6349ff" font-weight="700">04</text>
+    <text x="70" y="262">SQL EDA (SQLite / ipython-sql)</text>
+    <rect x="30" y="274" width="310" height="22" rx="4" fill="#0c0e22" stroke="#161a3a" stroke-width="1"/>
+    <text x="46" y="288" fill="#6349ff" font-weight="700">05</text>
+    <text x="70" y="288">EDA Visualizations (seaborn)</text>
+    <rect x="30" y="300" width="310" height="22" rx="4" fill="#0c0e22" stroke="#161a3a" stroke-width="1"/>
+    <text x="46" y="314" fill="#6349ff" font-weight="700">06</text>
+    <text x="70" y="314">Folium Geospatial Maps + MarkerCluster</text>
+    <rect x="30" y="326" width="310" height="22" rx="4" fill="#0c0e22" stroke="#161a3a" stroke-width="1"/>
+    <text x="46" y="340" fill="#6349ff" font-weight="700">07</text>
+    <text x="70" y="340">Plotly Dash Interactive Dashboard</text>
+  </g>
+
+  <!-- Connector line -->
+  <line x1="20" y1="170" x2="20" y2="348" stroke="rgba(99,73,255,0.4)" stroke-width="2"/>
+  <circle cx="20" cy="170" r="3" fill="#6349ff"/>
+  <circle cx="20" cy="207" r="3" fill="#6349ff" opacity="0.7"/>
+  <circle cx="20" cy="233" r="3" fill="#6349ff" opacity="0.7"/>
+  <circle cx="20" cy="259" r="3" fill="#6349ff" opacity="0.7"/>
+  <circle cx="20" cy="285" r="3" fill="#6349ff" opacity="0.7"/>
+  <circle cx="20" cy="311" r="3" fill="#6349ff" opacity="0.7"/>
+  <circle cx="20" cy="337" r="3" fill="#6349ff"/>
+
+  <!-- ── ML Results Panel ── -->
+  <rect x="360" y="110" width="410" height="290" rx="10" fill="#0c0e22" stroke="#161a3a" stroke-width="1"/>
+  <text x="378" y="134" font-family="system-ui,sans-serif" font-weight="700" font-size="11" fill="#6349ff" filter="url(#glow)">MODEL COMPARISON</text>
+  <text x="640" y="134" font-family="system-ui,sans-serif" font-size="9" fill="#343860">GridSearchCV · cv=10 · 80/20 split</text>
+
+  <!-- Header row -->
+  <rect x="360" y="142" width="410" height="18" fill="#161a3a"/>
+  <text x="378" y="154" font-family="system-ui,sans-serif" font-size="8.5" fill="#6b74b8" font-weight="700">MODEL</text>
+  <text x="556" y="154" font-family="system-ui,sans-serif" font-size="8.5" fill="#6b74b8" font-weight="700" text-anchor="middle">CV ACCURACY</text>
+  <text x="672" y="154" font-family="system-ui,sans-serif" font-size="8.5" fill="#6b74b8" font-weight="700" text-anchor="middle">TEST</text>
+  <text x="740" y="154" font-family="system-ui,sans-serif" font-size="8.5" fill="#6b74b8" font-weight="700" text-anchor="middle">RANK</text>
+
+  <!-- Row 1: Decision Tree -->
+  <rect x="360" y="160" width="410" height="36" fill="rgba(99,73,255,0.06)"/>
+  <text x="378" y="183" font-family="system-ui,sans-serif" font-size="11" fill="#e0e4ff" font-weight="700">Decision Tree</text>
+  <rect x="490" y="170" width="130" height="16" rx="3" fill="rgba(99,73,255,0.12)"/>
+  <rect x="490" y="170" width="116" height="16" rx="3" fill="rgba(99,73,255,0.35)"/>
+  <text x="556" y="183" font-family="system-ui,sans-serif" font-size="11" fill="#6349ff" text-anchor="middle" font-weight="700" filter="url(#glow)">88.9%</text>
+  <text x="672" y="183" font-family="system-ui,sans-serif" font-size="11" fill="#818cf8" text-anchor="middle">83.3%</text>
+  <text x="740" y="183" font-family="system-ui,sans-serif" font-size="11" fill="#6349ff" text-anchor="middle">★ 1st</text>
+
+  <!-- Row 2: SVM -->
+  <text x="378" y="219" font-family="system-ui,sans-serif" font-size="11" fill="#6b74b8">SVM</text>
+  <rect x="490" y="205" width="130" height="16" rx="3" fill="rgba(99,73,255,0.08)"/>
+  <rect x="490" y="205" width="110" height="16" rx="3" fill="rgba(99,73,255,0.2)"/>
+  <text x="556" y="218" font-family="system-ui,sans-serif" font-size="11" fill="#818cf8" text-anchor="middle">84.8%</text>
+  <text x="672" y="218" font-family="system-ui,sans-serif" font-size="11" fill="#6b74b8" text-anchor="middle">83.3%</text>
+  <text x="740" y="218" font-family="system-ui,sans-serif" font-size="10" fill="#343860" text-anchor="middle">2nd</text>
+
+  <!-- Row 3: KNN -->
+  <text x="378" y="254" font-family="system-ui,sans-serif" font-size="11" fill="#6b74b8">K-Nearest Neighbors</text>
+  <rect x="490" y="240" width="130" height="16" rx="3" fill="rgba(99,73,255,0.08)"/>
+  <rect x="490" y="240" width="110" height="16" rx="3" fill="rgba(99,73,255,0.2)"/>
+  <text x="556" y="253" font-family="system-ui,sans-serif" font-size="11" fill="#818cf8" text-anchor="middle">84.8%</text>
+  <text x="672" y="253" font-family="system-ui,sans-serif" font-size="11" fill="#6b74b8" text-anchor="middle">83.3%</text>
+  <text x="740" y="253" font-family="system-ui,sans-serif" font-size="10" fill="#343860" text-anchor="middle">3rd</text>
+
+  <!-- Row 4: LR -->
+  <text x="378" y="289" font-family="system-ui,sans-serif" font-size="11" fill="#6b74b8">Logistic Regression</text>
+  <rect x="490" y="275" width="130" height="16" rx="3" fill="rgba(99,73,255,0.08)"/>
+  <rect x="490" y="275" width="109" height="16" rx="3" fill="rgba(99,73,255,0.18)"/>
+  <text x="556" y="288" font-family="system-ui,sans-serif" font-size="11" fill="#818cf8" text-anchor="middle">84.6%</text>
+  <text x="672" y="288" font-family="system-ui,sans-serif" font-size="11" fill="#6b74b8" text-anchor="middle">83.3%</text>
+  <text x="740" y="288" font-family="system-ui,sans-serif" font-size="10" fill="#343860" text-anchor="middle">4th</text>
+
+  <!-- Insight box -->
+  <rect x="360" y="308" width="410" height="68" rx="6" fill="rgba(99,73,255,0.06)" stroke="rgba(99,73,255,0.2)" stroke-width="1"/>
+  <text x="378" y="325" font-family="system-ui,sans-serif" font-size="9" fill="#6349ff" font-weight="700">KEY FINDING</text>
+  <text x="378" y="340" font-family="system-ui,sans-serif" font-size="9" fill="#6b74b8">All 4 models reach 83.3% test accuracy — small test set (18 samples,</text>
+  <text x="378" y="354" font-family="system-ui,sans-serif" font-size="9" fill="#6b74b8">~3 wrong each). CV spread (84.6%→88.9%) reveals true differentiation.</text>
+  <text x="378" y="368" font-family="system-ui,sans-serif" font-size="9" fill="#818cf8">Decision Tree best CV: entropy + max_depth=10 + sqrt features</text>
+
+  <!-- Rocket schematic (mini) -->
+  <rect x="650" y="30" width="22" height="68" rx="3" fill="url(#bodyGrad)" stroke="rgba(99,73,255,0.4)" stroke-width="1"/>
+  <polygon points="661,10 650,30 672,30" fill="#0f3460" stroke="rgba(99,73,255,0.4)" stroke-width="1"/>
+  <polygon points="655,90 641,108 648,108" fill="rgba(99,73,255,0.5)" stroke="#6349ff" stroke-width="1"/>
+  <polygon points="667,90 681,108 674,108" fill="rgba(99,73,255,0.5)" stroke="#6349ff" stroke-width="1"/>
+  <polygon points="650,98 672,98 668,112 654,112" fill="url(#plume)" opacity="0.7"/>
+  <circle cx="661" cy="115" r="8" fill="none" stroke="rgba(99,73,255,0.4)" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Footer -->
+  <text x="760" y="440" font-family="system-ui,sans-serif" font-size="9" fill="#343860" text-anchor="end">Nakul Sreekanth · IBM Data Science Capstone</text>
+</svg>

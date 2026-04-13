@@ -1,0 +1,164 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450" role="img" aria-label="Power Outage Forecasting project thumbnail — routing ensemble architecture diagram">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#090c12"/>
+      <stop offset="100%" style="stop-color:#0e1420"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#00d4ff"/>
+      <stop offset="100%" style="stop-color:#0090b0"/>
+    </linearGradient>
+    <linearGradient id="amberGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#ffb340"/>
+      <stop offset="100%" style="stop-color:#cc8800"/>
+    </linearGradient>
+    <linearGradient id="greenGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#00e5a0"/>
+      <stop offset="100%" style="stop-color:#009966"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="glow2">
+      <feGaussianBlur stdDeviation="12" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="450" fill="url(#bgGrad)"/>
+
+  <!-- Grid lines -->
+  <g stroke="#00d4ff" stroke-opacity="0.04" stroke-width="1">
+    <line x1="0" y1="50" x2="800" y2="50"/>
+    <line x1="0" y1="100" x2="800" y2="100"/>
+    <line x1="0" y1="150" x2="800" y2="150"/>
+    <line x1="0" y1="200" x2="800" y2="200"/>
+    <line x1="0" y1="250" x2="800" y2="250"/>
+    <line x1="0" y1="300" x2="800" y2="300"/>
+    <line x1="0" y1="350" x2="800" y2="350"/>
+    <line x1="0" y1="400" x2="800" y2="400"/>
+    <line x1="50" y1="0" x2="50" y2="450"/>
+    <line x1="100" y1="0" x2="100" y2="450"/>
+    <line x1="150" y1="0" x2="150" y2="450"/>
+    <line x1="200" y1="0" x2="200" y2="450"/>
+    <line x1="250" y1="0" x2="250" y2="450"/>
+    <line x1="300" y1="0" x2="300" y2="450"/>
+    <line x1="350" y1="0" x2="350" y2="450"/>
+    <line x1="400" y1="0" x2="400" y2="450"/>
+    <line x1="450" y1="0" x2="450" y2="450"/>
+    <line x1="500" y1="0" x2="500" y2="450"/>
+    <line x1="550" y1="0" x2="550" y2="450"/>
+    <line x1="600" y1="0" x2="600" y2="450"/>
+    <line x1="650" y1="0" x2="650" y2="450"/>
+    <line x1="700" y1="0" x2="700" y2="450"/>
+    <line x1="750" y1="0" x2="750" y2="450"/>
+  </g>
+
+  <!-- Ambient glow -->
+  <ellipse cx="650" cy="80" rx="220" ry="120" fill="#00d4ff" fill-opacity="0.04" filter="url(#glow2)"/>
+  <ellipse cx="150" cy="380" rx="180" ry="100" fill="#ffb340" fill-opacity="0.04" filter="url(#glow2)"/>
+
+  <!-- Title -->
+  <text x="40" y="58" font-family="system-ui, sans-serif" font-weight="800" font-size="28" fill="#e8edf5" letter-spacing="-1">Power Outage Forecasting</text>
+  <text x="40" y="82" font-family="system-ui, sans-serif" font-size="13" fill="#7a90b0">Routing-Based Ensemble · Michigan 83 Counties · 48-Hour Horizon</text>
+
+  <!-- Stat badges -->
+  <rect x="40" y="100" width="120" height="48" rx="8" fill="#131926" stroke="#00d4ff" stroke-opacity="0.4" stroke-width="1"/>
+  <text x="100" y="120" font-family="system-ui, sans-serif" font-weight="800" font-size="18" fill="#00d4ff" text-anchor="middle" filter="url(#glow)">89%</text>
+  <text x="100" y="138" font-family="system-ui, sans-serif" font-size="9" fill="#7a90b0" text-anchor="middle">Winkler Improvement</text>
+
+  <rect x="172" y="100" width="120" height="48" rx="8" fill="#131926" stroke="#00d4ff" stroke-opacity="0.4" stroke-width="1"/>
+  <text x="232" y="120" font-family="system-ui, sans-serif" font-weight="800" font-size="18" fill="#00d4ff" text-anchor="middle" filter="url(#glow)">43%</text>
+  <text x="232" y="138" font-family="system-ui, sans-serif" font-size="9" fill="#7a90b0" text-anchor="middle">RMSE Reduction</text>
+
+  <rect x="304" y="100" width="120" height="48" rx="8" fill="#131926" stroke="#00d4ff" stroke-opacity="0.4" stroke-width="1"/>
+  <text x="364" y="120" font-family="system-ui, sans-serif" font-weight="800" font-size="18" fill="#00d4ff" text-anchor="middle" filter="url(#glow)">336</text>
+  <text x="364" y="138" font-family="system-ui, sans-serif" font-size="9" fill="#7a90b0" text-anchor="middle">Models Trained</text>
+
+  <rect x="436" y="100" width="120" height="48" rx="8" fill="#131926" stroke="#00d4ff" stroke-opacity="0.4" stroke-width="1"/>
+  <text x="496" y="120" font-family="system-ui, sans-serif" font-weight="800" font-size="18" fill="#00d4ff" text-anchor="middle" filter="url(#glow)">0.696</text>
+  <text x="496" y="138" font-family="system-ui, sans-serif" font-size="9" fill="#7a90b0" text-anchor="middle">Detection F1</text>
+
+  <!-- Architecture flow diagram -->
+  <!-- Input node -->
+  <rect x="40" y="190" width="90" height="44" rx="7" fill="#131926" stroke="#2a3d5a" stroke-width="1.5"/>
+  <text x="85" y="208" font-family="system-ui, sans-serif" font-weight="700" font-size="10" fill="#7a90b0" text-anchor="middle">INPUT</text>
+  <text x="85" y="223" font-family="system-ui, sans-serif" font-size="9" fill="#4a5f7a" text-anchor="middle">349 features</text>
+
+  <!-- Arrow 1 -->
+  <line x1="130" y1="212" x2="155" y2="212" stroke="#2a3d5a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Router node -->
+  <rect x="155" y="190" width="100" height="44" rx="7" fill="rgba(0,212,255,0.08)" stroke="#00d4ff" stroke-width="1.5"/>
+  <text x="205" y="208" font-family="system-ui, sans-serif" font-weight="700" font-size="10" fill="#00d4ff" text-anchor="middle" filter="url(#glow)">ROUTER</text>
+  <text x="205" y="223" font-family="system-ui, sans-serif" font-size="9" fill="#7a90b0" text-anchor="middle">LightGBM</text>
+
+  <!-- Branches lines -->
+  <line x1="255" y1="212" x2="275" y2="212" stroke="#2a3d5a" stroke-width="1"/>
+  <line x1="275" y1="212" x2="275" y2="160" stroke="#2a3d5a" stroke-width="1"/>
+  <line x1="275" y1="212" x2="275" y2="212" stroke="#2a3d5a" stroke-width="1"/>
+  <line x1="275" y1="212" x2="275" y2="265" stroke="#2a3d5a" stroke-width="1"/>
+
+  <!-- Branch nodes -->
+  <!-- Zero -->
+  <line x1="275" y1="160" x2="295" y2="160" stroke="#4a5f7a" stroke-width="1"/>
+  <rect x="295" y="145" width="70" height="30" rx="5" fill="rgba(74,95,122,0.15)" stroke="#4a5f7a" stroke-width="1"/>
+  <text x="330" y="163" font-family="system-ui, sans-serif" font-size="9" fill="#4a5f7a" text-anchor="middle">ZERO</text>
+
+  <!-- Low -->
+  <line x1="275" y1="190" x2="295" y2="190" stroke="#00e5a0" stroke-width="1"/>
+  <rect x="295" y="177" width="70" height="30" rx="5" fill="rgba(0,229,160,0.08)" stroke="#00e5a0" stroke-width="1"/>
+  <text x="330" y="196" font-family="system-ui, sans-serif" font-size="9" fill="#00e5a0" text-anchor="middle">LOW</text>
+
+  <!-- Moderate -->
+  <line x1="275" y1="225" x2="295" y2="225" stroke="#00d4ff" stroke-width="1"/>
+  <rect x="295" y="211" width="90" height="30" rx="5" fill="rgba(0,212,255,0.08)" stroke="#00d4ff" stroke-width="1"/>
+  <text x="340" y="229" font-family="system-ui, sans-serif" font-size="9" fill="#00d4ff" text-anchor="middle">MODERATE</text>
+
+  <!-- Extreme -->
+  <line x1="275" y1="258" x2="295" y2="258" stroke="#ffb340" stroke-width="1"/>
+  <rect x="295" y="244" width="90" height="30" rx="5" fill="rgba(255,179,64,0.08)" stroke="#ffb340" stroke-width="1"/>
+  <text x="340" y="263" font-family="system-ui, sans-serif" font-size="9" fill="#ffb340" text-anchor="middle">EXTREME</text>
+
+  <!-- Converge lines to meta -->
+  <line x1="385" y1="225" x2="445" y2="225" stroke="#2a3d5a" stroke-width="1"/>
+  <line x1="385" y1="258" x2="415" y2="258" stroke="#2a3d5a" stroke-width="1"/>
+  <line x1="415" y1="258" x2="415" y2="225" stroke="#2a3d5a" stroke-width="1"/>
+
+  <!-- Meta-learner node -->
+  <rect x="445" y="204" width="110" height="44" rx="7" fill="rgba(255,179,64,0.08)" stroke="#ffb340" stroke-width="1.5"/>
+  <text x="500" y="222" font-family="system-ui, sans-serif" font-weight="700" font-size="10" fill="#ffb340" text-anchor="middle">META-LEARNER</text>
+  <text x="500" y="237" font-family="system-ui, sans-serif" font-size="9" fill="#7a90b0" text-anchor="middle">LightGBM</text>
+
+  <!-- Arrow to output -->
+  <line x1="555" y1="226" x2="580" y2="226" stroke="#2a3d5a" stroke-width="1.5"/>
+
+  <!-- Output node -->
+  <rect x="580" y="204" width="100" height="44" rx="7" fill="rgba(0,229,160,0.08)" stroke="#00e5a0" stroke-width="1.5"/>
+  <text x="630" y="222" font-family="system-ui, sans-serif" font-weight="700" font-size="10" fill="#00e5a0" text-anchor="middle" filter="url(#glow)">OUTPUT</text>
+  <text x="630" y="237" font-family="system-ui, sans-serif" font-size="9" fill="#7a90b0" text-anchor="middle">ŷ ± 95% PI</text>
+
+  <!-- Stage labels -->
+  <text x="205" y="178" font-family="system-ui, sans-serif" font-size="8" fill="#4a5f7a" text-anchor="middle">Stage 1</text>
+  <text x="330" y="300" font-family="system-ui, sans-serif" font-size="8" fill="#4a5f7a" text-anchor="middle">Stage 2</text>
+  <text x="500" y="192" font-family="system-ui, sans-serif" font-size="8" fill="#4a5f7a" text-anchor="middle">Stage 3-4</text>
+
+  <!-- Feature separation callout -->
+  <rect x="40" y="320" width="340" height="100" rx="8" fill="#131926" stroke="#1e2d45" stroke-width="1"/>
+  <text x="60" y="342" font-family="system-ui, sans-serif" font-weight="700" font-size="11" fill="#e8edf5">Structural Feature Separation</text>
+  <rect x="60" y="354" width="4" height="50" rx="2" fill="#00d4ff"/>
+  <text x="72" y="368" font-family="system-ui, sans-serif" font-size="9" fill="#7a90b0">Router (Detection)</text>
+  <text x="72" y="382" font-family="system-ui, sans-serif" font-size="9" fill="#4a5f7a">time since nonzero · lag 1h · lag 2h</text>
+
+  <rect x="210" y="354" width="4" height="50" rx="2" fill="#ffb340"/>
+  <text x="222" y="368" font-family="system-ui, sans-serif" font-size="9" fill="#7a90b0">Severity (Extreme)</text>
+  <text x="222" y="382" font-family="system-ui, sans-serif" font-size="9" fill="#4a5f7a">Lifted Index · Geopotential Ht.</text>
+  <text x="222" y="396" font-family="system-ui, sans-serif" font-size="9" fill="#4a5f7a">Specific Humidity</text>
+
+  <text x="220" y="410" font-family="system-ui, sans-serif" font-style="italic" font-size="9" fill="#00d4ff" text-anchor="middle">Zero feature overlap between sets</text>
+
+  <!-- Tag line -->
+  <text x="760" y="440" font-family="system-ui, sans-serif" font-size="10" fill="#2a3d5a" text-anchor="end">Nakul Sreekanth · IISE 2026</text>
+</svg>

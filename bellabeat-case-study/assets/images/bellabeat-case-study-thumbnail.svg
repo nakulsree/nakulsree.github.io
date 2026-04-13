@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450" role="img" aria-label="Bellabeat Smart Device Case Study thumbnail — key findings and framework visualization">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#110d0f"/>
+      <stop offset="100%" style="stop-color:#16100d"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="softglow">
+      <feGaussianBlur stdDeviation="16" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="450" fill="url(#bg)"/>
+  <!-- Grain texture approximation -->
+  <rect width="800" height="450" fill="rgba(232,145,106,0.01)"/>
+
+  <!-- Warm blobs -->
+  <ellipse cx="680" cy="80" rx="200" ry="140" fill="#e8916a" fill-opacity="0.05" filter="url(#softglow)"/>
+  <ellipse cx="100" cy="380" rx="150" ry="100" fill="#c4624a" fill-opacity="0.04" filter="url(#softglow)"/>
+
+  <!-- Subtle grid -->
+  <g stroke="#e8916a" stroke-opacity="0.025" stroke-width="1">
+    <line x1="0" y1="50" x2="800" y2="50"/><line x1="0" y1="100" x2="800" y2="100"/>
+    <line x1="0" y1="150" x2="800" y2="150"/><line x1="0" y1="200" x2="800" y2="200"/>
+    <line x1="0" y1="250" x2="800" y2="250"/><line x1="0" y1="300" x2="800" y2="300"/>
+    <line x1="0" y1="350" x2="800" y2="350"/><line x1="0" y1="400" x2="800" y2="400"/>
+  </g>
+
+  <!-- ── TITLE BLOCK ── -->
+  <text x="30" y="50" font-family="Georgia,serif" font-style="italic" font-size="11" fill="#e8916a" letter-spacing="2">BELLABEAT</text>
+  <text x="30" y="84" font-family="Georgia,serif" font-style="italic" font-size="30" fill="#f0e8e0" letter-spacing="-0.5">Smart Device</text>
+  <text x="30" y="118" font-family="Georgia,serif" font-style="italic" font-size="30" fill="#e8916a" letter-spacing="-0.5">Usage Analysis</text>
+  <text x="30" y="138" font-family="system-ui,sans-serif" font-size="10" fill="#a08070">Google Data Analytics Certificate · R + BigQuery SQL + Tableau · Ask-Prepare-Process-Analyze-Share-Act</text>
+
+  <!-- Framework steps -->
+  <g font-family="system-ui,sans-serif" font-size="9" font-weight="700" text-anchor="middle">
+    <rect x="30" y="150" width="56" height="20" rx="4" fill="rgba(232,145,106,0.15)" stroke="rgba(232,145,106,0.4)" stroke-width="1"/>
+    <text x="58" y="164" fill="#e8916a">Ask</text>
+    <text x="92" y="164" fill="#5a3f33">→</text>
+    <rect x="100" y="150" width="62" height="20" rx="4" fill="rgba(232,145,106,0.1)" stroke="rgba(232,145,106,0.3)" stroke-width="1"/>
+    <text x="131" y="164" fill="#e8916a">Prepare</text>
+    <text x="168" y="164" fill="#5a3f33">→</text>
+    <rect x="176" y="150" width="62" height="20" rx="4" fill="rgba(232,145,106,0.1)" stroke="rgba(232,145,106,0.3)" stroke-width="1"/>
+    <text x="207" y="164" fill="#e8916a">Process</text>
+    <text x="244" y="164" fill="#5a3f33">→</text>
+    <rect x="252" y="150" width="60" height="20" rx="4" fill="rgba(232,145,106,0.1)" stroke="rgba(232,145,106,0.3)" stroke-width="1"/>
+    <text x="282" y="164" fill="#e8916a">Analyze</text>
+    <text x="318" y="164" fill="#5a3f33">→</text>
+    <rect x="326" y="150" width="52" height="20" rx="4" fill="rgba(232,145,106,0.1)" stroke="rgba(232,145,106,0.3)" stroke-width="1"/>
+    <text x="352" y="164" fill="#e8916a">Share</text>
+    <text x="383" y="164" fill="#5a3f33">→</text>
+    <rect x="391" y="150" width="40" height="20" rx="4" fill="rgba(232,145,106,0.1)" stroke="rgba(232,145,106,0.3)" stroke-width="1"/>
+    <text x="411" y="164" fill="#e8916a">Act</text>
+  </g>
+
+  <!-- ── R² COMPARISON BLOCK ── -->
+  <rect x="30" y="188" width="220" height="160" rx="8" fill="#1c1410" stroke="#2d1f18" stroke-width="1"/>
+  <text x="50" y="208" font-family="Georgia,serif" font-style="italic" font-size="11" fill="#e8916a">Finding 1: Intensity &gt; Steps</text>
+  <!-- Intensity bar -->
+  <text x="50" y="228" font-family="system-ui,sans-serif" font-size="9" fill="#a08070">Intensity vs Calories</text>
+  <rect x="50" y="234" width="176" height="16" rx="3" fill="rgba(232,145,106,0.1)"/>
+  <rect x="50" y="234" width="141" height="16" rx="3" fill="rgba(232,145,106,0.45)"/>
+  <text x="198" y="246" font-family="system-ui,sans-serif" font-size="10" fill="#e8916a" font-weight="700" filter="url(#glow)">R²=0.80</text>
+  <!-- Steps bar -->
+  <text x="50" y="265" font-family="system-ui,sans-serif" font-size="9" fill="#a08070">Steps vs Calories</text>
+  <rect x="50" y="271" width="176" height="16" rx="3" fill="rgba(160,128,112,0.1)"/>
+  <rect x="50" y="271" width="116" height="16" rx="3" fill="rgba(160,128,112,0.35)"/>
+  <text x="178" y="283" font-family="system-ui,sans-serif" font-size="10" fill="#a08070">R²=0.66</text>
+
+  <line x1="50" y1="300" x2="230" y2="300" stroke="#2d1f18" stroke-width="1"/>
+  <text x="50" y="318" font-family="system-ui,sans-serif" font-size="8.5" fill="#a08070">Intensity is the stronger predictor</text>
+  <text x="50" y="330" font-family="system-ui,sans-serif" font-size="8.5" fill="#a08070">of calorie burn. Source: ggplot2 lm</text>
+
+  <!-- ── ACTIVITY PIE schematic ── -->
+  <rect x="268" y="188" width="200" height="160" rx="8" fill="#1c1410" stroke="#2d1f18" stroke-width="1"/>
+  <text x="288" y="208" font-family="Georgia,serif" font-style="italic" font-size="11" fill="#e8916a">Finding 2: Activity Split</text>
+  <!-- Pie schematic -->
+  <circle cx="368" cy="278" r="50" fill="#3d2b22"/>
+  <!-- 97.15% sedentary - almost full circle, light -->
+  <path d="M368,228 A50,50 0 1,1 362.8,228.3 Z" fill="#5a3f33" opacity="0.8"/>
+  <!-- 2.85% active - small wedge, rose -->
+  <path d="M368,228 A50,50 0 0,1 416.9,257.5 L368,278 Z" fill="#e8916a" filter="url(#glow)"/>
+  <text x="368" y="268" font-family="system-ui,sans-serif" font-size="8" fill="#e8916a" text-anchor="middle" font-weight="700">2.85%</text>
+  <text x="368" y="278" font-family="system-ui,sans-serif" font-size="8" fill="#e8916a" text-anchor="middle">Active</text>
+  <text x="320" y="315" font-family="system-ui,sans-serif" font-size="7" fill="#5a3f33">97.15% Light+Sedentary</text>
+  <text x="320" y="325" font-family="system-ui,sans-serif" font-size="7" fill="#a08070">AHA goal: ~3% moderate+</text>
+
+  <!-- ── HOURLY/WEEKLY PANEL ── -->
+  <rect x="486" y="188" width="284" height="160" rx="8" fill="#1c1410" stroke="#2d1f18" stroke-width="1"/>
+  <text x="506" y="208" font-family="Georgia,serif" font-style="italic" font-size="11" fill="#e8916a">Findings 3 &amp; 4: Patterns</text>
+
+  <!-- Hourly intensity line chart (schematic) -->
+  <text x="506" y="222" font-family="system-ui,sans-serif" font-size="8" fill="#a08070">Avg intensity by hour</text>
+  <!-- Line -->
+  <polyline
+    points="506,320 520,318 534,315 548,305 562,290 576,270 590,255 604,260 618,245 632,240 640,238 646,244 652,248 658,260 672,270 686,280 700,300 714,310 728,316 742,318 756,319 762,320"
+    fill="none" stroke="#e8916a" stroke-width="1.5" opacity="0.7"/>
+  <!-- Peak dot -->
+  <circle cx="640" cy="238" r="4" fill="#e8916a" filter="url(#glow)"/>
+  <text x="640" y="232" font-family="system-ui,sans-serif" font-size="7" fill="#e8916a" text-anchor="middle">Peak 5-7PM</text>
+  <!-- Dip annotation -->
+  <circle cx="618" cy="245" r="3" fill="#5a3f33"/>
+  <text x="604" y="240" font-family="system-ui,sans-serif" font-size="6.5" fill="#5a3f33">Dip 2PM</text>
+  <!-- Axis labels -->
+  <text x="506" y="328" font-family="system-ui,sans-serif" font-size="7" fill="#5a3f33">12AM</text>
+  <text x="600" y="328" font-family="system-ui,sans-serif" font-size="7" fill="#5a3f33">12PM</text>
+  <text x="714" y="328" font-family="system-ui,sans-serif" font-size="7" fill="#5a3f33">11PM</text>
+
+  <!-- Weekly bars summary -->
+  <text x="506" y="342" font-family="system-ui,sans-serif" font-size="8" fill="#a08070">Weekly peaks: Tue★ Sat★ · Lows: Sun Thu</text>
+
+  <!-- ── RECOMMENDATIONS ── -->
+  <rect x="30" y="366" width="740" height="62" rx="8" fill="#1c1410" stroke="rgba(232,145,106,0.2)" stroke-width="1"/>
+  <text x="50" y="382" font-family="system-ui,sans-serif" font-size="9" fill="#e8916a" font-weight="700">RECOMMENDATIONS → Leaf Product</text>
+  <text x="50" y="396" font-family="system-ui,sans-serif" font-size="8.5" fill="#a08070">01 Promote intensity over steps · 02 Celebrate 3% AHA activity goal milestone · 03 Target Sun/Thu with motivational reminders · 04 2PM notification prompt</text>
+  <text x="50" y="410" font-family="system-ui,sans-serif" font-size="8.5" fill="#5a3f33">Tools: R (ggplot2, dplyr, lubridate, janitor) · BigQuery SQL · Tableau · tidyverse · n=33 users · Apr–May 2016</text>
+
+  <text x="760" y="440" font-family="system-ui,sans-serif" font-size="9" fill="#5a3f33" text-anchor="end">Nakul Sreekanth · Google Data Analytics Certificate</text>
+</svg>

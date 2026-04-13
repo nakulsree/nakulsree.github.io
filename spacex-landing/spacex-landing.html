@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="End-to-end data science pipeline predicting SpaceX Falcon 9 first-stage booster landing outcomes. REST API collection, web scraping, SQL EDA, Folium geospatial mapping, Plotly Dash dashboard, and four-model machine learning comparison achieving 83.3% test accuracy." />
+  <meta name="keywords" content="SpaceX, Falcon 9, landing prediction, machine learning, classification, scikit-learn, Folium, Plotly Dash, BeautifulSoup, REST API, data science, Python" />
+  <meta name="author" content="Nakul Sreekanth" />
+  <meta property="og:title" content="SpaceX Falcon 9 Landing Prediction | Nakul Sreekanth" />
+  <meta property="og:description" content="End-to-end ML pipeline predicting Falcon 9 first-stage booster landings: API collection, web scraping, SQL EDA, Folium maps, Dash dashboard, 4-model GridSearchCV comparison." />
+  <meta property="og:type" content="website" />
+  <title>SpaceX Falcon 9 Landing Prediction — Nakul Sreekanth</title>
+  <link rel="stylesheet" href="assets/css/spacex-landing.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;800;900&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <div class="stars" id="stars" aria-hidden="true"></div>
+  <div class="grid-overlay" aria-hidden="true"></div>
+  <div class="nebula n1" aria-hidden="true"></div>
+  <div class="nebula n2" aria-hidden="true"></div>
+
+  <!-- ── NAV ── -->
+  <nav class="nav" role="navigation" aria-label="Page navigation">
+    <a href="https://github.com/nakulsree/Portofolio" class="nav-brand" target="_blank" rel="noopener noreferrer">NS<span class="dot">.</span></a>
+    <div class="nav-links">
+      <a href="#overview">Overview</a>
+      <a href="#pipeline">Pipeline</a>
+      <a href="#eda">EDA</a>
+      <a href="#ml">Models</a>
+      <a href="#skills">Skills</a>
+    </div>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <header class="hero" role="banner">
+    <div class="hero-inner">
+      <div class="hero-tags">
+        <span class="htag">End-to-End Pipeline</span>
+        <span class="htag">Binary Classification</span>
+        <span class="htag">Geospatial Analytics</span>
+        <span class="htag">Interactive Dashboard</span>
+      </div>
+
+      <h1 class="hero-title">
+        <span class="ht-pre">SpaceX Falcon 9</span>
+        <span class="ht-main">First Stage</span>
+        <span class="ht-main ht-accent">Landing</span>
+        <span class="ht-main ht-accent2">Prediction</span>
+      </h1>
+
+      <p class="hero-desc">
+        A complete data science workflow from raw API calls to production-ready classification — predicting whether a Falcon 9 first-stage booster will successfully land after launch, informing whether a mission can be reused at SpaceX's advertised price of <strong>$62M</strong> vs competitors' <strong>$165M+</strong>.
+      </p>
+
+      <div class="hero-metrics">
+        <div class="hm-item">
+          <div class="hm-val">83.3<span class="hm-unit">%</span></div>
+          <div class="hm-label">Test Accuracy<br/>(all 4 models)</div>
+        </div>
+        <div class="hm-item">
+          <div class="hm-val">4</div>
+          <div class="hm-label">ML Classifiers<br/>Compared</div>
+        </div>
+        <div class="hm-item">
+          <div class="hm-val">7</div>
+          <div class="hm-label">Pipeline<br/>Stages</div>
+        </div>
+        <div class="hm-item">
+          <div class="hm-val">10<span class="hm-unit">×</span></div>
+          <div class="hm-label">GridSearchCV<br/>Folds</div>
+        </div>
+      </div>
+
+      <div class="hero-ctas">
+        <a href="https://github.com/nakulsree/Portofolio" class="cta-primary" target="_blank" rel="noopener noreferrer">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+          View Notebooks
+        </a>
+        <a href="#pipeline" class="cta-secondary">See the Pipeline ↓</a>
+      </div>
+    </div>
+
+    <!-- Rocket schematic -->
+    <div class="hero-rocket" aria-label="Falcon 9 booster landing schematic">
+      <svg viewBox="0 0 160 380" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <!-- Engine plume -->
+        <ellipse cx="80" cy="355" rx="22" ry="18" fill="rgba(99,73,255,0.15)"/>
+        <ellipse cx="80" cy="365" rx="14" ry="12" fill="rgba(139,92,246,0.2)"/>
+        <polygon points="68,340 92,340 88,375 72,375" fill="url(#plume)" opacity="0.7"/>
+        <!-- Legs -->
+        <line x1="60" y1="320" x2="30" y2="355" stroke="#6349ff" stroke-width="2" opacity="0.7"/>
+        <line x1="100" y1="320" x2="130" y2="355" stroke="#6349ff" stroke-width="2" opacity="0.7"/>
+        <!-- Body -->
+        <rect x="62" y="80" width="36" height="250" rx="4" fill="url(#bodyGrad)" stroke="rgba(139,92,246,0.4)" stroke-width="1"/>
+        <!-- Grid fins -->
+        <rect x="52" y="160" width="12" height="24" rx="2" fill="rgba(139,92,246,0.5)" stroke="#6349ff" stroke-width="1"/>
+        <rect x="96" y="160" width="12" height="24" rx="2" fill="rgba(139,92,246,0.5)" stroke="#6349ff" stroke-width="1"/>
+        <!-- Interstage -->
+        <rect x="58" y="270" width="44" height="6" rx="1" fill="rgba(139,92,246,0.3)"/>
+        <!-- Nose cone -->
+        <polygon points="80,20 62,80 98,80" fill="url(#noseGrad)" stroke="rgba(139,92,246,0.5)" stroke-width="1"/>
+        <!-- SpaceX stripe -->
+        <rect x="62" y="200" width="36" height="3" fill="rgba(139,92,246,0.6)"/>
+        <!-- Engine nozzle -->
+        <ellipse cx="80" cy="338" rx="18" ry="6" fill="rgba(99,73,255,0.4)" stroke="#6349ff" stroke-width="1"/>
+        <!-- Landing target -->
+        <circle cx="80" cy="378" r="30" fill="none" stroke="rgba(99,73,255,0.3)" stroke-width="1" stroke-dasharray="4,4"/>
+        <circle cx="80" cy="378" r="18" fill="none" stroke="rgba(99,73,255,0.5)" stroke-width="1"/>
+        <circle cx="80" cy="378" r="6"  fill="rgba(99,73,255,0.4)"/>
+        <defs>
+          <linearGradient id="bodyGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#1a1a2e"/>
+            <stop offset="40%" style="stop-color:#16213e"/>
+            <stop offset="100%" style="stop-color:#0f3460"/>
+          </linearGradient>
+          <linearGradient id="noseGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#16213e"/>
+            <stop offset="100%" style="stop-color:#0f3460"/>
+          </linearGradient>
+          <linearGradient id="plume" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" style="stop-color:#6349ff; stop-opacity:0.8"/>
+            <stop offset="100%" style="stop-color:#c77dff; stop-opacity:0"/>
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ── OVERVIEW ── -->
+    <section id="overview" class="section" aria-labelledby="overview-heading">
+      <div class="section-inner">
+        <div class="section-label">01 / Overview</div>
+        <h2 id="overview-heading">Executive Summary</h2>
+        <div class="overview-grid">
+          <div class="overview-text">
+            <p>The critical cost driver behind SpaceX's $62M Falcon 9 launch price — roughly 60% cheaper than competitors — is first-stage booster reuse. If the first stage lands successfully, it can be refurbished and relaunched. If it doesn't, that unit is a write-off. Knowing in advance whether a landing is likely enables both operators and competitors to make informed pricing and mission planning decisions.</p>
+            <p>This project builds an end-to-end data science pipeline that answers this question: <strong>given mission parameters available before launch, can we predict whether the Falcon 9 first stage will successfully land?</strong> Data is collected directly from the SpaceX REST API and supplemented via Wikipedia web scraping; exploratory analysis is conducted both in Python and SQL; geospatial patterns are visualized with Folium; an interactive Plotly Dash app allows live filtering; and four classification algorithms are compared via 10-fold cross-validated GridSearchCV.</p>
+            <p>All four models converge to identical test accuracy of <strong>83.3%</strong>, with the Decision Tree achieving the highest cross-validation accuracy of <strong>88.9%</strong>. The binary target (Class: 1 = successful landing, 0 = failed) was engineered from raw outcome strings in the original dataset.</p>
+          </div>
+          <div class="overview-aside">
+            <div class="biz-card">
+              <div class="biz-icon" aria-hidden="true">💰</div>
+              <div class="biz-title">Why This Matters</div>
+              <div class="biz-body">SpaceX charges $62M per Falcon 9 launch. Competitors charge $165M+. The difference is reusability. A landing-outcome model enables cost estimation, competitive analysis, and mission risk assessment — all before liftoff.</div>
+            </div>
+            <div class="biz-card">
+              <div class="biz-icon" aria-hidden="true">🚀</div>
+              <div class="biz-title">Data Source</div>
+              <div class="biz-body">SpaceX public REST API (v4) enriched with Wikipedia BeautifulSoup scraping. All API calls use helper functions to resolve nested IDs across rockets, launchpads, payloads, and cores endpoints.</div>
+            </div>
+            <div class="biz-card">
+              <div class="biz-icon" aria-hidden="true">🎯</div>
+              <div class="biz-title">Target Variable</div>
+              <div class="biz-body">Binary Class label engineered from raw Outcome strings: 1 = successful landing (True Ocean, True RTLS, True ASDS, None None), 0 = failed landing. Class mean ≈ 0.67 — roughly two-thirds of launches resulted in a successful recovery.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── PIPELINE ── -->
+    <section id="pipeline" class="section section-alt" aria-labelledby="pipeline-heading">
+      <div class="section-inner">
+        <div class="section-label">02 / Methodology</div>
+        <h2 id="pipeline-heading">7-Stage Pipeline</h2>
+        <p class="section-intro">Each notebook corresponds to a distinct phase of the workflow, building on the cleaned outputs of the previous stage.</p>
+
+        <div class="pipeline-steps">
+
+          <div class="ps-step">
+            <div class="ps-num">01</div>
+            <div class="ps-body">
+              <div class="ps-title">API Data Collection</div>
+              <div class="ps-notebook">1__Collecting_the_data.ipynb</div>
+              <p>Queries the SpaceX REST API v4 <code>/launches/past</code> endpoint and resolves all nested IDs using four helper functions: <code>getBoosterVersion()</code>, <code>getLaunchSite()</code>, <code>getPayloadData()</code>, and <code>getCoreData()</code>. Filters to single-core, single-payload launches. Constructs a flat DataFrame with 17 features including Outcome, Flights, GridFins, Reused, Legs, LandingPad, Block, ReusedCount, and coordinates.</p>
+              <div class="ps-tech"><span>requests</span><span>pandas</span><span>json_normalize</span></div>
+            </div>
+          </div>
+
+          <div class="ps-step">
+            <div class="ps-num">02</div>
+            <div class="ps-body">
+              <div class="ps-title">Web Scraping (Wikipedia)</div>
+              <div class="ps-notebook">1b__Webscraping_from_Wikepedia.ipynb</div>
+              <p>Scrapes the static Wikipedia "List of Falcon 9 and Falcon Heavy launches" page using BeautifulSoup. Parses HTML table structures with custom helper functions for <code>date_time()</code>, <code>booster_version()</code>, and <code>landing_status()</code>. Supplements API data with additional historical launch records not available via the REST endpoint.</p>
+              <div class="ps-tech"><span>BeautifulSoup</span><span>requests</span><span>re</span><span>unicodedata</span></div>
+            </div>
+          </div>
+
+          <div class="ps-step">
+            <div class="ps-num">03</div>
+            <div class="ps-body">
+              <div class="ps-title">Data Wrangling & Label Engineering</div>
+              <div class="ps-notebook">2__Data_Wrangling_and_Exploratory_Data_Analysis.ipynb</div>
+              <p>Cleans the raw dataset and engineers the binary target variable. Raw Outcome strings are categorized as bad (False Ocean, False RTLS, False ASDS, True Ocean, None ASDS, None None from failed attempts) or good. A <code>Class</code> column is created: 0 for bad outcomes, 1 for all others. Class mean of ~0.67 confirms the dataset is moderately imbalanced.</p>
+              <div class="ps-tech"><span>pandas</span><span>numpy</span><span>value_counts</span><span>isnull</span></div>
+            </div>
+          </div>
+
+          <div class="ps-step">
+            <div class="ps-num">04</div>
+            <div class="ps-body">
+              <div class="ps-title">SQL Exploratory Data Analysis</div>
+              <div class="ps-notebook">2b__SQL_for_EDA_Updated.ipynb</div>
+              <p>Loads the cleaned dataset into a SQLite database via <code>to_sql()</code> and conducts analytical queries using the <code>%sql</code> magic (ipython-sql). Key queries include: distinct launch sites, Cape Canaveral launch samples, total NASA CRS payload mass, average Falcon 9 v1.1 payload, first successful ground pad landing date, drone ship landing analysis by payload mass (4,000–6,000 kg), and mission outcome distribution.</p>
+              <div class="ps-tech"><span>sqlite3</span><span>ipython-sql</span><span>SQLAlchemy</span><span>prettytable</span></div>
+              <div class="ps-queries">
+                <div class="pq-item"><span class="pq-kw">SUM</span>(PAYLOAD_MASS__KG_) WHERE Customer = 'NASA (CRS)'</div>
+                <div class="pq-item"><span class="pq-kw">MIN</span>(Date) WHERE Landing_Outcome LIKE 'Success (ground pad)'</div>
+                <div class="pq-item"><span class="pq-kw">SELECT DISTINCT</span> Booster_Version WHERE payload BETWEEN 4000 AND 6000 AND landing = drone ship</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="ps-step">
+            <div class="ps-num">05</div>
+            <div class="ps-body">
+              <div class="ps-title">EDA Visualizations</div>
+              <div class="ps-notebook">2c__EDA_for_Data_Visualisation.ipynb</div>
+              <p>Seaborn-based visual analysis across five key dimensions: flight number vs. payload mass colored by success class (shows improving booster recovery as flight count increases); flight number vs. launch site; payload mass vs. launch site; orbit type success rates; and flight frequency by orbit classification. Notable finding: VAFB-SLC has no heavy payload (>10,000 kg) launches.</p>
+              <div class="ps-tech"><span>seaborn</span><span>matplotlib</span><span>catplot</span><span>groupby</span></div>
+              <div class="ps-findings">
+                <div class="pf-item">✦ Success rate improves with flight number — experience effect</div>
+                <div class="pf-item">✦ VAFB-SLC has no payloads &gt;10,000 kg</div>
+                <div class="pf-item">✦ Orbit type strongly predicts landing success</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="ps-step">
+            <div class="ps-num">06</div>
+            <div class="ps-body">
+              <div class="ps-title">Geospatial Analytics with Folium</div>
+              <div class="ps-notebook">3__Visual_Analytics_with_Folium.ipynb</div>
+              <p>Interactive Folium maps centered on NASA JSC (Houston, TX). Three progressive visualizations: (1) launch site location markers using <code>folium.Circle</code> + <code>DivIcon</code>; (2) mission outcome markers using <code>MarkerCluster</code> with green/red color-coding by Class value; (3) distance calculations from launch sites to nearest coastline, highway, railway, and city — relevant context for infrastructure-driven site selection analysis.</p>
+              <div class="ps-tech"><span>folium</span><span>MarkerCluster</span><span>MousePosition</span><span>DivIcon</span></div>
+              <div class="ps-findings">
+                <div class="pf-item">✦ All launch sites within ~20 km of coastline</div>
+                <div class="pf-item">✦ KSC LC-39A highest launch density</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="ps-step">
+            <div class="ps-num">07</div>
+            <div class="ps-body">
+              <div class="ps-title">Interactive Dash Dashboard</div>
+              <div class="ps-notebook">3b__Dashboard_spacex_dash_app.py</div>
+              <p>Plotly Dash application with two interconnected components: a pie chart showing total successful launches per site (or success vs. failure breakdown for a selected site), and a scatter plot of payload mass vs. success colored by Booster Version Category. A payload range slider (0 – max kg) filters both charts simultaneously. Two callbacks wire the dropdown and slider to their respective charts.</p>
+              <div class="ps-tech"><span>Plotly Dash</span><span>plotly.express</span><span>dcc.Dropdown</span><span>dcc.RangeSlider</span></div>
+              <div class="ps-findings">
+                <div class="pf-item">✦ KSC LC-39A highest single-site success count</div>
+                <div class="pf-item">✦ FT booster most reliable across payload ranges</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ── EDA HIGHLIGHTS ── -->
+    <section id="eda" class="section" aria-labelledby="eda-heading">
+      <div class="section-inner">
+        <div class="section-label">03 / Insights</div>
+        <h2 id="eda-heading">Key EDA Findings</h2>
+
+        <div class="eda-grid">
+          <div class="eda-card">
+            <div class="eda-icon" aria-hidden="true">📈</div>
+            <h3>Experience Drives Recovery</h3>
+            <p>Flight number is a strong predictor of landing success — the scatter of Class vs. FlightNumber shows a clear upward trend. As SpaceX accumulated operational experience, booster recovery reliability improved substantially, independent of payload mass.</p>
+          </div>
+          <div class="eda-card">
+            <div class="eda-icon" aria-hidden="true">🌍</div>
+            <h3>Orbit Type Is the Strongest Signal</h3>
+            <p>Success rates vary dramatically by orbit type. Certain orbits (SSO, HEO, and GTO at high inclinations) present fundamentally harder recovery conditions due to energy constraints, while LEO and ISS missions have historically higher first-stage return rates.</p>
+          </div>
+          <div class="eda-card">
+            <div class="eda-icon" aria-hidden="true">🏗️</div>
+            <h3>Site Capacity Specialization</h3>
+            <p>VAFB SLC-4E handles no payloads exceeding 10,000 kg — consistent with its polar orbit specialization. KSC LC-39A handles the full payload spectrum including the heaviest missions. This site-payload relationship is a learnable signal for the classifier.</p>
+          </div>
+          <div class="eda-card">
+            <div class="eda-icon" aria-hidden="true">🗺️</div>
+            <h3>Coastal Proximity is Universal</h3>
+            <p>All four active launch sites (CCAFS LC-40, VAFB SLC-4E, KSC LC-39A, CCAFS SLC-40) are located within approximately 20 km of the coastline. This is both a safety requirement (debris over water) and a logistics constraint reflected in the geospatial analysis.</p>
+          </div>
+          <div class="eda-card">
+            <div class="eda-icon" aria-hidden="true">💡</div>
+            <h3>SQL Milestone: First Ground Pad Landing</h3>
+            <p>The SQL EDA identified the date of SpaceX's first successful ground pad landing using a simple <code>MIN(Date)</code> query filtered on landing outcome — a key historical milestone in the progression from drone ship to RTLS recovery capability.</p>
+          </div>
+          <div class="eda-card">
+            <div class="eda-icon" aria-hidden="true">⚖️</div>
+            <h3>Class Imbalance: 67% Success Rate</h3>
+            <p>The mean of the Class variable is approximately 0.67, meaning roughly two-thirds of recorded launches resulted in a successful first-stage recovery. This moderate imbalance favors predicting success but doesn't require aggressive resampling — standard model training handles it well.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── ML RESULTS ── -->
+    <section id="ml" class="section section-alt" aria-labelledby="ml-heading">
+      <div class="section-inner">
+        <div class="section-label">04 / Machine Learning</div>
+        <h2 id="ml-heading">Model Comparison</h2>
+        <p class="section-intro">Four classification algorithms tuned via 10-fold GridSearchCV, trained on 80% of the dataset with StandardScaler preprocessing, evaluated on a held-out 20% test split (random_state=2).</p>
+
+        <div class="ml-setup">
+          <div class="ml-setup-item">
+            <div class="mls-label">Preprocessing</div>
+            <div class="mls-val">StandardScaler (fit on train only)</div>
+          </div>
+          <div class="ml-setup-item">
+            <div class="mls-label">Split</div>
+            <div class="mls-val">80/20 · random_state=2</div>
+          </div>
+          <div class="ml-setup-item">
+            <div class="mls-label">Tuning</div>
+            <div class="mls-val">GridSearchCV · cv=10</div>
+          </div>
+          <div class="ml-setup-item">
+            <div class="mls-label">Objective</div>
+            <div class="mls-val">Binary Classification (Class: 0/1)</div>
+          </div>
+        </div>
+
+        <!-- Results table -->
+        <div class="ml-table-wrap">
+          <table class="ml-table" aria-label="Machine learning model comparison results">
+            <thead>
+              <tr>
+                <th scope="col">Model</th>
+                <th scope="col">CV Accuracy ↑</th>
+                <th scope="col">Test Accuracy</th>
+                <th scope="col">Best Parameters</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="row-winner">
+                <td><strong>Decision Tree</strong></td>
+                <td class="acc-val acc-high">88.9%</td>
+                <td class="acc-val">83.3%</td>
+                <td class="params">criterion=entropy · max_depth=10 · max_features=sqrt · min_samples_leaf=2</td>
+              </tr>
+              <tr>
+                <td>SVM</td>
+                <td class="acc-val">84.8%</td>
+                <td class="acc-val">83.3%</td>
+                <td class="params">C=1.0 · gamma=0.0316 · kernel=sigmoid</td>
+              </tr>
+              <tr>
+                <td>K-Nearest Neighbors</td>
+                <td class="acc-val">84.8%</td>
+                <td class="acc-val">83.3%</td>
+                <td class="params">n_neighbors=10 · algorithm=auto · p=1 (Manhattan)</td>
+              </tr>
+              <tr>
+                <td>Logistic Regression</td>
+                <td class="acc-val">84.6%</td>
+                <td class="acc-val">83.3%</td>
+                <td class="params">C=0.01 · penalty=L2 · solver=lbfgs</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Model detail cards -->
+        <div class="model-cards">
+
+          <div class="mc">
+            <div class="mc-badge mc-dt">Decision Tree</div>
+            <div class="mc-cv">88.9<span>% CV</span></div>
+            <div class="mc-test">83.3% test</div>
+            <div class="mc-params">
+              <div>entropy criterion</div>
+              <div>max_depth = 10</div>
+              <div>sqrt features</div>
+              <div>min_leaf = 2</div>
+            </div>
+            <div class="mc-note">Highest CV accuracy. The entropy criterion and depth limit prevent overfitting while capturing non-linear orbit/site interactions. Random splitter introduces regularizing variance.</div>
+          </div>
+
+          <div class="mc">
+            <div class="mc-badge mc-svm">SVM</div>
+            <div class="mc-cv">84.8<span>% CV</span></div>
+            <div class="mc-test">83.3% test</div>
+            <div class="mc-params">
+              <div>kernel = sigmoid</div>
+              <div>C = 1.0</div>
+              <div>gamma = 0.0316</div>
+            </div>
+            <div class="mc-note">Sigmoid kernel — mathematically equivalent to a neural network activation — suggests the decision boundary in this standardized feature space is better approximated by a sigmoidal function than a polynomial or RBF.</div>
+          </div>
+
+          <div class="mc">
+            <div class="mc-badge mc-knn">KNN</div>
+            <div class="mc-cv">84.8<span>% CV</span></div>
+            <div class="mc-test">83.3% test</div>
+            <div class="mc-params">
+              <div>n_neighbors = 10</div>
+              <div>algorithm = auto</div>
+              <div>p = 1 (Manhattan)</div>
+            </div>
+            <div class="mc-note">Manhattan distance (p=1) outperforms Euclidean (p=2) here — consistent with high-dimensional feature spaces where L1 distance generalizes better. k=10 smooths over local noise effectively.</div>
+          </div>
+
+          <div class="mc">
+            <div class="mc-badge mc-lr">Logistic Regression</div>
+            <div class="mc-cv">84.6<span>% CV</span></div>
+            <div class="mc-test">83.3% test</div>
+            <div class="mc-params">
+              <div>C = 0.01 (strong L2)</div>
+              <div>penalty = L2</div>
+              <div>solver = lbfgs</div>
+            </div>
+            <div class="mc-note">C=0.01 indicates very strong L2 regularization — a highly penalized model performs best, suggesting that the underlying landing-success boundary is relatively simple and most features are noisy predictors.</div>
+          </div>
+
+        </div>
+
+        <div class="ml-insight">
+          <div class="ml-insight-title">Key Takeaway: All Models Converge at Test Time</div>
+          <p>All four classifiers achieve exactly 83.3% on the 18-sample test set despite varying CV accuracy (84.6%–88.9%). This is a consequence of the small test set size — 18 samples means each misclassification moves accuracy by ~5.6%. The CV accuracy spread (3.3 percentage points) provides a more reliable signal, where the Decision Tree's 88.9% suggests it captures genuinely more of the training structure. A larger test set would likely reveal more differentiation.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── WHAT I LEARNED ── -->
+    <section id="learned" class="section" aria-labelledby="learned-heading">
+      <div class="section-inner">
+        <div class="section-label">05 / Reflections</div>
+        <h2 id="learned-heading">What I Learned</h2>
+        <div class="learned-grid">
+
+          <div class="lc">
+            <div class="lc-icon">🔌</div>
+            <h3>REST API Data Collection at Scale</h3>
+            <p>The SpaceX API returns deeply nested JSON with IDs rather than names — every rocket, launchpad, payload, and core requires a separate API call to resolve. Building helper functions that abstract this resolution loop is the right pattern: it keeps the main data pipeline clean and makes re-querying individual fields straightforward without touching the main logic.</p>
+          </div>
+
+          <div class="lc">
+            <div class="lc-icon">🕸️</div>
+            <h3>Web Scraping as API Complement</h3>
+            <p>When the REST API doesn't cover all historical records, web scraping fills the gap. BeautifulSoup HTML table parsing requires understanding the nesting structure of individual cells — not just <code>find_all('tr')</code> but also handling <code>rowspan</code>, Unicode normalization, and irregular cell layouts. The Wikipedia Falcon 9 table is particularly irregular and required custom helpers per column type.</p>
+          </div>
+
+          <div class="lc">
+            <div class="lc-icon">🗃️</div>
+            <h3>SQL as an EDA Tool in Jupyter</h3>
+            <p>Using <code>%sql</code> magic with SQLite in a Jupyter notebook makes SQL a first-class EDA tool alongside Python. Loading a DataFrame into SQLite via <code>to_sql()</code> and then querying it with standard SQL aggregations — SUM, AVG, MIN, GROUP BY — is a practical pattern for analysts who think in SQL. The prettytable integration also produces clean tabular output inline.</p>
+          </div>
+
+          <div class="lc">
+            <div class="lc-icon">🗺️</div>
+            <h3>Geospatial Context Adds Interpretive Value</h3>
+            <p>A Folium map of success/failure outcomes makes patterns immediately visible that aren't apparent from tables — the coastal clustering of all launch sites, the geographic separation between East and West coast facilities, and the density of KSC LC-39A missions. Visual context often surfaces hypotheses that lead to better feature engineering.</p>
+          </div>
+
+          <div class="lc">
+            <div class="lc-icon">📉</div>
+            <h3>Small Test Sets Mask Model Differences</h3>
+            <p>All four classifiers achieving exactly 83.3% on the test set (18 samples, ~3 wrong each) is a practical reminder that test accuracy on small held-out sets is a coarse metric. CV accuracy — averaged over 10 folds — is a more reliable performance estimate here. This experience reinforced the value of reporting both metrics and interpreting them in light of dataset size.</p>
+          </div>
+
+          <div class="lc">
+            <div class="lc-icon">🧮</div>
+            <h3>Strong Regularization as a Signal About Features</h3>
+            <p>Logistic Regression's best C=0.01 (strong L2 penalty) is interpretable: it says the classification boundary is relatively simple and most feature variability is noise. When the best-performing regularization is very strong, it's worth re-examining whether all features are truly informative — a prompt for more deliberate feature selection in future iterations.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ── SKILLS ── -->
+    <section id="skills" class="section section-alt" aria-labelledby="skills-heading">
+      <div class="section-inner">
+        <div class="section-label">06 / Skills</div>
+        <h2 id="skills-heading">Skills Demonstrated</h2>
+        <div class="skills-layout">
+          <div class="sg">
+            <div class="sg-head">Data Collection</div>
+            <div class="sg-tags">
+              <span class="stag stag-p">REST API Integration</span>
+              <span class="stag stag-p">Web Scraping</span>
+              <span class="stag stag-s">BeautifulSoup</span>
+              <span class="stag stag-s">requests</span>
+              <span class="stag stag-s">json_normalize</span>
+              <span class="stag stag-s">Nested JSON Parsing</span>
+            </div>
+          </div>
+          <div class="sg">
+            <div class="sg-head">EDA & SQL</div>
+            <div class="sg-tags">
+              <span class="stag stag-p">Exploratory Data Analysis</span>
+              <span class="stag stag-p">SQL (SQLite / ipython-sql)</span>
+              <span class="stag stag-s">Feature Engineering</span>
+              <span class="stag stag-s">seaborn / matplotlib</span>
+              <span class="stag stag-s">Label Engineering</span>
+              <span class="stag stag-s">Class Imbalance Analysis</span>
+            </div>
+          </div>
+          <div class="sg">
+            <div class="sg-head">Visualization</div>
+            <div class="sg-tags">
+              <span class="stag stag-p">Folium Geospatial Mapping</span>
+              <span class="stag stag-p">Plotly Dash</span>
+              <span class="stag stag-s">MarkerCluster</span>
+              <span class="stag stag-s">Interactive Callbacks</span>
+              <span class="stag stag-s">RangeSlider</span>
+              <span class="stag stag-s">plotly.express</span>
+            </div>
+          </div>
+          <div class="sg">
+            <div class="sg-head">Machine Learning</div>
+            <div class="sg-tags">
+              <span class="stag stag-p">GridSearchCV (cv=10)</span>
+              <span class="stag stag-p">scikit-learn Classifiers</span>
+              <span class="stag stag-s">Logistic Regression</span>
+              <span class="stag stag-s">SVM</span>
+              <span class="stag stag-s">Decision Tree</span>
+              <span class="stag stag-s">K-Nearest Neighbors</span>
+              <span class="stag stag-s">StandardScaler</span>
+              <span class="stag stag-s">Confusion Matrix</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── CTA ── -->
+    <section class="section cta-section" aria-labelledby="cta-heading">
+      <div class="section-inner cta-inner">
+        <h2 id="cta-heading">Explore the Notebooks</h2>
+        <p>All 10 notebooks and the Dash app are available on GitHub.</p>
+        <div class="cta-buttons">
+          <a href="https://github.com/nakulsree/Portofolio" class="cta-primary cta-lg" target="_blank" rel="noopener noreferrer">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+            GitHub Repo
+          </a>
+          <a href="#overview" class="cta-secondary cta-lg">Back to Top ↑</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <div class="footer-inner">
+      <span>Nakul Sreekanth · Data Science Portfolio</span>
+      <span class="fsep">·</span>
+      <span>SpaceX Falcon 9 Landing Prediction · IBM Data Science Capstone</span>
+    </div>
+  </footer>
+
+  <script src="assets/js/spacex-landing.js"></script>
+</body>
+</html>
