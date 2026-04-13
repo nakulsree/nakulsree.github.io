@@ -1,648 +1,1057 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Bellabeat smart device usage analysis following the Google Data Analytics Ask-Prepare-Process-Analyze-Share-Act framework. R, BigQuery SQL, Tableau, and ggplot2 applied to Fitbit tracker data to deliver marketing recommendations for the Leaf wellness product." />
-  <meta name="keywords" content="Bellabeat, data analytics, R, ggplot2, BigQuery, SQL, Tableau, Google Data Analytics, wearable fitness, marketing analytics, case study" />
-  <meta name="author" content="Nakul Sreekanth" />
-  <meta property="og:title" content="Bellabeat Smart Device Case Study | Nakul Sreekanth" />
-  <meta property="og:description" content="Business analytics case study: Fitbit usage data analyzed in R, SQL, and Tableau to deliver data-driven marketing recommendations for Bellabeat's Leaf wellness tracker." />
-  <meta property="og:type" content="website" />
-  <title>Bellabeat Smart Device Case Study — Nakul Sreekanth</title>
-  <link rel="stylesheet" href="assets/css/bellabeat-case-study.css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Bellabeat smart device usage analysis following the Google Data Analytics Ask-Prepare-Process-Analyze-Share-Act framework. R, BigQuery SQL, Tableau, and ggplot2 applied to Fitbit tracker data to deliver marketing recommendations for the Leaf wellness product."
+    />
+    <meta
+      name="keywords"
+      content="Bellabeat, data analytics, R, ggplot2, BigQuery, SQL, Tableau, Google Data Analytics, wearable fitness, marketing analytics, case study"
+    />
+    <meta name="author" content="Nakul Sreekanth" />
+    <meta
+      property="og:title"
+      content="Bellabeat Smart Device Case Study | Nakul Sreekanth"
+    />
+    <meta
+      property="og:description"
+      content="Business analytics case study: Fitbit usage data analyzed in R, SQL, and Tableau to deliver data-driven marketing recommendations for Bellabeat's Leaf wellness tracker."
+    />
+    <meta property="og:type" content="website" />
+    <title>Bellabeat Smart Device Case Study — Nakul Sreekanth</title>
+    <link rel="stylesheet" href="assets/css/bellabeat-case-study.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="canvas-bg" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+    <div class="warm-blob b1" aria-hidden="true"></div>
+    <div class="warm-blob b2" aria-hidden="true"></div>
+    <div class="warm-blob b3" aria-hidden="true"></div>
 
-  <div class="canvas-bg" aria-hidden="true"></div>
-  <div class="grain" aria-hidden="true"></div>
-  <div class="warm-blob b1" aria-hidden="true"></div>
-  <div class="warm-blob b2" aria-hidden="true"></div>
-  <div class="warm-blob b3" aria-hidden="true"></div>
-
-  <!-- ── NAV ── -->
-  <nav class="nav" role="navigation" aria-label="Page navigation">
-    <a href="https://github.com/nakulsree/Portofolio" class="nav-brand" target="_blank" rel="noopener noreferrer">NS<span class="dot">.</span></a>
-    <div class="nav-links">
-      <a href="#overview">Overview</a>
-      <a href="#process">Process</a>
-      <a href="#analysis">Analysis</a>
-      <a href="#recommendations">Recommendations</a>
-      <a href="#skills">Skills</a>
-    </div>
-  </nav>
-
-  <!-- ── HERO ── -->
-  <header class="hero" role="banner">
-
-    <div class="hero-eyebrow">
-      <span class="eb-tag">Google Data Analytics Certificate</span>
-      <span class="eb-tag">Capstone Case Study</span>
-      <span class="eb-tag">Ask · Prepare · Process · Analyze · Share · Act</span>
-    </div>
-
-    <h1 class="hero-title">
-      <span class="ht-brand">Bellabeat</span>
-      <span class="ht-main">Smart Device</span>
-      <span class="ht-main ht-italic">Usage Analysis</span>
-    </h1>
-
-    <p class="hero-desc">
-      A full-cycle business analytics case study examining how Fitbit users interact with their fitness trackers — and translating those behavioral patterns into concrete marketing strategy recommendations for Bellabeat's <em>Leaf</em> wellness product.
-    </p>
-
-    <div class="hero-stats-row">
-      <div class="hs-item">
-        <div class="hs-val">0.80</div>
-        <div class="hs-label">R² — Intensity<br/>vs Calories</div>
+    <!-- ── NAV ── -->
+    <nav class="nav" role="navigation" aria-label="Page navigation">
+      <a
+        href="https://github.com/nakulsree"
+        class="nav-brand"
+        target="_blank"
+        rel="noopener noreferrer"
+        >NS<span class="dot">.</span></a
+      >
+      <div class="nav-links">
+        <a href="#overview">Overview</a>
+        <a href="#process">Process</a>
+        <a href="#analysis">Analysis</a>
+        <a href="#recommendations">Recommendations</a>
+        <a href="#skills">Skills</a>
       </div>
-      <div class="hs-sep" aria-hidden="true">/</div>
-      <div class="hs-item">
-        <div class="hs-val">2.85<span class="hs-unit">%</span></div>
-        <div class="hs-label">Time spent at<br/>moderate+ intensity</div>
+    </nav>
+
+    <!-- ── HERO ── -->
+    <header class="hero" role="banner">
+      <div class="hero-eyebrow">
+        <span class="eb-tag">Google Data Analytics Certificate</span>
+        <span class="eb-tag">Capstone Case Study</span>
+        <span class="eb-tag"
+          >Ask · Prepare · Process · Analyze · Share · Act</span
+        >
       </div>
-      <div class="hs-sep" aria-hidden="true">/</div>
-      <div class="hs-item">
-        <div class="hs-val">5–7<span class="hs-unit">PM</span></div>
-        <div class="hs-label">Daily peak<br/>activity window</div>
-      </div>
-      <div class="hs-sep" aria-hidden="true">/</div>
-      <div class="hs-item">
-        <div class="hs-val">33</div>
-        <div class="hs-label">Fitbit users<br/>in dataset</div>
-      </div>
-    </div>
 
-    <div class="hero-ctas">
-      <a href="https://rstudio-pubs-static.s3.amazonaws.com/1233761_e98bc2082db34143862f2f001a9efc58.html" class="cta-primary" target="_blank" rel="noopener noreferrer">
-        Read Full Analysis ↗
-      </a>
-      <a href="https://github.com/nakulsree/Portofolio" class="cta-secondary" target="_blank" rel="noopener noreferrer">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
-        GitHub Repo
-      </a>
-      <a href="#process" class="cta-ghost">See the Method ↓</a>
-    </div>
+      <h1 class="hero-title">
+        <span class="ht-brand">Bellabeat</span>
+        <span class="ht-main">Smart Device</span>
+        <span class="ht-main ht-italic">Usage Analysis</span>
+      </h1>
 
-  </header>
+      <p class="hero-desc">
+        A full-cycle business analytics case study examining how Fitbit users
+        interact with their fitness trackers — and translating those behavioral
+        patterns into concrete marketing strategy recommendations for
+        Bellabeat's <em>Leaf</em> wellness product.
+      </p>
 
-  <main>
-
-    <!-- ── OVERVIEW ── -->
-    <section id="overview" class="section" aria-labelledby="overview-heading">
-      <div class="section-inner">
-        <div class="section-label">01 — Overview</div>
-        <h2 id="overview-heading">The Business Question</h2>
-
-        <div class="overview-layout">
-          <div class="ov-main">
-            <p class="ov-lead">Bellabeat is a women's health-technology company whose <em>Leaf</em> tracker, <em>Time</em> watch, and <em>Spring</em> water bottle all connect to a unified wellness app. The company's leadership wanted to know: <strong>what do fitness tracker usage patterns tell us about consumer behavior, and how should those insights shape our marketing strategy?</strong></p>
-            <p>Using publicly available Fitbit tracking data from Kaggle as a proxy for smart device behavior, this analysis follows the structured <strong>Ask → Prepare → Process → Analyze → Share → Act</strong> framework from the Google Data Analytics Professional Certificate. The goal is not just to describe the data — it's to produce specific, actionable recommendations for the Leaf product team and marketing function.</p>
-            <p>Tools used span three environments: <strong>BigQuery SQL</strong> for initial exploration and quality checking; <strong>R</strong> (tidyverse, ggplot2, lubridate, janitor) for cleaning, transformation, and statistical visualization; and <strong>Tableau</strong> for the final analytical charts used to communicate findings to stakeholders.</p>
-          </div>
-
-          <div class="ov-aside">
-            <div class="product-card">
-              <div class="pc-label">Products in Scope</div>
-              <div class="pc-item">
-                <div class="pc-name">🌿 Leaf</div>
-                <div class="pc-desc">Wellness tracker — bracelet, necklace, or clip. Tracks activity, sleep, stress via the Bellabeat app.</div>
-              </div>
-              <div class="pc-item">
-                <div class="pc-name">⌚ Time</div>
-                <div class="pc-desc">Wellness watch combining classic design with activity, sleep, and stress tracking.</div>
-              </div>
-              <div class="pc-item">
-                <div class="pc-name">💧 Spring</div>
-                <div class="pc-desc">Smart water bottle tracking daily hydration linked to the app.</div>
-              </div>
-            </div>
-
-            <div class="framework-card">
-              <div class="pc-label">Analysis Framework</div>
-              <div class="fw-steps">
-                <span class="fw-step active">Ask</span>
-                <span class="fw-arrow" aria-hidden="true">→</span>
-                <span class="fw-step active">Prepare</span>
-                <span class="fw-arrow" aria-hidden="true">→</span>
-                <span class="fw-step active">Process</span>
-                <span class="fw-arrow" aria-hidden="true">→</span>
-                <span class="fw-step active">Analyze</span>
-                <span class="fw-arrow" aria-hidden="true">→</span>
-                <span class="fw-step active">Share</span>
-                <span class="fw-arrow" aria-hidden="true">→</span>
-                <span class="fw-step active">Act</span>
-              </div>
-            </div>
-          </div>
+      <div class="hero-stats-row">
+        <div class="hs-item">
+          <div class="hs-val">0.80</div>
+          <div class="hs-label">R² — Intensity<br />vs Calories</div>
+        </div>
+        <div class="hs-sep" aria-hidden="true">/</div>
+        <div class="hs-item">
+          <div class="hs-val">2.85<span class="hs-unit">%</span></div>
+          <div class="hs-label">Time spent at<br />moderate+ intensity</div>
+        </div>
+        <div class="hs-sep" aria-hidden="true">/</div>
+        <div class="hs-item">
+          <div class="hs-val">5–7<span class="hs-unit">PM</span></div>
+          <div class="hs-label">Daily peak<br />activity window</div>
+        </div>
+        <div class="hs-sep" aria-hidden="true">/</div>
+        <div class="hs-item">
+          <div class="hs-val">33</div>
+          <div class="hs-label">Fitbit users<br />in dataset</div>
         </div>
       </div>
-    </section>
 
-    <!-- ── DATA + PROCESS ── -->
-    <section id="process" class="section section-warm" aria-labelledby="process-heading">
-      <div class="section-inner">
-        <div class="section-label">02 — Prepare & Process</div>
-        <h2 id="process-heading">Data Preparation</h2>
-        <p class="section-intro">The dataset (Kaggle: Fitbit Tracker Data, 30 Fitbit users via Amazon Mechanical Turk, April–May 2016) required careful handling. Multiple data quality issues were identified and resolved before any analysis could begin.</p>
-
-        <div class="data-summary">
-          <div class="ds-fact">
-            <div class="ds-val">33</div>
-            <div class="ds-key">Actual unique users (dataset claims 30)</div>
-          </div>
-          <div class="ds-fact">
-            <div class="ds-val">Apr 12 –<br/>May 12</div>
-            <div class="ds-key">2016 · focused analysis window</div>
-          </div>
-          <div class="ds-fact ds-fact-warn">
-            <div class="ds-val">7</div>
-            <div class="ds-key">Users in heart rate table → excluded</div>
-          </div>
-          <div class="ds-fact ds-fact-warn">
-            <div class="ds-val">8</div>
-            <div class="ds-key">Users in weight log → excluded</div>
-          </div>
-          <div class="ds-fact ds-fact-warn">
-            <div class="ds-val">24</div>
-            <div class="ds-key">Users in sleep table → excluded</div>
-          </div>
-          <div class="ds-fact">
-            <div class="ds-val">0</div>
-            <div class="ds-key">Null values in retained tables</div>
-          </div>
-        </div>
-
-        <!-- Issues discovered -->
-        <div class="issues-grid">
-
-          <div class="issue-card">
-            <div class="issue-num">Issue 1</div>
-            <div class="issue-title">Mixed 12h/24h Timestamps</div>
-            <p>The heart rate dataset mixed 12-hour and 24-hour time formats within the same column — row 48 used 24h format while row 4852 switched to "AM" notation. R's <code>separate()</code> was used to split datetime columns into standardized date, time, and AM/PM fields across all affected tables before re-exporting to SQL.</p>
-            <div class="issue-fix">Fix: <code>tidyr::separate()</code> → standardized CSV → re-import to BigQuery</div>
-          </div>
-
-          <div class="issue-card">
-            <div class="issue-num">Issue 2</div>
-            <div class="issue-title">Narrow vs. Wide Format Date Discrepancy</div>
-            <p>The narrow and wide versions of the minute calories table started on different dates — narrow data began April 12, while wide data began April 13. A SQL <code>ORDER BY Date</code> query confirmed this. Narrow format was retained as it provides more complete coverage.</p>
-            <div class="issue-fix">Fix: SQL <code>SELECT * ORDER BY Date</code> comparison → narrow format selected</div>
-          </div>
-
-          <div class="issue-card">
-            <div class="issue-num">Issue 3</div>
-            <div class="issue-title">Incomplete Coverage in Several Tables</div>
-            <p>A RIGHT JOIN between the heart rate table and daily steps table revealed that 26 of 33 users had no heart rate data (shown as NULL in the join output). Similar coverage gaps in weight log (8 users) and sleep table (24 users). Only tables with all 33 users retained.</p>
-            <div class="issue-fix">Fix: <code>RIGHT JOIN</code> coverage check → tables with &lt;33 users excluded</div>
-          </div>
-
-          <div class="issue-card">
-            <div class="issue-num">Issue 4</div>
-            <div class="issue-title">ID Consistency Across Tables</div>
-            <p>A <code>FULL OUTER JOIN</code> between daily steps and daily intensities confirmed all 33 user IDs were identical across the retained tables — no phantom IDs or mismatches.</p>
-            <div class="issue-fix">Fix: <code>FULL OUTER JOIN</code> on ID fields → confirmed consistent across retained tables</div>
-          </div>
-
-        </div>
-
-        <div class="scope-decision">
-          <div class="sd-label">Final Data Scope Decision</div>
-          <p>Minute-level data discarded in favor of daily and hourly data — providing sufficient granularity to identify behavioral patterns without the noise of per-minute variation. Daily calories and daily intensities tables discarded as their content is redundant with the combined daily activity table. Hourly calories, intensities, and steps tables merged on (Id, ActivityHour) after confirming all three contained exactly 22,099 observations.</p>
-          <div class="sd-code" role="img" aria-label="Merge operation">
-            <span class="c-comment"># 22,099 obs. confirmed in each before merging</span><br/>
-            hourly_data &lt;- merge(hourly_calories, hourly_intensities, <span class="c-kw">by</span> = c("Id", "ActivityHour"))<br/>
-            hourly_data &lt;- merge(hourly_data, hourly_steps, <span class="c-kw">by</span> = c("Id", "ActivityHour"))
-          </div>
-        </div>
-
-        <!-- Summary stats callout -->
-        <div class="stats-strip">
-          <div class="ss-group">
-            <div class="ss-head">Daily Activity Summary</div>
-            <div class="ss-rows">
-              <div class="ss-row"><span>Median total steps</span><strong>7,406</strong></div>
-              <div class="ss-row"><span>Mean total steps</span><strong>7,638</strong></div>
-              <div class="ss-row"><span>Median calories/day</span><strong>2,134</strong></div>
-              <div class="ss-row"><span>Median sedentary minutes</span><strong>1,057</strong></div>
-              <div class="ss-row"><span>Median very active minutes</span><strong>4</strong></div>
-            </div>
-          </div>
-          <div class="ss-group">
-            <div class="ss-head">Hourly Activity Summary</div>
-            <div class="ss-rows">
-              <div class="ss-row"><span>Mean hourly calories</span><strong>97.4</strong></div>
-              <div class="ss-row"><span>Median hourly calories</span><strong>83</strong></div>
-              <div class="ss-row"><span>Mean total intensity</span><strong>12.04</strong></div>
-              <div class="ss-row"><span>Mean step total</span><strong>320</strong></div>
-              <div class="ss-row"><span>Max hourly steps</span><strong>10,554</strong></div>
-            </div>
-          </div>
-        </div>
+      <div class="hero-ctas">
+        <a
+          href="https://rstudio-pubs-static.s3.amazonaws.com/1233761_e98bc2082db34143862f2f001a9efc58.html"
+          class="cta-primary"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Read Full Analysis ↗
+        </a>
+        <a
+          href="https://github.com/nakulsree"
+          class="cta-secondary"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <svg
+            width="15"
+            height="15"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            aria-hidden="true"
+          >
+            <path
+              d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+            />
+          </svg>
+          GitHub Repo
+        </a>
+        <a href="#process" class="cta-ghost">See the Method ↓</a>
       </div>
-    </section>
+    </header>
 
-    <!-- ── ANALYSIS ── -->
-    <section id="analysis" class="section" aria-labelledby="analysis-heading">
-      <div class="section-inner">
-        <div class="section-label">03 — Analyze &amp; Share</div>
-        <h2 id="analysis-heading">Key Findings</h2>
+    <main>
+      <!-- ── OVERVIEW ── -->
+      <section id="overview" class="section" aria-labelledby="overview-heading">
+        <div class="section-inner">
+          <div class="section-label">01 — Overview</div>
+          <h2 id="overview-heading">The Business Question</h2>
 
-        <!-- Finding 1: Intensity vs Steps -->
-        <div class="finding-block">
-          <div class="fb-header">
-            <div class="fb-num">Finding 1</div>
-            <div class="fb-title">Intensity Predicts Calorie Burn Better Than Steps</div>
-          </div>
-          <div class="fb-body">
-            <p>To identify the strongest driver of calorie burn, two linear regression scatter plots were generated in ggplot2 using <code>stat_poly_eq(use_label("R2"))</code>. Both showed a positive relationship, but the R² values told a clear story:</p>
-            <div class="r2-comparison">
-              <div class="r2-card r2-winner">
-                <div class="r2-label">Total Intensity vs Calories</div>
-                <div class="r2-val">R² = 0.80</div>
-                <div class="r2-interp">Intensity explains <strong>80%</strong> of the variance in hourly calorie burn</div>
-                <div class="r2-verdict">Stronger predictor ✦</div>
-              </div>
-              <div class="r2-mid" aria-hidden="true">vs</div>
-              <div class="r2-card">
-                <div class="r2-label">Total Steps vs Calories</div>
-                <div class="r2-val">R² = 0.66</div>
-                <div class="r2-interp">Steps explain <strong>66%</strong> of the variance in hourly calorie burn</div>
-                <div class="r2-verdict">Weaker predictor</div>
-              </div>
+          <div class="overview-layout">
+            <div class="ov-main">
+              <p class="ov-lead">
+                Bellabeat is a women's health-technology company whose
+                <em>Leaf</em> tracker, <em>Time</em> watch, and
+                <em>Spring</em> water bottle all connect to a unified wellness
+                app. The company's leadership wanted to know:
+                <strong
+                  >what do fitness tracker usage patterns tell us about consumer
+                  behavior, and how should those insights shape our marketing
+                  strategy?</strong
+                >
+              </p>
+              <p>
+                Using publicly available Fitbit tracking data from Kaggle as a
+                proxy for smart device behavior, this analysis follows the
+                structured
+                <strong>Ask → Prepare → Process → Analyze → Share → Act</strong>
+                framework from the Google Data Analytics Professional
+                Certificate. The goal is not just to describe the data — it's to
+                produce specific, actionable recommendations for the Leaf
+                product team and marketing function.
+              </p>
+              <p>
+                Tools used span three environments:
+                <strong>BigQuery SQL</strong> for initial exploration and
+                quality checking; <strong>R</strong> (tidyverse, ggplot2,
+                lubridate, janitor) for cleaning, transformation, and
+                statistical visualization; and <strong>Tableau</strong> for the
+                final analytical charts used to communicate findings to
+                stakeholders.
+              </p>
             </div>
-            <p class="fb-implication"><strong>Implication:</strong> Higher-intensity workouts are more efficient for calorie burn than longer, low-intensity sessions. Counting steps alone understates the value of workout quality.</p>
-          </div>
-        </div>
 
-        <!-- Finding 2: Activity breakdown -->
-        <div class="finding-block">
-          <div class="fb-header">
-            <div class="fb-num">Finding 2</div>
-            <div class="fb-title">Users Spend Only 2.85% of Their Week at Moderate-or-Higher Intensity</div>
-          </div>
-          <div class="fb-body">
-            <p>Summing minutes across all activity levels from the daily data revealed an extreme skew toward light and sedentary behavior:</p>
-            <div class="activity-breakdown">
-              <div class="act-row act-sedentary">
-                <div class="act-label">Light &amp; Sedentary</div>
-                <div class="act-bar-wrap">
-                  <div class="act-bar" style="--w: 97.15%"></div>
-                </div>
-                <div class="act-pct">97.15%</div>
-                <div class="act-note">of total weekly time</div>
-              </div>
-              <div class="act-row act-active">
-                <div class="act-label">Very &amp; Moderately Active</div>
-                <div class="act-bar-wrap">
-                  <div class="act-bar act-bar-warm" style="--w: 2.85%"></div>
-                </div>
-                <div class="act-pct act-pct-warm">2.85%</div>
-                <div class="act-note">of total weekly time</div>
-              </div>
-            </div>
-            <div class="aha-callout">
-              <div class="aha-icon" aria-hidden="true">🫀</div>
-              <div class="aha-text">The American Heart Association recommends 300+ minutes/week of moderate aerobic activity — approximately <strong>3% of weekly time</strong>. Users are currently averaging 2.85%, just below this threshold.</div>
-            </div>
-            <p>Of the time that is classified as active (excluding sedentary), the breakdown further confirms light activity dominance:</p>
-            <div class="active-minutes-grid">
-              <div class="amg-item amg-light">
-                <div class="amg-val">84.74%</div>
-                <div class="amg-label">Light Activity</div>
-              </div>
-              <div class="amg-item amg-moderate">
-                <div class="amg-val">5.96%</div>
-                <div class="amg-label">Moderate Activity</div>
-              </div>
-              <div class="amg-item amg-intense">
-                <div class="amg-val">9.30%</div>
-                <div class="amg-label">Intense Activity</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Finding 3: Day of week -->
-        <div class="finding-block">
-          <div class="fb-header">
-            <div class="fb-num">Finding 3</div>
-            <div class="fb-title">Activity Peaks Tuesday &amp; Saturday; Drops Sunday &amp; Thursday</div>
-          </div>
-          <div class="fb-body">
-            <p>After adding a <code>weekday</code> column via <code>mutate(weekday = weekdays(activity_date))</code> and factoring days in order, the data was exported to Tableau for the "Weekly Distance Trends by Activity Level" stacked bar chart.</p>
-            <div class="weekday-chart" aria-label="Average distance by day of week - schematic">
-              <div class="wc-bars">
-                <div class="wc-col">
-                  <div class="wc-bar-container">
-                    <div class="wc-seg wc-heavy" style="--h: 43%"></div>
-                    <div class="wc-seg wc-mod" style="--h: 29%"></div>
-                    <div class="wc-seg wc-light" style="--h: 28%"></div>
+            <div class="ov-aside">
+              <div class="product-card">
+                <div class="pc-label">Products in Scope</div>
+                <div class="pc-item">
+                  <div class="pc-name">🌿 Leaf</div>
+                  <div class="pc-desc">
+                    Wellness tracker — bracelet, necklace, or clip. Tracks
+                    activity, sleep, stress via the Bellabeat app.
                   </div>
-                  <div class="wc-day wc-low">Sun</div>
-                  <div class="wc-val">5.0</div>
                 </div>
-                <div class="wc-col">
-                  <div class="wc-bar-container">
-                    <div class="wc-seg wc-heavy" style="--h: 39%"></div>
-                    <div class="wc-seg wc-mod" style="--h: 30%"></div>
-                    <div class="wc-seg wc-light" style="--h: 31%"></div>
+                <div class="pc-item">
+                  <div class="pc-name">⌚ Time</div>
+                  <div class="pc-desc">
+                    Wellness watch combining classic design with activity,
+                    sleep, and stress tracking.
                   </div>
-                  <div class="wc-day wc-high">Mon</div>
-                  <div class="wc-val">5.5</div>
                 </div>
-                <div class="wc-col wc-peak">
-                  <div class="wc-bar-container">
-                    <div class="wc-seg wc-heavy" style="--h: 39%"></div>
-                    <div class="wc-seg wc-mod" style="--h: 30%"></div>
-                    <div class="wc-seg wc-light" style="--h: 31%"></div>
+                <div class="pc-item">
+                  <div class="pc-name">💧 Spring</div>
+                  <div class="pc-desc">
+                    Smart water bottle tracking daily hydration linked to the
+                    app.
                   </div>
-                  <div class="wc-day wc-high">Tue ★</div>
-                  <div class="wc-val">5.7</div>
-                </div>
-                <div class="wc-col">
-                  <div class="wc-bar-container">
-                    <div class="wc-seg wc-heavy" style="--h: 40%"></div>
-                    <div class="wc-seg wc-mod" style="--h: 30%"></div>
-                    <div class="wc-seg wc-light" style="--h: 30%"></div>
-                  </div>
-                  <div class="wc-day">Wed</div>
-                  <div class="wc-val">5.4</div>
-                </div>
-                <div class="wc-col">
-                  <div class="wc-bar-container">
-                    <div class="wc-seg wc-heavy" style="--h: 42%"></div>
-                    <div class="wc-seg wc-mod" style="--h: 29%"></div>
-                    <div class="wc-seg wc-light" style="--h: 29%"></div>
-                  </div>
-                  <div class="wc-day wc-low">Thu</div>
-                  <div class="wc-val">5.2</div>
-                </div>
-                <div class="wc-col">
-                  <div class="wc-bar-container">
-                    <div class="wc-seg wc-heavy" style="--h: 40%"></div>
-                    <div class="wc-seg wc-mod" style="--h: 30%"></div>
-                    <div class="wc-seg wc-light" style="--h: 30%"></div>
-                  </div>
-                  <div class="wc-day">Fri</div>
-                  <div class="wc-val">5.3</div>
-                </div>
-                <div class="wc-col wc-peak">
-                  <div class="wc-bar-container">
-                    <div class="wc-seg wc-heavy" style="--h: 38%"></div>
-                    <div class="wc-seg wc-mod" style="--h: 31%"></div>
-                    <div class="wc-seg wc-light" style="--h: 31%"></div>
-                  </div>
-                  <div class="wc-day wc-high">Sat ★</div>
-                  <div class="wc-val">5.8</div>
                 </div>
               </div>
-              <div class="wc-legend">
-                <span class="wl wl-heavy">■ Heavy</span>
-                <span class="wl wl-mod">■ Moderate</span>
-                <span class="wl wl-light">■ Light</span>
-                <span class="wl-note">Y-axis: Avg distance · Source: Tableau visualization</span>
-              </div>
-            </div>
-            <p class="fb-implication"><strong>Pattern:</strong> Tuesday and Saturday are peak activity days; Sunday and Thursday are the lowest. Heavy activity is also lowest on low-activity days, meaning fewer calories are burned on those days.</p>
-          </div>
-        </div>
 
-        <!-- Finding 4: Hour of day -->
-        <div class="finding-block">
-          <div class="fb-header">
-            <div class="fb-num">Finding 4</div>
-            <div class="fb-title">Activity Peaks 5–7 PM Daily; Notable Dip at 2–3 PM</div>
-          </div>
-          <div class="fb-body">
-            <p>After extracting <code>hour</code> from the POSIXct ActivityHour column via <code>mutate</code> + <code>format()</code>, hourly averages were computed and exported to Tableau for the "Hourly Variation in Intensity and Calorie Burn" line chart.</p>
-            <div class="hourly-chart" aria-label="Hourly activity intensity pattern - schematic">
-              <div class="hc-line">
-                <div class="hc-point" style="--x: 0%; --y: 10%" data-label="12AM"></div>
-                <div class="hc-point" style="--x: 10%; --y: 5%"  data-label="2AM"></div>
-                <div class="hc-point" style="--x: 20%; --y: 5%"  data-label="4AM"></div>
-                <div class="hc-point" style="--x: 30%; --y: 30%" data-label="7AM"></div>
-                <div class="hc-point" style="--x: 42%; --y: 70%" data-label="11AM"></div>
-                <div class="hc-point dip" style="--x: 55%; --y: 55%" data-label="2PM (dip)"></div>
-                <div class="hc-point peak" style="--x: 66%; --y: 92%" data-label="5PM peak"></div>
-                <div class="hc-point peak" style="--x: 71%; --y: 95%" data-label="6PM peak"></div>
-                <div class="hc-point" style="--x: 77%; --y: 60%" data-label="8PM"></div>
-                <div class="hc-point" style="--x: 90%; --y: 25%" data-label="10PM"></div>
-              </div>
-              <div class="hc-labels">
-                <div class="hc-peak-label" style="left: 63%">
-                  <span>Peak: 5–7 PM</span>
-                </div>
-                <div class="hc-dip-label" style="left: 51%">
-                  <span>Dip: 2–3 PM</span>
+              <div class="framework-card">
+                <div class="pc-label">Analysis Framework</div>
+                <div class="fw-steps">
+                  <span class="fw-step active">Ask</span>
+                  <span class="fw-arrow" aria-hidden="true">→</span>
+                  <span class="fw-step active">Prepare</span>
+                  <span class="fw-arrow" aria-hidden="true">→</span>
+                  <span class="fw-step active">Process</span>
+                  <span class="fw-arrow" aria-hidden="true">→</span>
+                  <span class="fw-step active">Analyze</span>
+                  <span class="fw-arrow" aria-hidden="true">→</span>
+                  <span class="fw-step active">Share</span>
+                  <span class="fw-arrow" aria-hidden="true">→</span>
+                  <span class="fw-step active">Act</span>
                 </div>
               </div>
-              <div class="hc-axis">
-                <span>12AM</span><span>6AM</span><span>12PM</span><span>6PM</span><span>11PM</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── DATA + PROCESS ── -->
+      <section
+        id="process"
+        class="section section-warm"
+        aria-labelledby="process-heading"
+      >
+        <div class="section-inner">
+          <div class="section-label">02 — Prepare & Process</div>
+          <h2 id="process-heading">Data Preparation</h2>
+          <p class="section-intro">
+            The dataset (Kaggle: Fitbit Tracker Data, 30 Fitbit users via Amazon
+            Mechanical Turk, April–May 2016) required careful handling. Multiple
+            data quality issues were identified and resolved before any analysis
+            could begin.
+          </p>
+
+          <div class="data-summary">
+            <div class="ds-fact">
+              <div class="ds-val">33</div>
+              <div class="ds-key">Actual unique users (dataset claims 30)</div>
+            </div>
+            <div class="ds-fact">
+              <div class="ds-val">Apr 12 –<br />May 12</div>
+              <div class="ds-key">2016 · focused analysis window</div>
+            </div>
+            <div class="ds-fact ds-fact-warn">
+              <div class="ds-val">7</div>
+              <div class="ds-key">Users in heart rate table → excluded</div>
+            </div>
+            <div class="ds-fact ds-fact-warn">
+              <div class="ds-val">8</div>
+              <div class="ds-key">Users in weight log → excluded</div>
+            </div>
+            <div class="ds-fact ds-fact-warn">
+              <div class="ds-val">24</div>
+              <div class="ds-key">Users in sleep table → excluded</div>
+            </div>
+            <div class="ds-fact">
+              <div class="ds-val">0</div>
+              <div class="ds-key">Null values in retained tables</div>
+            </div>
+          </div>
+
+          <!-- Issues discovered -->
+          <div class="issues-grid">
+            <div class="issue-card">
+              <div class="issue-num">Issue 1</div>
+              <div class="issue-title">Mixed 12h/24h Timestamps</div>
+              <p>
+                The heart rate dataset mixed 12-hour and 24-hour time formats
+                within the same column — row 48 used 24h format while row 4852
+                switched to "AM" notation. R's <code>separate()</code> was used
+                to split datetime columns into standardized date, time, and
+                AM/PM fields across all affected tables before re-exporting to
+                SQL.
+              </p>
+              <div class="issue-fix">
+                Fix: <code>tidyr::separate()</code> → standardized CSV →
+                re-import to BigQuery
               </div>
             </div>
-            <p>Intensity values from the Tableau chart: rises steadily from ~2 (midnight) through the day, reaching 21.66 at 5 PM and 21.92 at 6 PM before declining. A noticeable drop from 19.85 (11 AM) to 15.58 (3 PM) marks the afternoon lull.</p>
-            <p class="fb-implication"><strong>Implication:</strong> The 2–3 PM dip presents a targeted notification opportunity. Evening peak (5–7 PM) represents the primary workout window when users are most receptive to intensity guidance.</p>
+
+            <div class="issue-card">
+              <div class="issue-num">Issue 2</div>
+              <div class="issue-title">
+                Narrow vs. Wide Format Date Discrepancy
+              </div>
+              <p>
+                The narrow and wide versions of the minute calories table
+                started on different dates — narrow data began April 12, while
+                wide data began April 13. A SQL <code>ORDER BY Date</code> query
+                confirmed this. Narrow format was retained as it provides more
+                complete coverage.
+              </p>
+              <div class="issue-fix">
+                Fix: SQL <code>SELECT * ORDER BY Date</code> comparison → narrow
+                format selected
+              </div>
+            </div>
+
+            <div class="issue-card">
+              <div class="issue-num">Issue 3</div>
+              <div class="issue-title">
+                Incomplete Coverage in Several Tables
+              </div>
+              <p>
+                A RIGHT JOIN between the heart rate table and daily steps table
+                revealed that 26 of 33 users had no heart rate data (shown as
+                NULL in the join output). Similar coverage gaps in weight log (8
+                users) and sleep table (24 users). Only tables with all 33 users
+                retained.
+              </p>
+              <div class="issue-fix">
+                Fix: <code>RIGHT JOIN</code> coverage check → tables with &lt;33
+                users excluded
+              </div>
+            </div>
+
+            <div class="issue-card">
+              <div class="issue-num">Issue 4</div>
+              <div class="issue-title">ID Consistency Across Tables</div>
+              <p>
+                A <code>FULL OUTER JOIN</code> between daily steps and daily
+                intensities confirmed all 33 user IDs were identical across the
+                retained tables — no phantom IDs or mismatches.
+              </p>
+              <div class="issue-fix">
+                Fix: <code>FULL OUTER JOIN</code> on ID fields → confirmed
+                consistent across retained tables
+              </div>
+            </div>
+          </div>
+
+          <div class="scope-decision">
+            <div class="sd-label">Final Data Scope Decision</div>
+            <p>
+              Minute-level data discarded in favor of daily and hourly data —
+              providing sufficient granularity to identify behavioral patterns
+              without the noise of per-minute variation. Daily calories and
+              daily intensities tables discarded as their content is redundant
+              with the combined daily activity table. Hourly calories,
+              intensities, and steps tables merged on (Id, ActivityHour) after
+              confirming all three contained exactly 22,099 observations.
+            </p>
+            <div class="sd-code" role="img" aria-label="Merge operation">
+              <span class="c-comment"
+                ># 22,099 obs. confirmed in each before merging</span
+              ><br />
+              hourly_data &lt;- merge(hourly_calories, hourly_intensities,
+              <span class="c-kw">by</span> = c("Id", "ActivityHour"))<br />
+              hourly_data &lt;- merge(hourly_data, hourly_steps,
+              <span class="c-kw">by</span> = c("Id", "ActivityHour"))
+            </div>
+          </div>
+
+          <!-- Summary stats callout -->
+          <div class="stats-strip">
+            <div class="ss-group">
+              <div class="ss-head">Daily Activity Summary</div>
+              <div class="ss-rows">
+                <div class="ss-row">
+                  <span>Median total steps</span><strong>7,406</strong>
+                </div>
+                <div class="ss-row">
+                  <span>Mean total steps</span><strong>7,638</strong>
+                </div>
+                <div class="ss-row">
+                  <span>Median calories/day</span><strong>2,134</strong>
+                </div>
+                <div class="ss-row">
+                  <span>Median sedentary minutes</span><strong>1,057</strong>
+                </div>
+                <div class="ss-row">
+                  <span>Median very active minutes</span><strong>4</strong>
+                </div>
+              </div>
+            </div>
+            <div class="ss-group">
+              <div class="ss-head">Hourly Activity Summary</div>
+              <div class="ss-rows">
+                <div class="ss-row">
+                  <span>Mean hourly calories</span><strong>97.4</strong>
+                </div>
+                <div class="ss-row">
+                  <span>Median hourly calories</span><strong>83</strong>
+                </div>
+                <div class="ss-row">
+                  <span>Mean total intensity</span><strong>12.04</strong>
+                </div>
+                <div class="ss-row">
+                  <span>Mean step total</span><strong>320</strong>
+                </div>
+                <div class="ss-row">
+                  <span>Max hourly steps</span><strong>10,554</strong>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
+      </section>
 
+      <!-- ── ANALYSIS ── -->
+      <section id="analysis" class="section" aria-labelledby="analysis-heading">
+        <div class="section-inner">
+          <div class="section-label">03 — Analyze &amp; Share</div>
+          <h2 id="analysis-heading">Key Findings</h2>
+
+          <!-- Finding 1: Intensity vs Steps -->
+          <div class="finding-block">
+            <div class="fb-header">
+              <div class="fb-num">Finding 1</div>
+              <div class="fb-title">
+                Intensity Predicts Calorie Burn Better Than Steps
+              </div>
+            </div>
+            <div class="fb-body">
+              <p>
+                To identify the strongest driver of calorie burn, two linear
+                regression scatter plots were generated in ggplot2 using
+                <code>stat_poly_eq(use_label("R2"))</code>. Both showed a
+                positive relationship, but the R² values told a clear story:
+              </p>
+              <div class="r2-comparison">
+                <div class="r2-card r2-winner">
+                  <div class="r2-label">Total Intensity vs Calories</div>
+                  <div class="r2-val">R² = 0.80</div>
+                  <div class="r2-interp">
+                    Intensity explains <strong>80%</strong> of the variance in
+                    hourly calorie burn
+                  </div>
+                  <div class="r2-verdict">Stronger predictor ✦</div>
+                </div>
+                <div class="r2-mid" aria-hidden="true">vs</div>
+                <div class="r2-card">
+                  <div class="r2-label">Total Steps vs Calories</div>
+                  <div class="r2-val">R² = 0.66</div>
+                  <div class="r2-interp">
+                    Steps explain <strong>66%</strong> of the variance in hourly
+                    calorie burn
+                  </div>
+                  <div class="r2-verdict">Weaker predictor</div>
+                </div>
+              </div>
+              <p class="fb-implication">
+                <strong>Implication:</strong> Higher-intensity workouts are more
+                efficient for calorie burn than longer, low-intensity sessions.
+                Counting steps alone understates the value of workout quality.
+              </p>
+            </div>
+          </div>
+
+          <!-- Finding 2: Activity breakdown -->
+          <div class="finding-block">
+            <div class="fb-header">
+              <div class="fb-num">Finding 2</div>
+              <div class="fb-title">
+                Users Spend Only 2.85% of Their Week at Moderate-or-Higher
+                Intensity
+              </div>
+            </div>
+            <div class="fb-body">
+              <p>
+                Summing minutes across all activity levels from the daily data
+                revealed an extreme skew toward light and sedentary behavior:
+              </p>
+              <div class="activity-breakdown">
+                <div class="act-row act-sedentary">
+                  <div class="act-label">Light &amp; Sedentary</div>
+                  <div class="act-bar-wrap">
+                    <div class="act-bar" style="--w: 97.15%"></div>
+                  </div>
+                  <div class="act-pct">97.15%</div>
+                  <div class="act-note">of total weekly time</div>
+                </div>
+                <div class="act-row act-active">
+                  <div class="act-label">Very &amp; Moderately Active</div>
+                  <div class="act-bar-wrap">
+                    <div class="act-bar act-bar-warm" style="--w: 2.85%"></div>
+                  </div>
+                  <div class="act-pct act-pct-warm">2.85%</div>
+                  <div class="act-note">of total weekly time</div>
+                </div>
+              </div>
+              <div class="aha-callout">
+                <div class="aha-icon" aria-hidden="true">🫀</div>
+                <div class="aha-text">
+                  The American Heart Association recommends 300+ minutes/week of
+                  moderate aerobic activity — approximately
+                  <strong>3% of weekly time</strong>. Users are currently
+                  averaging 2.85%, just below this threshold.
+                </div>
+              </div>
+              <p>
+                Of the time that is classified as active (excluding sedentary),
+                the breakdown further confirms light activity dominance:
+              </p>
+              <div class="active-minutes-grid">
+                <div class="amg-item amg-light">
+                  <div class="amg-val">84.74%</div>
+                  <div class="amg-label">Light Activity</div>
+                </div>
+                <div class="amg-item amg-moderate">
+                  <div class="amg-val">5.96%</div>
+                  <div class="amg-label">Moderate Activity</div>
+                </div>
+                <div class="amg-item amg-intense">
+                  <div class="amg-val">9.30%</div>
+                  <div class="amg-label">Intense Activity</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Finding 3: Day of week -->
+          <div class="finding-block">
+            <div class="fb-header">
+              <div class="fb-num">Finding 3</div>
+              <div class="fb-title">
+                Activity Peaks Tuesday &amp; Saturday; Drops Sunday &amp;
+                Thursday
+              </div>
+            </div>
+            <div class="fb-body">
+              <p>
+                After adding a <code>weekday</code> column via
+                <code>mutate(weekday = weekdays(activity_date))</code> and
+                factoring days in order, the data was exported to Tableau for
+                the "Weekly Distance Trends by Activity Level" stacked bar
+                chart.
+              </p>
+              <div
+                class="weekday-chart"
+                aria-label="Average distance by day of week - schematic"
+              >
+                <div class="wc-bars">
+                  <div class="wc-col">
+                    <div class="wc-bar-container">
+                      <div class="wc-seg wc-heavy" style="--h: 43%"></div>
+                      <div class="wc-seg wc-mod" style="--h: 29%"></div>
+                      <div class="wc-seg wc-light" style="--h: 28%"></div>
+                    </div>
+                    <div class="wc-day wc-low">Sun</div>
+                    <div class="wc-val">5.0</div>
+                  </div>
+                  <div class="wc-col">
+                    <div class="wc-bar-container">
+                      <div class="wc-seg wc-heavy" style="--h: 39%"></div>
+                      <div class="wc-seg wc-mod" style="--h: 30%"></div>
+                      <div class="wc-seg wc-light" style="--h: 31%"></div>
+                    </div>
+                    <div class="wc-day wc-high">Mon</div>
+                    <div class="wc-val">5.5</div>
+                  </div>
+                  <div class="wc-col wc-peak">
+                    <div class="wc-bar-container">
+                      <div class="wc-seg wc-heavy" style="--h: 39%"></div>
+                      <div class="wc-seg wc-mod" style="--h: 30%"></div>
+                      <div class="wc-seg wc-light" style="--h: 31%"></div>
+                    </div>
+                    <div class="wc-day wc-high">Tue ★</div>
+                    <div class="wc-val">5.7</div>
+                  </div>
+                  <div class="wc-col">
+                    <div class="wc-bar-container">
+                      <div class="wc-seg wc-heavy" style="--h: 40%"></div>
+                      <div class="wc-seg wc-mod" style="--h: 30%"></div>
+                      <div class="wc-seg wc-light" style="--h: 30%"></div>
+                    </div>
+                    <div class="wc-day">Wed</div>
+                    <div class="wc-val">5.4</div>
+                  </div>
+                  <div class="wc-col">
+                    <div class="wc-bar-container">
+                      <div class="wc-seg wc-heavy" style="--h: 42%"></div>
+                      <div class="wc-seg wc-mod" style="--h: 29%"></div>
+                      <div class="wc-seg wc-light" style="--h: 29%"></div>
+                    </div>
+                    <div class="wc-day wc-low">Thu</div>
+                    <div class="wc-val">5.2</div>
+                  </div>
+                  <div class="wc-col">
+                    <div class="wc-bar-container">
+                      <div class="wc-seg wc-heavy" style="--h: 40%"></div>
+                      <div class="wc-seg wc-mod" style="--h: 30%"></div>
+                      <div class="wc-seg wc-light" style="--h: 30%"></div>
+                    </div>
+                    <div class="wc-day">Fri</div>
+                    <div class="wc-val">5.3</div>
+                  </div>
+                  <div class="wc-col wc-peak">
+                    <div class="wc-bar-container">
+                      <div class="wc-seg wc-heavy" style="--h: 38%"></div>
+                      <div class="wc-seg wc-mod" style="--h: 31%"></div>
+                      <div class="wc-seg wc-light" style="--h: 31%"></div>
+                    </div>
+                    <div class="wc-day wc-high">Sat ★</div>
+                    <div class="wc-val">5.8</div>
+                  </div>
+                </div>
+                <div class="wc-legend">
+                  <span class="wl wl-heavy">■ Heavy</span>
+                  <span class="wl wl-mod">■ Moderate</span>
+                  <span class="wl wl-light">■ Light</span>
+                  <span class="wl-note"
+                    >Y-axis: Avg distance · Source: Tableau visualization</span
+                  >
+                </div>
+              </div>
+              <p class="fb-implication">
+                <strong>Pattern:</strong> Tuesday and Saturday are peak activity
+                days; Sunday and Thursday are the lowest. Heavy activity is also
+                lowest on low-activity days, meaning fewer calories are burned
+                on those days.
+              </p>
+            </div>
+          </div>
+
+          <!-- Finding 4: Hour of day -->
+          <div class="finding-block">
+            <div class="fb-header">
+              <div class="fb-num">Finding 4</div>
+              <div class="fb-title">
+                Activity Peaks 5–7 PM Daily; Notable Dip at 2–3 PM
+              </div>
+            </div>
+            <div class="fb-body">
+              <p>
+                After extracting <code>hour</code> from the POSIXct ActivityHour
+                column via <code>mutate</code> + <code>format()</code>, hourly
+                averages were computed and exported to Tableau for the "Hourly
+                Variation in Intensity and Calorie Burn" line chart.
+              </p>
+              <div
+                class="hourly-chart"
+                aria-label="Hourly activity intensity pattern - schematic"
+              >
+                <div class="hc-line">
+                  <div
+                    class="hc-point"
+                    style="--x: 0%; --y: 10%"
+                    data-label="12AM"
+                  ></div>
+                  <div
+                    class="hc-point"
+                    style="--x: 10%; --y: 5%"
+                    data-label="2AM"
+                  ></div>
+                  <div
+                    class="hc-point"
+                    style="--x: 20%; --y: 5%"
+                    data-label="4AM"
+                  ></div>
+                  <div
+                    class="hc-point"
+                    style="--x: 30%; --y: 30%"
+                    data-label="7AM"
+                  ></div>
+                  <div
+                    class="hc-point"
+                    style="--x: 42%; --y: 70%"
+                    data-label="11AM"
+                  ></div>
+                  <div
+                    class="hc-point dip"
+                    style="--x: 55%; --y: 55%"
+                    data-label="2PM (dip)"
+                  ></div>
+                  <div
+                    class="hc-point peak"
+                    style="--x: 66%; --y: 92%"
+                    data-label="5PM peak"
+                  ></div>
+                  <div
+                    class="hc-point peak"
+                    style="--x: 71%; --y: 95%"
+                    data-label="6PM peak"
+                  ></div>
+                  <div
+                    class="hc-point"
+                    style="--x: 77%; --y: 60%"
+                    data-label="8PM"
+                  ></div>
+                  <div
+                    class="hc-point"
+                    style="--x: 90%; --y: 25%"
+                    data-label="10PM"
+                  ></div>
+                </div>
+                <div class="hc-labels">
+                  <div class="hc-peak-label" style="left: 63%">
+                    <span>Peak: 5–7 PM</span>
+                  </div>
+                  <div class="hc-dip-label" style="left: 51%">
+                    <span>Dip: 2–3 PM</span>
+                  </div>
+                </div>
+                <div class="hc-axis">
+                  <span>12AM</span><span>6AM</span><span>12PM</span
+                  ><span>6PM</span><span>11PM</span>
+                </div>
+              </div>
+              <p>
+                Intensity values from the Tableau chart: rises steadily from ~2
+                (midnight) through the day, reaching 21.66 at 5 PM and 21.92 at
+                6 PM before declining. A noticeable drop from 19.85 (11 AM) to
+                15.58 (3 PM) marks the afternoon lull.
+              </p>
+              <p class="fb-implication">
+                <strong>Implication:</strong> The 2–3 PM dip presents a targeted
+                notification opportunity. Evening peak (5–7 PM) represents the
+                primary workout window when users are most receptive to
+                intensity guidance.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── RECOMMENDATIONS ── -->
+      <section
+        id="recommendations"
+        class="section section-warm"
+        aria-labelledby="rec-heading"
+      >
+        <div class="section-inner">
+          <div class="section-label">04 — Act</div>
+          <h2 id="rec-heading">Marketing &amp; Product Recommendations</h2>
+          <p class="section-intro">
+            Four specific, data-grounded recommendations for the Bellabeat Leaf
+            product and app, derived directly from the behavioral patterns
+            identified in the analysis.
+          </p>
+
+          <div class="recs-grid">
+            <div class="rec-card rec-1">
+              <div class="rec-num">01</div>
+              <div class="rec-icon" aria-hidden="true">💡</div>
+              <h3>Promote Intensity Over Step Count</h3>
+              <p>
+                Since intensity (R²=0.80) predicts calorie burn substantially
+                better than steps (R²=0.66), the Leaf product should shift its
+                messaging from step-counting to intensity-based goals. The
+                Bellabeat app could send real-time notifications alerting users
+                when their activity level has been low-intensity for an extended
+                period, prompting them to increase effort for better caloric
+                outcomes.
+              </p>
+              <div class="rec-source">
+                Source: Intensity vs Calories R² analysis (Finding 1)
+              </div>
+            </div>
+
+            <div class="rec-card rec-2">
+              <div class="rec-num">02</div>
+              <div class="rec-icon" aria-hidden="true">🎯</div>
+              <h3>Celebrate the 3% Weekly Activity Goal</h3>
+              <p>
+                Users average 2.85% of their week at moderate-or-higher
+                intensity — just below the AHA's 300-minutes/week (~3%)
+                recommendation. The app could track this metric explicitly,
+                sending congratulatory messages when users reach 2.85%
+                (acknowledging they've matched the average user) and again at 3%
+                (confirming they've met AHA guidelines). Two achievable
+                milestones create a progression incentive.
+              </p>
+              <div class="rec-source">
+                Source: Activity time breakdown analysis (Finding 2)
+              </div>
+            </div>
+
+            <div class="rec-card rec-3">
+              <div class="rec-num">03</div>
+              <div class="rec-icon" aria-hidden="true">📅</div>
+              <h3>Target Low-Activity Days with Motivation</h3>
+              <p>
+                Sunday and Thursday show consistently lower activity levels and
+                lower heavy-activity distances. The Leaf product could send
+                targeted reminders on these days encouraging users to increase
+                both workout duration and intensity. The marketing team could
+                design campaigns emphasizing consistency — framing Sunday and
+                Thursday workouts as bridging sessions between the natural peaks
+                of Tuesday and Saturday.
+              </p>
+              <div class="rec-source">
+                Source: Weekly distance trends by activity level (Finding 3)
+              </div>
+            </div>
+
+            <div class="rec-card rec-4">
+              <div class="rec-num">04</div>
+              <div class="rec-icon" aria-hidden="true">⏰</div>
+              <h3>Use the 2 PM Dip as a Notification Window</h3>
+              <p>
+                The noticeable drop in activity intensity between 2 PM and 3 PM
+                creates a precise opportunity for motivational prompts from the
+                Leaf device. A brief vibration or app notification at 2 PM
+                encouraging users to stay active — timed to the behavioral
+                pattern in the data — is more likely to be effective than
+                generic reminders. The 5–7 PM peak window could also receive
+                intensity-specific coaching to maximize calorie burn during the
+                day's most active period.
+              </p>
+              <div class="rec-source">
+                Source: Hourly variation in intensity and calorie burn (Finding
+                4)
+              </div>
+            </div>
+          </div>
+
+          <div class="future-work">
+            <div class="fw-title">Limitations &amp; Future Directions</div>
+            <div class="fw-items">
+              <div class="fw-item">
+                <span class="fw-icon">⚠️</span>
+                <div>
+                  <strong>Small sample:</strong> 33 users from 2016 may not
+                  represent Bellabeat's target demographic or modern usage
+                  patterns. Larger, more recent datasets would improve
+                  generalizability.
+                </div>
+              </div>
+              <div class="fw-item">
+                <span class="fw-icon">💤</span>
+                <div>
+                  <strong>Sleep data excluded:</strong> The sleep table had only
+                  24 users. Including it would have allowed analysis of
+                  sleep-activity relationships — a key Bellabeat product
+                  dimension. Future studies should prioritize sleep data
+                  collection completeness.
+                </div>
+              </div>
+              <div class="fw-item">
+                <span class="fw-icon">💧</span>
+                <div>
+                  <strong>Spring &amp; Time data gaps:</strong> Hydration
+                  (Spring) and stress (Time) data would round out the wellness
+                  picture. Cross-product analysis could uncover whether users
+                  who hydrate more are also more active.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── WHAT I LEARNED ── -->
+      <section id="learned" class="section" aria-labelledby="learned-heading">
+        <div class="section-inner">
+          <div class="section-label">05 — Reflections</div>
+          <h2 id="learned-heading">What I Learned</h2>
+          <div class="learned-grid">
+            <div class="lc">
+              <div class="lc-icon">🔍</div>
+              <h3>Data Quality Discovery is Iterative</h3>
+              <p>
+                The timestamp inconsistency in the heart rate table (row 48 vs
+                row 4852 using different formats) was only found by inspecting
+                specific row indices — not by running a general NULL or type
+                check. Quality issues hide in format inconsistencies, not just
+                missing values. SQL and R together make a strong combination:
+                SQL for coverage counts and date range validation, R for
+                row-level inspection and transformation.
+              </p>
+            </div>
+
+            <div class="lc">
+              <div class="lc-icon">📐</div>
+              <h3>
+                R² as a Comparative Tool, Not Just a Goodness-of-Fit Metric
+              </h3>
+              <p>
+                Running the same regression structure on two different
+                predictors and comparing R² values (0.80 vs 0.66) is a simple
+                but powerful analytical technique for stakeholder communication.
+                It transforms an abstract statistical concept into a clear
+                business-relevant answer: "which variable should Bellabeat's app
+                prioritize?" The
+                <code>ggpmisc::stat_poly_eq(use_label("R2"))</code> pattern
+                makes this straightforward to produce in ggplot2.
+              </p>
+            </div>
+
+            <div class="lc">
+              <div class="lc-icon">🗂️</div>
+              <h3>Structured Frameworks Prevent Analytical Drift</h3>
+              <p>
+                The Ask-Prepare-Process-Analyze-Share-Act framework kept the
+                analysis focused on the original business question throughout.
+                Without it, it would be easy to get absorbed in interesting data
+                patterns that don't connect back to marketing strategy. The
+                framework acts as a discipline: every visualization and finding
+                should trace back to a stakeholder decision.
+              </p>
+            </div>
+
+            <div class="lc">
+              <div class="lc-icon">🛠️</div>
+              <h3>The Right Tool for Each Job</h3>
+              <p>
+                Using BigQuery for coverage and quality queries, R for cleaning
+                and statistical charts, and Tableau for final polished
+                visualizations made each stage more efficient than trying to do
+                everything in one environment. BigQuery handles large tables and
+                JOIN-based quality checks well; ggplot2 excels at flexible
+                exploratory charts; Tableau produces presentation-ready
+                interactive graphics with minimal friction.
+              </p>
+            </div>
+
+            <div class="lc">
+              <div class="lc-icon">💬</div>
+              <h3>Translating Data to Decisions Requires Context</h3>
+              <p>
+                Finding that users spend 2.85% of their time at moderate+
+                intensity would be meaningless without the AHA's 3% benchmark to
+                frame it. External reference points — clinical guidelines,
+                industry standards, competitive norms — are what make raw
+                numbers actionable. Good analysis always asks: "compared to
+                what?"
+              </p>
+            </div>
+
+            <div class="lc">
+              <div class="lc-icon">⚠️</div>
+              <h3>Be Honest About Dataset Limitations</h3>
+              <p>
+                Explicitly excluding the heart rate, weight, and sleep tables —
+                rather than using incomplete data — was the right call, even
+                though it narrowed the analysis. Overstating confidence in
+                conclusions drawn from 7 or 8 users would be misleading.
+                Documenting what was excluded and why is part of responsible
+                analysis, not a weakness.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── SKILLS ── -->
+      <section
+        id="skills"
+        class="section section-warm"
+        aria-labelledby="skills-heading"
+      >
+        <div class="section-inner">
+          <div class="section-label">06 — Skills</div>
+          <h2 id="skills-heading">Skills Demonstrated</h2>
+          <div class="skills-layout">
+            <div class="sg">
+              <div class="sg-head">Analytics Tools</div>
+              <div class="sg-tags">
+                <span class="stag stag-p">R (tidyverse)</span>
+                <span class="stag stag-p">ggplot2</span>
+                <span class="stag stag-p">BigQuery SQL</span>
+                <span class="stag stag-p">Tableau</span>
+                <span class="stag stag-s">lubridate</span>
+                <span class="stag stag-s">dplyr</span>
+                <span class="stag stag-s">janitor</span>
+                <span class="stag stag-s">ggpmisc</span>
+              </div>
+            </div>
+            <div class="sg">
+              <div class="sg-head">Data Skills</div>
+              <div class="sg-tags">
+                <span class="stag stag-p">Data Cleaning & Wrangling</span>
+                <span class="stag stag-p">Data Quality Auditing</span>
+                <span class="stag stag-s">Datetime Standardization</span>
+                <span class="stag stag-s">Multi-source Merging</span>
+                <span class="stag stag-s">Duplicate Detection</span>
+                <span class="stag stag-s">Coverage Analysis via SQL JOINs</span>
+              </div>
+            </div>
+            <div class="sg">
+              <div class="sg-head">Analysis & Statistics</div>
+              <div class="sg-tags">
+                <span class="stag stag-p">Exploratory Data Analysis</span>
+                <span class="stag stag-p">R² Regression Comparison</span>
+                <span class="stag stag-s">Behavioral Trend Analysis</span>
+                <span class="stag stag-s">Time-Series Aggregation</span>
+                <span class="stag stag-s">Percentage/Proportion Analysis</span>
+                <span class="stag stag-s">Benchmark Comparison</span>
+              </div>
+            </div>
+            <div class="sg">
+              <div class="sg-head">Business &amp; Communication</div>
+              <div class="sg-tags">
+                <span class="stag stag-p"
+                  >Ask-Prepare-Process-Analyze-Share-Act</span
+                >
+                <span class="stag stag-p">Marketing Analytics</span>
+                <span class="stag stag-s"
+                  >Stakeholder Recommendation Writing</span
+                >
+                <span class="stag stag-s">Data Storytelling</span>
+                <span class="stag stag-s">Product Strategy Thinking</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── CTA ── -->
+      <section class="section cta-section" aria-labelledby="cta-heading">
+        <div class="section-inner cta-inner">
+          <h2 id="cta-heading">Read the Full Case Study</h2>
+          <p>
+            The complete R Markdown document — including all code, SQL queries,
+            ggplot2 charts, and Tableau visualizations — is published on RPubs
+            and available on GitHub.
+          </p>
+          <div class="cta-buttons">
+            <a
+              href="https://rpubs.com/nakulsreekanth/1233761"
+              class="cta-primary cta-lg"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Read on RPubs ↗</a
+            >
+            <a
+              href="https://github.com/nakulsree"
+              class="cta-secondary cta-lg"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+                />
+              </svg>
+              GitHub Repo
+            </a>
+            <a href="#overview" class="cta-ghost cta-lg">Back to Top ↑</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer" role="contentinfo">
+      <div class="footer-inner">
+        <span>Nakul Sreekanth · Data Science Portfolio</span>
+        <span class="fsep">·</span>
+        <span
+          >Bellabeat Case Study · Google Data Analytics Certificate · 2024</span
+        >
       </div>
-    </section>
+    </footer>
 
-    <!-- ── RECOMMENDATIONS ── -->
-    <section id="recommendations" class="section section-warm" aria-labelledby="rec-heading">
-      <div class="section-inner">
-        <div class="section-label">04 — Act</div>
-        <h2 id="rec-heading">Marketing &amp; Product Recommendations</h2>
-        <p class="section-intro">Four specific, data-grounded recommendations for the Bellabeat Leaf product and app, derived directly from the behavioral patterns identified in the analysis.</p>
-
-        <div class="recs-grid">
-
-          <div class="rec-card rec-1">
-            <div class="rec-num">01</div>
-            <div class="rec-icon" aria-hidden="true">💡</div>
-            <h3>Promote Intensity Over Step Count</h3>
-            <p>Since intensity (R²=0.80) predicts calorie burn substantially better than steps (R²=0.66), the Leaf product should shift its messaging from step-counting to intensity-based goals. The Bellabeat app could send real-time notifications alerting users when their activity level has been low-intensity for an extended period, prompting them to increase effort for better caloric outcomes.</p>
-            <div class="rec-source">Source: Intensity vs Calories R² analysis (Finding 1)</div>
-          </div>
-
-          <div class="rec-card rec-2">
-            <div class="rec-num">02</div>
-            <div class="rec-icon" aria-hidden="true">🎯</div>
-            <h3>Celebrate the 3% Weekly Activity Goal</h3>
-            <p>Users average 2.85% of their week at moderate-or-higher intensity — just below the AHA's 300-minutes/week (~3%) recommendation. The app could track this metric explicitly, sending congratulatory messages when users reach 2.85% (acknowledging they've matched the average user) and again at 3% (confirming they've met AHA guidelines). Two achievable milestones create a progression incentive.</p>
-            <div class="rec-source">Source: Activity time breakdown analysis (Finding 2)</div>
-          </div>
-
-          <div class="rec-card rec-3">
-            <div class="rec-num">03</div>
-            <div class="rec-icon" aria-hidden="true">📅</div>
-            <h3>Target Low-Activity Days with Motivation</h3>
-            <p>Sunday and Thursday show consistently lower activity levels and lower heavy-activity distances. The Leaf product could send targeted reminders on these days encouraging users to increase both workout duration and intensity. The marketing team could design campaigns emphasizing consistency — framing Sunday and Thursday workouts as bridging sessions between the natural peaks of Tuesday and Saturday.</p>
-            <div class="rec-source">Source: Weekly distance trends by activity level (Finding 3)</div>
-          </div>
-
-          <div class="rec-card rec-4">
-            <div class="rec-num">04</div>
-            <div class="rec-icon" aria-hidden="true">⏰</div>
-            <h3>Use the 2 PM Dip as a Notification Window</h3>
-            <p>The noticeable drop in activity intensity between 2 PM and 3 PM creates a precise opportunity for motivational prompts from the Leaf device. A brief vibration or app notification at 2 PM encouraging users to stay active — timed to the behavioral pattern in the data — is more likely to be effective than generic reminders. The 5–7 PM peak window could also receive intensity-specific coaching to maximize calorie burn during the day's most active period.</p>
-            <div class="rec-source">Source: Hourly variation in intensity and calorie burn (Finding 4)</div>
-          </div>
-
-        </div>
-
-        <div class="future-work">
-          <div class="fw-title">Limitations &amp; Future Directions</div>
-          <div class="fw-items">
-            <div class="fw-item">
-              <span class="fw-icon">⚠️</span>
-              <div><strong>Small sample:</strong> 33 users from 2016 may not represent Bellabeat's target demographic or modern usage patterns. Larger, more recent datasets would improve generalizability.</div>
-            </div>
-            <div class="fw-item">
-              <span class="fw-icon">💤</span>
-              <div><strong>Sleep data excluded:</strong> The sleep table had only 24 users. Including it would have allowed analysis of sleep-activity relationships — a key Bellabeat product dimension. Future studies should prioritize sleep data collection completeness.</div>
-            </div>
-            <div class="fw-item">
-              <span class="fw-icon">💧</span>
-              <div><strong>Spring &amp; Time data gaps:</strong> Hydration (Spring) and stress (Time) data would round out the wellness picture. Cross-product analysis could uncover whether users who hydrate more are also more active.</div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ── WHAT I LEARNED ── -->
-    <section id="learned" class="section" aria-labelledby="learned-heading">
-      <div class="section-inner">
-        <div class="section-label">05 — Reflections</div>
-        <h2 id="learned-heading">What I Learned</h2>
-        <div class="learned-grid">
-
-          <div class="lc">
-            <div class="lc-icon">🔍</div>
-            <h3>Data Quality Discovery is Iterative</h3>
-            <p>The timestamp inconsistency in the heart rate table (row 48 vs row 4852 using different formats) was only found by inspecting specific row indices — not by running a general NULL or type check. Quality issues hide in format inconsistencies, not just missing values. SQL and R together make a strong combination: SQL for coverage counts and date range validation, R for row-level inspection and transformation.</p>
-          </div>
-
-          <div class="lc">
-            <div class="lc-icon">📐</div>
-            <h3>R² as a Comparative Tool, Not Just a Goodness-of-Fit Metric</h3>
-            <p>Running the same regression structure on two different predictors and comparing R² values (0.80 vs 0.66) is a simple but powerful analytical technique for stakeholder communication. It transforms an abstract statistical concept into a clear business-relevant answer: "which variable should Bellabeat's app prioritize?" The <code>ggpmisc::stat_poly_eq(use_label("R2"))</code> pattern makes this straightforward to produce in ggplot2.</p>
-          </div>
-
-          <div class="lc">
-            <div class="lc-icon">🗂️</div>
-            <h3>Structured Frameworks Prevent Analytical Drift</h3>
-            <p>The Ask-Prepare-Process-Analyze-Share-Act framework kept the analysis focused on the original business question throughout. Without it, it would be easy to get absorbed in interesting data patterns that don't connect back to marketing strategy. The framework acts as a discipline: every visualization and finding should trace back to a stakeholder decision.</p>
-          </div>
-
-          <div class="lc">
-            <div class="lc-icon">🛠️</div>
-            <h3>The Right Tool for Each Job</h3>
-            <p>Using BigQuery for coverage and quality queries, R for cleaning and statistical charts, and Tableau for final polished visualizations made each stage more efficient than trying to do everything in one environment. BigQuery handles large tables and JOIN-based quality checks well; ggplot2 excels at flexible exploratory charts; Tableau produces presentation-ready interactive graphics with minimal friction.</p>
-          </div>
-
-          <div class="lc">
-            <div class="lc-icon">💬</div>
-            <h3>Translating Data to Decisions Requires Context</h3>
-            <p>Finding that users spend 2.85% of their time at moderate+ intensity would be meaningless without the AHA's 3% benchmark to frame it. External reference points — clinical guidelines, industry standards, competitive norms — are what make raw numbers actionable. Good analysis always asks: "compared to what?"</p>
-          </div>
-
-          <div class="lc">
-            <div class="lc-icon">⚠️</div>
-            <h3>Be Honest About Dataset Limitations</h3>
-            <p>Explicitly excluding the heart rate, weight, and sleep tables — rather than using incomplete data — was the right call, even though it narrowed the analysis. Overstating confidence in conclusions drawn from 7 or 8 users would be misleading. Documenting what was excluded and why is part of responsible analysis, not a weakness.</p>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- ── SKILLS ── -->
-    <section id="skills" class="section section-warm" aria-labelledby="skills-heading">
-      <div class="section-inner">
-        <div class="section-label">06 — Skills</div>
-        <h2 id="skills-heading">Skills Demonstrated</h2>
-        <div class="skills-layout">
-          <div class="sg">
-            <div class="sg-head">Analytics Tools</div>
-            <div class="sg-tags">
-              <span class="stag stag-p">R (tidyverse)</span>
-              <span class="stag stag-p">ggplot2</span>
-              <span class="stag stag-p">BigQuery SQL</span>
-              <span class="stag stag-p">Tableau</span>
-              <span class="stag stag-s">lubridate</span>
-              <span class="stag stag-s">dplyr</span>
-              <span class="stag stag-s">janitor</span>
-              <span class="stag stag-s">ggpmisc</span>
-            </div>
-          </div>
-          <div class="sg">
-            <div class="sg-head">Data Skills</div>
-            <div class="sg-tags">
-              <span class="stag stag-p">Data Cleaning & Wrangling</span>
-              <span class="stag stag-p">Data Quality Auditing</span>
-              <span class="stag stag-s">Datetime Standardization</span>
-              <span class="stag stag-s">Multi-source Merging</span>
-              <span class="stag stag-s">Duplicate Detection</span>
-              <span class="stag stag-s">Coverage Analysis via SQL JOINs</span>
-            </div>
-          </div>
-          <div class="sg">
-            <div class="sg-head">Analysis & Statistics</div>
-            <div class="sg-tags">
-              <span class="stag stag-p">Exploratory Data Analysis</span>
-              <span class="stag stag-p">R² Regression Comparison</span>
-              <span class="stag stag-s">Behavioral Trend Analysis</span>
-              <span class="stag stag-s">Time-Series Aggregation</span>
-              <span class="stag stag-s">Percentage/Proportion Analysis</span>
-              <span class="stag stag-s">Benchmark Comparison</span>
-            </div>
-          </div>
-          <div class="sg">
-            <div class="sg-head">Business &amp; Communication</div>
-            <div class="sg-tags">
-              <span class="stag stag-p">Ask-Prepare-Process-Analyze-Share-Act</span>
-              <span class="stag stag-p">Marketing Analytics</span>
-              <span class="stag stag-s">Stakeholder Recommendation Writing</span>
-              <span class="stag stag-s">Data Storytelling</span>
-              <span class="stag stag-s">Product Strategy Thinking</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── CTA ── -->
-    <section class="section cta-section" aria-labelledby="cta-heading">
-      <div class="section-inner cta-inner">
-        <h2 id="cta-heading">Read the Full Case Study</h2>
-        <p>The complete R Markdown document — including all code, SQL queries, ggplot2 charts, and Tableau visualizations — is published on RPubs and available on GitHub.</p>
-        <div class="cta-buttons">
-          <a href="https://rpubs.com/nakulsreekanth/1233761" class="cta-primary cta-lg" target="_blank" rel="noopener noreferrer">Read on RPubs ↗</a>
-          <a href="https://github.com/nakulsree/Portofolio" class="cta-secondary cta-lg" target="_blank" rel="noopener noreferrer">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
-            GitHub Repo
-          </a>
-          <a href="#overview" class="cta-ghost cta-lg">Back to Top ↑</a>
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <footer class="footer" role="contentinfo">
-    <div class="footer-inner">
-      <span>Nakul Sreekanth · Data Science Portfolio</span>
-      <span class="fsep">·</span>
-      <span>Bellabeat Case Study · Google Data Analytics Certificate · 2024</span>
-    </div>
-  </footer>
-
-  <script src="assets/js/bellabeat-case-study.js"></script>
-</body>
+    <script src="assets/js/bellabeat-case-study.js"></script>
+  </body>
 </html>

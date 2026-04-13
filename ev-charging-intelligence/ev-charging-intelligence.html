@@ -1,650 +1,1123 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="End-to-end EV charging intelligence: 24-hour ahead electricity price forecasting for California's SP15 zone combined with Nash equilibrium market optimization for the I-210 corridor. SAS Global Forum Curiosity Cup 2026 Finalist." />
-  <meta name="keywords" content="electricity price forecasting, LSTM, ARIMA, Nash equilibrium, EV charging, discrete choice model, optimization, SP15, California, renewable energy, data science" />
-  <meta name="author" content="Nakul Sreekanth" />
-  <meta property="og:title" content="EV Charging Intelligence | Nakul Sreekanth" />
-  <meta property="og:description" content="Electricity price forecasting + market equilibrium optimization for EV charging corridors. SAS Global Forum Curiosity Cup 2026 Finalist." />
-  <meta property="og:type" content="website" />
-  <title>EV Charging Intelligence — Nakul Sreekanth</title>
-  <link rel="stylesheet" href="assets/css/ev-charging-intelligence.css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700;900&family=Fira+Code:wght@300;400;500;700&display=swap" rel="stylesheet">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="End-to-end EV charging intelligence: 24-hour ahead electricity price forecasting for California's SP15 zone combined with Nash equilibrium market optimization for the I-210 corridor. SAS Global Forum Curiosity Cup 2026 Finalist."
+    />
+    <meta
+      name="keywords"
+      content="electricity price forecasting, LSTM, ARIMA, Nash equilibrium, EV charging, discrete choice model, optimization, SP15, California, renewable energy, data science"
+    />
+    <meta name="author" content="Nakul Sreekanth" />
+    <meta
+      property="og:title"
+      content="EV Charging Intelligence | Nakul Sreekanth"
+    />
+    <meta
+      property="og:description"
+      content="Electricity price forecasting + market equilibrium optimization for EV charging corridors. SAS Global Forum Curiosity Cup 2026 Finalist."
+    />
+    <meta property="og:type" content="website" />
+    <title>EV Charging Intelligence — Nakul Sreekanth</title>
+    <link rel="stylesheet" href="assets/css/ev-charging-intelligence.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700;900&family=Fira+Code:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="noise-overlay" aria-hidden="true"></div>
+    <div class="grid-bg" aria-hidden="true"></div>
+    <div class="blob blob-1" aria-hidden="true"></div>
+    <div class="blob blob-2" aria-hidden="true"></div>
+    <div class="blob blob-3" aria-hidden="true"></div>
 
-  <div class="noise-overlay" aria-hidden="true"></div>
-  <div class="grid-bg" aria-hidden="true"></div>
-  <div class="blob blob-1" aria-hidden="true"></div>
-  <div class="blob blob-2" aria-hidden="true"></div>
-  <div class="blob blob-3" aria-hidden="true"></div>
-
-  <!-- ── NAV ── -->
-  <nav class="nav" role="navigation" aria-label="Page navigation">
-    <a href="#overview" class="nav-brand" target="_blank" rel="noopener noreferrer">NS<span class="dot">.</span></a>
-    <div class="nav-links">
-      <a href="#overview">Overview</a>
-      <a href="#forecasting">Forecasting</a>
-      <a href="#optimization">Optimization</a>
-      <a href="#results">Results</a>
-      <a href="#skills">Skills</a>
-    </div>
-    <div class="nav-award" aria-label="Award badge">
-      <span class="award-star" aria-hidden="true">★</span>
-      <span>Curiosity Cup Finalist</span>
-    </div>
-  </nav>
-
-  <!-- ── HERO ── -->
-  <header class="hero" role="banner">
-
-    <div class="hero-award-banner" role="note" aria-label="Competition award">
-      <span class="award-star-lg" aria-hidden="true">★</span>
-      <div>
-        <div class="award-title">SAS Global Forum Curiosity Cup 2026 — Finalist</div>
-        <div class="award-sub">Forecasting Track · Purdue VIP-ORSOL Initiative</div>
+    <!-- ── NAV ── -->
+    <nav class="nav" role="navigation" aria-label="Page navigation">
+      <a
+        href="#overview"
+        class="nav-brand"
+        target="_blank"
+        rel="noopener noreferrer"
+        >NS<span class="dot">.</span></a
+      >
+      <div class="nav-links">
+        <a href="#overview">Overview</a>
+        <a href="#forecasting">Forecasting</a>
+        <a href="#optimization">Optimization</a>
+        <a href="#results">Results</a>
+        <a href="#skills">Skills</a>
       </div>
-    </div>
-
-    <div class="hero-content">
-      <div class="hero-tags">
-        <span class="htag">Forecasting</span>
-        <span class="htag">Optimization</span>
-        <span class="htag">EV Infrastructure</span>
-        <span class="htag">Renewable Markets</span>
+      <div class="nav-award" aria-label="Award badge">
+        <span class="award-star" aria-hidden="true">★</span>
+        <span>Curiosity Cup Finalist</span>
       </div>
+    </nav>
 
-      <h1 class="hero-title">
-        <span class="ht-line ht-1">EV Charging</span>
-        <span class="ht-line ht-2">Intelligence</span>
-        <span class="ht-sub">Price Forecasting & Market Optimization<br/>for the I-210 Corridor</span>
-      </h1>
-
-      <p class="hero-desc">
-        An end-to-end analytical framework combining 24-hour ahead electricity price prediction with Nash equilibrium market optimization — enabling EV charging operators to anticipate costs, shift load, and understand competitive market dynamics along California's SP15 corridor.
-      </p>
-
-      <div class="hero-kpis">
-        <div class="kpi">
-          <div class="kpi-val">$10.99</div>
-          <div class="kpi-label">LSTM Test MAE ($/MWh)</div>
-        </div>
-        <div class="kpi">
-          <div class="kpi-val">0.48</div>
-          <div class="kpi-label">Out-of-Sample R²</div>
-        </div>
-        <div class="kpi">
-          <div class="kpi-val">51</div>
-          <div class="kpi-label">Stations Modeled</div>
-        </div>
-        <div class="kpi">
-          <div class="kpi-val">~28K</div>
-          <div class="kpi-label">Hourly Observations</div>
-        </div>
-      </div>
-
-      <div class="hero-ctas">
-        <a href="https://github.com/nakulsree/Portofolio" class="cta-primary" target="_blank" rel="noopener noreferrer">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
-          GitHub Repo
-        </a>
-        <a href="#forecasting" class="cta-secondary">Explore the Work ↓</a>
-      </div>
-    </div>
-
-    <!-- Dual module visual -->
-    <div class="hero-modules" aria-label="Two-module project overview">
-      <div class="module-card module-forecast">
-        <div class="module-icon" aria-hidden="true">📈</div>
-        <div class="module-label">Module 1</div>
-        <div class="module-title">Price Forecasting</div>
-        <div class="module-desc">LSTM + ARIMA pipeline for 24-hour ahead SP15 real-time electricity price prediction</div>
-        <div class="module-stack">
-          <span>Python</span><span>LSTM</span><span>ARIMA</span><span>Huber</span>
-        </div>
-      </div>
-      <div class="module-connector" aria-hidden="true">
-        <div class="connector-line"></div>
-        <div class="connector-label">informs</div>
-        <div class="connector-line"></div>
-      </div>
-      <div class="module-card module-optim">
-        <div class="module-icon" aria-hidden="true">⚖️</div>
-        <div class="module-label">Module 2</div>
-        <div class="module-title">Market Optimization</div>
-        <div class="module-desc">Nash equilibrium pricing model with logit demand estimation for the I-210 corridor</div>
-        <div class="module-stack">
-          <span>Game Theory</span><span>Logit</span><span>OPTMODEL</span>
-        </div>
-      </div>
-    </div>
-
-  </header>
-
-  <main>
-
-    <!-- ── OVERVIEW ── -->
-    <section id="overview" class="section" aria-labelledby="overview-heading">
-      <div class="section-inner">
-        <div class="section-label">01 / Overview</div>
-        <h2 id="overview-heading">Executive Summary</h2>
-        <div class="overview-grid">
-          <div class="overview-text">
-            <p>California's push toward electrified transportation puts EV charging operators in a difficult position: wholesale electricity prices in the SP15 zone swing sharply intraday — driven by solar generation's "duck curve" — while competitive pressure from 50+ neighboring stations constrains pricing flexibility. Acting on intuition alone is expensive.</p>
-            <p>This project, developed within Purdue University's VIP-ORSOL initiative, builds an integrated analytical framework to address both sides of this problem. A <strong>leakage-controlled LSTM pipeline</strong> forecasts real-time SP15 electricity prices 24 hours ahead using market, weather, and fuel data, achieving a test MAE of ~$10.99/MWh and R² of ~0.48 across 5,500+ out-of-sample observations. A complementary <strong>Nash equilibrium optimization model</strong> then simulates how 51 competing stations price their services, revealing that competition — not capacity pricing — keeps the corridor affordable, and that physical infrastructure expansion matters more than price adjustments for reducing congestion.</p>
-            <p>Submitted to the <strong>SAS Global Forum Curiosity Cup 2026</strong>, the forecasting component was awarded <strong>Finalist</strong> recognition — validating both the technical rigor and the practical framing of the problem.</p>
+    <!-- ── HERO ── -->
+    <header class="hero" role="banner">
+      <div class="hero-award-banner" role="note" aria-label="Competition award">
+        <span class="award-star-lg" aria-hidden="true">★</span>
+        <div>
+          <div class="award-title">
+            SAS Global Forum Curiosity Cup 2026 — Finalist
           </div>
-          <div class="overview-context">
-            <div class="ctx-card">
-              <div class="ctx-icon" aria-hidden="true">🌞</div>
-              <div class="ctx-title">The Duck Curve Problem</div>
-              <div class="ctx-body">Solar generation drives midday LMP prices near zero, then a sharp ramp between 17:00–21:00 coincides with commuter EV charging demand — the highest-risk window for operators.</div>
+          <div class="award-sub">
+            Forecasting Track · Purdue VIP-ORSOL Initiative
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-content">
+        <div class="hero-tags">
+          <span class="htag">Forecasting</span>
+          <span class="htag">Optimization</span>
+          <span class="htag">EV Infrastructure</span>
+          <span class="htag">Renewable Markets</span>
+        </div>
+
+        <h1 class="hero-title">
+          <span class="ht-line ht-1">EV Charging</span>
+          <span class="ht-line ht-2">Intelligence</span>
+          <span class="ht-sub"
+            >Price Forecasting & Market Optimization<br />for the I-210
+            Corridor</span
+          >
+        </h1>
+
+        <p class="hero-desc">
+          An end-to-end analytical framework combining 24-hour ahead electricity
+          price prediction with Nash equilibrium market optimization — enabling
+          EV charging operators to anticipate costs, shift load, and understand
+          competitive market dynamics along California's SP15 corridor.
+        </p>
+
+        <div class="hero-kpis">
+          <div class="kpi">
+            <div class="kpi-val">$10.99</div>
+            <div class="kpi-label">LSTM Test MAE ($/MWh)</div>
+          </div>
+          <div class="kpi">
+            <div class="kpi-val">0.48</div>
+            <div class="kpi-label">Out-of-Sample R²</div>
+          </div>
+          <div class="kpi">
+            <div class="kpi-val">51</div>
+            <div class="kpi-label">Stations Modeled</div>
+          </div>
+          <div class="kpi">
+            <div class="kpi-val">~28K</div>
+            <div class="kpi-label">Hourly Observations</div>
+          </div>
+        </div>
+
+        <div class="hero-ctas">
+          <a
+            href="https://github.com/nakulsree"
+            class="cta-primary"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+              />
+            </svg>
+            GitHub Repo
+          </a>
+          <a href="#forecasting" class="cta-secondary">Explore the Work ↓</a>
+        </div>
+      </div>
+
+      <!-- Dual module visual -->
+      <div class="hero-modules" aria-label="Two-module project overview">
+        <div class="module-card module-forecast">
+          <div class="module-icon" aria-hidden="true">📈</div>
+          <div class="module-label">Module 1</div>
+          <div class="module-title">Price Forecasting</div>
+          <div class="module-desc">
+            LSTM + ARIMA pipeline for 24-hour ahead SP15 real-time electricity
+            price prediction
+          </div>
+          <div class="module-stack">
+            <span>Python</span><span>LSTM</span><span>ARIMA</span
+            ><span>Huber</span>
+          </div>
+        </div>
+        <div class="module-connector" aria-hidden="true">
+          <div class="connector-line"></div>
+          <div class="connector-label">informs</div>
+          <div class="connector-line"></div>
+        </div>
+        <div class="module-card module-optim">
+          <div class="module-icon" aria-hidden="true">⚖️</div>
+          <div class="module-label">Module 2</div>
+          <div class="module-title">Market Optimization</div>
+          <div class="module-desc">
+            Nash equilibrium pricing model with logit demand estimation for the
+            I-210 corridor
+          </div>
+          <div class="module-stack">
+            <span>Game Theory</span><span>Logit</span><span>OPTMODEL</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- ── OVERVIEW ── -->
+      <section id="overview" class="section" aria-labelledby="overview-heading">
+        <div class="section-inner">
+          <div class="section-label">01 / Overview</div>
+          <h2 id="overview-heading">Executive Summary</h2>
+          <div class="overview-grid">
+            <div class="overview-text">
+              <p>
+                California's push toward electrified transportation puts EV
+                charging operators in a difficult position: wholesale
+                electricity prices in the SP15 zone swing sharply intraday —
+                driven by solar generation's "duck curve" — while competitive
+                pressure from 50+ neighboring stations constrains pricing
+                flexibility. Acting on intuition alone is expensive.
+              </p>
+              <p>
+                This project, developed within Purdue University's VIP-ORSOL
+                initiative, builds an integrated analytical framework to address
+                both sides of this problem. A
+                <strong>leakage-controlled LSTM pipeline</strong> forecasts
+                real-time SP15 electricity prices 24 hours ahead using market,
+                weather, and fuel data, achieving a test MAE of ~$10.99/MWh and
+                R² of ~0.48 across 5,500+ out-of-sample observations. A
+                complementary
+                <strong>Nash equilibrium optimization model</strong> then
+                simulates how 51 competing stations price their services,
+                revealing that competition — not capacity pricing — keeps the
+                corridor affordable, and that physical infrastructure expansion
+                matters more than price adjustments for reducing congestion.
+              </p>
+              <p>
+                Submitted to the
+                <strong>SAS Global Forum Curiosity Cup 2026</strong>, the
+                forecasting component was awarded
+                <strong>Finalist</strong> recognition — validating both the
+                technical rigor and the practical framing of the problem.
+              </p>
             </div>
-            <div class="ctx-card">
-              <div class="ctx-icon" aria-hidden="true">🔌</div>
-              <div class="ctx-title">I-210 Corridor</div>
-              <div class="ctx-body">50+ fast-charging stations draw from the same freeway traffic stream. Each station's optimal price depends on its competitors — a strategic environment requiring game-theoretic modeling.</div>
-            </div>
-            <div class="ctx-card">
-              <div class="ctx-icon" aria-hidden="true">🏆</div>
-              <div class="ctx-title">Award</div>
-              <div class="ctx-body">Forecasting paper selected as Finalist at SAS Global Forum Curiosity Cup 2026. Both papers available via GitHub.</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── DATA ── -->
-    <section id="data" class="section section-warm" aria-labelledby="data-heading">
-      <div class="section-inner">
-        <div class="section-label">02 / Data</div>
-        <h2 id="data-heading">Multi-Source Data Integration</h2>
-        <p class="section-intro">Five public and institutional datasets were aligned to a common hourly index, requiring standardized cleaning, unit conversion, and temporal validation across sources.</p>
-
-        <div class="data-sources">
-          <div class="ds-card">
-            <div class="ds-badge ds-caiso">CAISO</div>
-            <div class="ds-name">OASIS Real-Time LMP</div>
-            <div class="ds-desc">Real-time locational marginal prices for SP15 zone. 8,700 unique hourly records. Duplicate entries corrected; hour-24 timestamps normalized to hour-0.</div>
-            <div class="ds-used">Used in: Forecasting · Optimization</div>
-          </div>
-          <div class="ds-card">
-            <div class="ds-badge ds-noaa">NOAA/MERRA-2</div>
-            <div class="ds-name">Weather Variables</div>
-            <div class="ds-desc">Temperature, wind speed, solar irradiance mapped to California pricing zones. Represents both demand drivers and renewable availability.</div>
-            <div class="ds-used">Used in: Forecasting</div>
-          </div>
-          <div class="ds-card">
-            <div class="ds-badge ds-pems">Caltrans PeMS</div>
-            <div class="ds-name">Traffic Volumes</div>
-            <div class="ds-desc">Hourly sensor counts from 56 freeway exit sensors. Aggregated to 24-hour corridor totals representing the shared traffic stream to all stations.</div>
-            <div class="ds-used">Used in: Optimization</div>
-          </div>
-          <div class="ds-card">
-            <div class="ds-badge ds-ocm">OpenChargeMap</div>
-            <div class="ds-name">Station Metadata</div>
-            <div class="ds-desc">Geographic coordinates, charger power ratings, connector types, and port counts for 51 I-210 corridor stations. Flattened from JSON and cleaned.</div>
-            <div class="ds-used">Used in: Optimization</div>
-          </div>
-          <div class="ds-card">
-            <div class="ds-badge ds-desl">DESL / Gas Hubs</div>
-            <div class="ds-name">Sessions + Fuel Prices</div>
-            <div class="ds-desc">10,000+ Purdue DESL charging session records (duration, energy delivered). Henry Hub, PG&amp;E Citygate, SoCal Border gas prices for marginal cost modeling.</div>
-            <div class="ds-used">Used in: Forecasting · Optimization</div>
-          </div>
-        </div>
-
-        <div class="data-summary-row">
-          <div class="ds-stat">
-            <span class="ds-stat-val">~28,000</span>
-            <span class="ds-stat-label">Hourly observations (forecasting dataset)</span>
-          </div>
-          <div class="ds-stat">
-            <span class="ds-stat-val">51</span>
-            <span class="ds-stat-label">Features in final modeling file</span>
-          </div>
-          <div class="ds-stat">
-            <span class="ds-stat-val">1,224</span>
-            <span class="ds-stat-label">Station-hour observations (optimization)</span>
-          </div>
-          <div class="ds-stat">
-            <span class="ds-stat-val">0</span>
-            <span class="ds-stat-label">Join losses in final merged dataset</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── FORECASTING MODULE ── -->
-    <section id="forecasting" class="section" aria-labelledby="forecast-heading">
-      <div class="section-inner">
-        <div class="module-header module-header-f">
-          <div class="section-label">03 / Module 1</div>
-          <h2 id="forecast-heading">Electricity Price Forecasting</h2>
-          <div class="module-award-note" role="note">
-            <span aria-hidden="true">★</span> SAS Global Forum Curiosity Cup 2026 — Finalist
-          </div>
-        </div>
-
-        <div class="problem-callout">
-          <div class="pc-label">Formal Problem</div>
-          <p>Given a multivariate history of the prior 24 hours, predict LMP_RTM_SP15 at hour t + 24. The 24-hour horizon is operationally meaningful: charging operators need advance guidance to plan next-day pricing schedules and reduce exposure to predictable high-cost periods.</p>
-        </div>
-
-        <!-- Leakage prevention highlight -->
-        <div class="leakage-block">
-          <div class="lb-title">⚠️ Leakage Prevention — A Critical Design Constraint</div>
-          <div class="lb-body">
-            <p>Electricity datasets are uniquely leakage-prone. Day-ahead SP15 prices are highly correlated with real-time prices and were explicitly excluded — a model trained on them would be unrealistically optimistic. Additional safeguards enforced throughout:</p>
-            <ul class="lb-list">
-              <li>Strict chronological 60/20/20 split — no shuffling</li>
-              <li>Scaling parameters fit on training data only, applied unchanged to validation and test</li>
-              <li>Lag features and rolling calculations verified to reference only past values</li>
-              <li>Sequence windows checked to confirm no boundary crossings between splits</li>
-              <li>Correlation-based screening removed day-ahead prices and other market leakage pathways</li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Two-model approach -->
-        <div class="twomodel-grid">
-
-          <div class="model-block model-lstm">
-            <div class="model-tag">LSTM Model</div>
-            <h3>Leakage-Controlled Sequence Pipeline</h3>
-            <p>Stacked LSTM architecture (128→64→32 units) with dropout, trained on 24-hour rolling multivariate input windows to predict the price 24 hours ahead.</p>
-
-            <div class="model-details">
-              <div class="md-row"><span>Loss function</span><strong>Huber (robust to price spikes)</strong></div>
-              <div class="md-row"><span>Regularization</span><strong>Dropout + Early stopping</strong></div>
-              <div class="md-row"><span>Early stopping</span><strong>Epoch 18 (best val. at Epoch 3)</strong></div>
-              <div class="md-row"><span>Input window</span><strong>24-hour multivariate</strong></div>
-              <div class="md-row"><span>Target transform</span><strong>Shifted log (right-skew stabilization)</strong></div>
-              <div class="md-row"><span>Test observations</span><strong>~5,567 forecasts</strong></div>
-            </div>
-
-            <div class="model-metrics">
-              <div class="mm-item">
-                <span class="mm-val">$10.99</span>
-                <span class="mm-label">Test MAE</span>
+            <div class="overview-context">
+              <div class="ctx-card">
+                <div class="ctx-icon" aria-hidden="true">🌞</div>
+                <div class="ctx-title">The Duck Curve Problem</div>
+                <div class="ctx-body">
+                  Solar generation drives midday LMP prices near zero, then a
+                  sharp ramp between 17:00–21:00 coincides with commuter EV
+                  charging demand — the highest-risk window for operators.
+                </div>
               </div>
-              <div class="mm-item">
-                <span class="mm-val">$16.05</span>
-                <span class="mm-label">Test RMSE</span>
+              <div class="ctx-card">
+                <div class="ctx-icon" aria-hidden="true">🔌</div>
+                <div class="ctx-title">I-210 Corridor</div>
+                <div class="ctx-body">
+                  50+ fast-charging stations draw from the same freeway traffic
+                  stream. Each station's optimal price depends on its
+                  competitors — a strategic environment requiring game-theoretic
+                  modeling.
+                </div>
               </div>
-              <div class="mm-item">
-                <span class="mm-val">0.48</span>
-                <span class="mm-label">Test R²</span>
+              <div class="ctx-card">
+                <div class="ctx-icon" aria-hidden="true">🏆</div>
+                <div class="ctx-title">Award</div>
+                <div class="ctx-body">
+                  Forecasting paper selected as Finalist at SAS Global Forum
+                  Curiosity Cup 2026. Both papers available via GitHub.
+                </div>
               </div>
             </div>
-
-            <div class="model-insight">
-              <strong>Key behavioral finding:</strong> The model tracks intraday structure well — midday troughs and evening ramps — but systematically underestimates sudden spikes during the 17–21h ramp window where volatility is greatest. This is not a model failure: it reflects that abrupt grid stress events are genuinely difficult to anticipate from the available feature set.
-            </div>
-          </div>
-
-          <div class="model-block model-arima">
-            <div class="model-tag model-tag-arima">ARMA Benchmark</div>
-            <h3>Classical Time Series in SAS Viya</h3>
-            <p>A transparent statistical baseline to quantify how much price variation is explained purely by linear temporal structure — without any meteorological inputs.</p>
-
-            <div class="model-details">
-              <div class="md-row"><span>Base spec.</span><strong>ARIMA(2,0,1)</strong></div>
-              <div class="md-row"><span>Seasonal spec.</span><strong>SARIMA(2,1,1)(1,1,1)[24]</strong></div>
-              <div class="md-row"><span>Extended spec.</span><strong>ARIMAX + temperature, solar, load</strong></div>
-              <div class="md-row"><span>Estimation</span><strong>Maximum Likelihood</strong></div>
-              <div class="md-row"><span>Model selection</span><strong>AIC and SBC criteria</strong></div>
-              <div class="md-row"><span>Cycle confirmed by</span><strong>ACF and PACF analysis</strong></div>
-            </div>
-
-            <div class="arima-finding">
-              <p>ACF/PACF analysis confirmed a strong 24-hour cycle. Results show clear short-term persistence — dependence on the prior hour and prior day — and stable baseline behavior across years. Residual diagnostics confirm that extreme price spikes remain uncaptured across all linear specifications, motivating the LSTM component.</p>
-            </div>
-
-            <div class="arima-note">
-              The ARMA benchmark serves a diagnostic purpose: by establishing what linear persistence alone can explain, it isolates how much the LSTM's nonlinear cross-variable modeling actually contributes — and where both approaches hit the same wall (abrupt evening volatility).
-            </div>
-          </div>
-
-        </div>
-
-        <!-- Feature engineering -->
-        <div class="feat-eng-block">
-          <h3>Feature Engineering Highlights</h3>
-          <div class="fe-row-grid">
-            <div class="fe-chip">
-              <div class="fe-chip-name">Net Load</div>
-              <div class="fe-chip-def">Load − Solar − Wind</div>
-              <div class="fe-chip-why">Captures renewable displacement effect on price</div>
-            </div>
-            <div class="fe-chip">
-              <div class="fe-chip-name">Lag Variables</div>
-              <div class="fe-chip-def">lag_1, lag_2, lag_20</div>
-              <div class="fe-chip-why">Encodes short-term price persistence</div>
-            </div>
-            <div class="fe-chip">
-              <div class="fe-chip-name">Time Encodings</div>
-              <div class="fe-chip-def">Hour, weekend, peak indicators</div>
-              <div class="fe-chip-why">Captures intraday and weekly structure</div>
-            </div>
-            <div class="fe-chip">
-              <div class="fe-chip-name">Gas Hub Prices</div>
-              <div class="fe-chip-def">Henry Hub, PG&E Citygate, SoCal Border</div>
-              <div class="fe-chip-why">Fuel cost → marginal generation economics</div>
-            </div>
-            <div class="fe-chip">
-              <div class="fe-chip-name">Target Transform</div>
-              <div class="fe-chip-def">Shifted log of LMP</div>
-              <div class="fe-chip-why">Stabilizes right-skewed price spike distribution</div>
-            </div>
-            <div class="fe-chip">
-              <div class="fe-chip-name">Renewable Forecasts</div>
-              <div class="fe-chip-def">Solar + wind generation forecasts by zone</div>
-              <div class="fe-chip-why">Forward-looking supply signal without future leakage</div>
-            </div>
           </div>
         </div>
+      </section>
 
+      <!-- ── DATA ── -->
+      <section
+        id="data"
+        class="section section-warm"
+        aria-labelledby="data-heading"
+      >
+        <div class="section-inner">
+          <div class="section-label">02 / Data</div>
+          <h2 id="data-heading">Multi-Source Data Integration</h2>
+          <p class="section-intro">
+            Five public and institutional datasets were aligned to a common
+            hourly index, requiring standardized cleaning, unit conversion, and
+            temporal validation across sources.
+          </p>
+
+          <div class="data-sources">
+            <div class="ds-card">
+              <div class="ds-badge ds-caiso">CAISO</div>
+              <div class="ds-name">OASIS Real-Time LMP</div>
+              <div class="ds-desc">
+                Real-time locational marginal prices for SP15 zone. 8,700 unique
+                hourly records. Duplicate entries corrected; hour-24 timestamps
+                normalized to hour-0.
+              </div>
+              <div class="ds-used">Used in: Forecasting · Optimization</div>
+            </div>
+            <div class="ds-card">
+              <div class="ds-badge ds-noaa">NOAA/MERRA-2</div>
+              <div class="ds-name">Weather Variables</div>
+              <div class="ds-desc">
+                Temperature, wind speed, solar irradiance mapped to California
+                pricing zones. Represents both demand drivers and renewable
+                availability.
+              </div>
+              <div class="ds-used">Used in: Forecasting</div>
+            </div>
+            <div class="ds-card">
+              <div class="ds-badge ds-pems">Caltrans PeMS</div>
+              <div class="ds-name">Traffic Volumes</div>
+              <div class="ds-desc">
+                Hourly sensor counts from 56 freeway exit sensors. Aggregated to
+                24-hour corridor totals representing the shared traffic stream
+                to all stations.
+              </div>
+              <div class="ds-used">Used in: Optimization</div>
+            </div>
+            <div class="ds-card">
+              <div class="ds-badge ds-ocm">OpenChargeMap</div>
+              <div class="ds-name">Station Metadata</div>
+              <div class="ds-desc">
+                Geographic coordinates, charger power ratings, connector types,
+                and port counts for 51 I-210 corridor stations. Flattened from
+                JSON and cleaned.
+              </div>
+              <div class="ds-used">Used in: Optimization</div>
+            </div>
+            <div class="ds-card">
+              <div class="ds-badge ds-desl">DESL / Gas Hubs</div>
+              <div class="ds-name">Sessions + Fuel Prices</div>
+              <div class="ds-desc">
+                10,000+ Purdue DESL charging session records (duration, energy
+                delivered). Henry Hub, PG&amp;E Citygate, SoCal Border gas
+                prices for marginal cost modeling.
+              </div>
+              <div class="ds-used">Used in: Forecasting · Optimization</div>
+            </div>
+          </div>
+
+          <div class="data-summary-row">
+            <div class="ds-stat">
+              <span class="ds-stat-val">~28,000</span>
+              <span class="ds-stat-label"
+                >Hourly observations (forecasting dataset)</span
+              >
+            </div>
+            <div class="ds-stat">
+              <span class="ds-stat-val">51</span>
+              <span class="ds-stat-label">Features in final modeling file</span>
+            </div>
+            <div class="ds-stat">
+              <span class="ds-stat-val">1,224</span>
+              <span class="ds-stat-label"
+                >Station-hour observations (optimization)</span
+              >
+            </div>
+            <div class="ds-stat">
+              <span class="ds-stat-val">0</span>
+              <span class="ds-stat-label"
+                >Join losses in final merged dataset</span
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── FORECASTING MODULE ── -->
+      <section
+        id="forecasting"
+        class="section"
+        aria-labelledby="forecast-heading"
+      >
+        <div class="section-inner">
+          <div class="module-header module-header-f">
+            <div class="section-label">03 / Module 1</div>
+            <h2 id="forecast-heading">Electricity Price Forecasting</h2>
+            <div class="module-award-note" role="note">
+              <span aria-hidden="true">★</span> SAS Global Forum Curiosity Cup
+              2026 — Finalist
+            </div>
+          </div>
+
+          <div class="problem-callout">
+            <div class="pc-label">Formal Problem</div>
+            <p>
+              Given a multivariate history of the prior 24 hours, predict
+              LMP_RTM_SP15 at hour t + 24. The 24-hour horizon is operationally
+              meaningful: charging operators need advance guidance to plan
+              next-day pricing schedules and reduce exposure to predictable
+              high-cost periods.
+            </p>
+          </div>
+
+          <!-- Leakage prevention highlight -->
+          <div class="leakage-block">
+            <div class="lb-title">
+              ⚠️ Leakage Prevention — A Critical Design Constraint
+            </div>
+            <div class="lb-body">
+              <p>
+                Electricity datasets are uniquely leakage-prone. Day-ahead SP15
+                prices are highly correlated with real-time prices and were
+                explicitly excluded — a model trained on them would be
+                unrealistically optimistic. Additional safeguards enforced
+                throughout:
+              </p>
+              <ul class="lb-list">
+                <li>Strict chronological 60/20/20 split — no shuffling</li>
+                <li>
+                  Scaling parameters fit on training data only, applied
+                  unchanged to validation and test
+                </li>
+                <li>
+                  Lag features and rolling calculations verified to reference
+                  only past values
+                </li>
+                <li>
+                  Sequence windows checked to confirm no boundary crossings
+                  between splits
+                </li>
+                <li>
+                  Correlation-based screening removed day-ahead prices and other
+                  market leakage pathways
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Two-model approach -->
+          <div class="twomodel-grid">
+            <div class="model-block model-lstm">
+              <div class="model-tag">LSTM Model</div>
+              <h3>Leakage-Controlled Sequence Pipeline</h3>
+              <p>
+                Stacked LSTM architecture (128→64→32 units) with dropout,
+                trained on 24-hour rolling multivariate input windows to predict
+                the price 24 hours ahead.
+              </p>
+
+              <div class="model-details">
+                <div class="md-row">
+                  <span>Loss function</span
+                  ><strong>Huber (robust to price spikes)</strong>
+                </div>
+                <div class="md-row">
+                  <span>Regularization</span
+                  ><strong>Dropout + Early stopping</strong>
+                </div>
+                <div class="md-row">
+                  <span>Early stopping</span
+                  ><strong>Epoch 18 (best val. at Epoch 3)</strong>
+                </div>
+                <div class="md-row">
+                  <span>Input window</span><strong>24-hour multivariate</strong>
+                </div>
+                <div class="md-row">
+                  <span>Target transform</span
+                  ><strong>Shifted log (right-skew stabilization)</strong>
+                </div>
+                <div class="md-row">
+                  <span>Test observations</span
+                  ><strong>~5,567 forecasts</strong>
+                </div>
+              </div>
+
+              <div class="model-metrics">
+                <div class="mm-item">
+                  <span class="mm-val">$10.99</span>
+                  <span class="mm-label">Test MAE</span>
+                </div>
+                <div class="mm-item">
+                  <span class="mm-val">$16.05</span>
+                  <span class="mm-label">Test RMSE</span>
+                </div>
+                <div class="mm-item">
+                  <span class="mm-val">0.48</span>
+                  <span class="mm-label">Test R²</span>
+                </div>
+              </div>
+
+              <div class="model-insight">
+                <strong>Key behavioral finding:</strong> The model tracks
+                intraday structure well — midday troughs and evening ramps — but
+                systematically underestimates sudden spikes during the 17–21h
+                ramp window where volatility is greatest. This is not a model
+                failure: it reflects that abrupt grid stress events are
+                genuinely difficult to anticipate from the available feature
+                set.
+              </div>
+            </div>
+
+            <div class="model-block model-arima">
+              <div class="model-tag model-tag-arima">ARMA Benchmark</div>
+              <h3>Classical Time Series in SAS Viya</h3>
+              <p>
+                A transparent statistical baseline to quantify how much price
+                variation is explained purely by linear temporal structure —
+                without any meteorological inputs.
+              </p>
+
+              <div class="model-details">
+                <div class="md-row">
+                  <span>Base spec.</span><strong>ARIMA(2,0,1)</strong>
+                </div>
+                <div class="md-row">
+                  <span>Seasonal spec.</span
+                  ><strong>SARIMA(2,1,1)(1,1,1)[24]</strong>
+                </div>
+                <div class="md-row">
+                  <span>Extended spec.</span
+                  ><strong>ARIMAX + temperature, solar, load</strong>
+                </div>
+                <div class="md-row">
+                  <span>Estimation</span><strong>Maximum Likelihood</strong>
+                </div>
+                <div class="md-row">
+                  <span>Model selection</span
+                  ><strong>AIC and SBC criteria</strong>
+                </div>
+                <div class="md-row">
+                  <span>Cycle confirmed by</span
+                  ><strong>ACF and PACF analysis</strong>
+                </div>
+              </div>
+
+              <div class="arima-finding">
+                <p>
+                  ACF/PACF analysis confirmed a strong 24-hour cycle. Results
+                  show clear short-term persistence — dependence on the prior
+                  hour and prior day — and stable baseline behavior across
+                  years. Residual diagnostics confirm that extreme price spikes
+                  remain uncaptured across all linear specifications, motivating
+                  the LSTM component.
+                </p>
+              </div>
+
+              <div class="arima-note">
+                The ARMA benchmark serves a diagnostic purpose: by establishing
+                what linear persistence alone can explain, it isolates how much
+                the LSTM's nonlinear cross-variable modeling actually
+                contributes — and where both approaches hit the same wall
+                (abrupt evening volatility).
+              </div>
+            </div>
+          </div>
+
+          <!-- Feature engineering -->
+          <div class="feat-eng-block">
+            <h3>Feature Engineering Highlights</h3>
+            <div class="fe-row-grid">
+              <div class="fe-chip">
+                <div class="fe-chip-name">Net Load</div>
+                <div class="fe-chip-def">Load − Solar − Wind</div>
+                <div class="fe-chip-why">
+                  Captures renewable displacement effect on price
+                </div>
+              </div>
+              <div class="fe-chip">
+                <div class="fe-chip-name">Lag Variables</div>
+                <div class="fe-chip-def">lag_1, lag_2, lag_20</div>
+                <div class="fe-chip-why">
+                  Encodes short-term price persistence
+                </div>
+              </div>
+              <div class="fe-chip">
+                <div class="fe-chip-name">Time Encodings</div>
+                <div class="fe-chip-def">Hour, weekend, peak indicators</div>
+                <div class="fe-chip-why">
+                  Captures intraday and weekly structure
+                </div>
+              </div>
+              <div class="fe-chip">
+                <div class="fe-chip-name">Gas Hub Prices</div>
+                <div class="fe-chip-def">
+                  Henry Hub, PG&E Citygate, SoCal Border
+                </div>
+                <div class="fe-chip-why">
+                  Fuel cost → marginal generation economics
+                </div>
+              </div>
+              <div class="fe-chip">
+                <div class="fe-chip-name">Target Transform</div>
+                <div class="fe-chip-def">Shifted log of LMP</div>
+                <div class="fe-chip-why">
+                  Stabilizes right-skewed price spike distribution
+                </div>
+              </div>
+              <div class="fe-chip">
+                <div class="fe-chip-name">Renewable Forecasts</div>
+                <div class="fe-chip-def">
+                  Solar + wind generation forecasts by zone
+                </div>
+                <div class="fe-chip-why">
+                  Forward-looking supply signal without future leakage
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── OPTIMIZATION MODULE ── -->
+      <section
+        id="optimization"
+        class="section section-warm"
+        aria-labelledby="optim-heading"
+      >
+        <div class="section-inner">
+          <div class="section-label">04 / Module 2</div>
+          <h2 id="optim-heading">Market Equilibrium Optimization</h2>
+
+          <div class="problem-callout problem-callout-o">
+            <div class="pc-label">Formal Problem</div>
+            <p>
+              Model strategic pricing interaction among 51 EV charging stations
+              on the I-210 corridor, where each station's optimal price depends
+              on its competitors. Compute Nash equilibrium prices via iterative
+              best-response. Identify whether pricing power or physical capacity
+              is the binding constraint on corridor performance.
+            </p>
+          </div>
+
+          <!-- Mathematical framework -->
+          <div class="math-framework">
+            <h3>Mathematical Framework</h3>
+            <div class="math-grid">
+              <div class="math-card">
+                <div class="math-label">Driver Utility (Eq. 1)</div>
+                <div
+                  class="math-eq"
+                  role="img"
+                  aria-label="Utility of station s for driver i equals negative theta times e_i times p_s minus beta_VOT times d_i_s"
+                >
+                  U<sub>i,s</sub> = −θe<sub>i</sub>p<sub>s</sub> −
+                  β<sub>VOT</sub>d<sub>i,s</sub>
+                </div>
+                <div class="math-note">
+                  Driver evaluates each station on price paid and detour
+                  distance. Outside option: home charging at $0.18/kWh.
+                </div>
+              </div>
+
+              <div class="math-card">
+                <div class="math-label">Logit Choice (Eq. 2)</div>
+                <div
+                  class="math-eq"
+                  role="img"
+                  aria-label="Probability driver i chooses station s equals exp(U_i_s) divided by sum over all stations of exp(U_i_r)"
+                >
+                  P<sub>i,s</sub> = exp(U<sub>i,s</sub>) / Σ<sub>r∈S∪{0}</sub>
+                  exp(U<sub>i,r</sub>)
+                </div>
+                <div class="math-note">
+                  Standard multinomial logit. Calibrated to published price
+                  elasticity values (as low as −1.5 in fast-charging contexts).
+                </div>
+              </div>
+
+              <div class="math-card">
+                <div class="math-label">Expected Demand (Eq. 3)</div>
+                <div
+                  class="math-eq"
+                  role="img"
+                  aria-label="Expected energy demand at station s equals sum over all drivers of e_i times P_i_s"
+                >
+                  E<sub>s</sub>(p) = Σ<sup>N</sup><sub>i=1</sub> e<sub>i</sub> ·
+                  P<sub>i,s</sub>(p)
+                </div>
+                <div class="math-note">
+                  Aggregates choice probabilities across all N drivers in the
+                  corridor traffic stream.
+                </div>
+              </div>
+
+              <div class="math-card math-card-highlight">
+                <div class="math-label">Profit Maximization (Eq. 5)</div>
+                <div
+                  class="math-eq math-eq-sm"
+                  role="img"
+                  aria-label="Maximize over price of (p_s minus c_t) times sum of e_i P_i_s plus gamma times capacity penalty term"
+                >
+                  max<sub>p<sub>s</sub></sub> (p<sub>s</sub> − c<sub>t</sub>)
+                  Σe<sub>i</sub>P<sub>i,s</sub>(p) + γ(ΣP<sub>i,s</sub>·μ −
+                  uN<sub>s</sub>)
+                </div>
+                <div class="math-note">
+                  Smooth capacity penalty (γ) discourages prices that lead to
+                  overload. Solved via iterative best-response with damping
+                  factor until convergence.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Results -->
+          <div class="optim-results">
+            <h3>Equilibrium Findings</h3>
+            <div class="optim-findings">
+              <div class="finding-card">
+                <div class="finding-num">01</div>
+                <div class="finding-body">
+                  <div class="finding-title">
+                    Prices Stay Stable Under Peak Demand
+                  </div>
+                  <p>
+                    Despite demand peaking sharply at hour 18 (evening commute
+                    surge), equilibrium prices remain stable throughout the day.
+                    Competition prevents any station from exploiting peak demand
+                    — stations cannot raise prices without losing customers to
+                    nearby alternatives, keeping the corridor affordable for
+                    drivers.
+                  </p>
+                </div>
+              </div>
+
+              <div class="finding-card">
+                <div class="finding-num">02</div>
+                <div class="finding-body">
+                  <div class="finding-title">
+                    Physical Capacity Is the Binding Constraint
+                  </div>
+                  <p>
+                    Stations operate below capacity during hours 0–6, but
+                    utilization rises sharply from hour 6 onward. Many afternoon
+                    and evening stations exceed their rated capacity by
+                    200–300%, confirming that physical infrastructure — not
+                    pricing power — is the dominant performance driver.
+                    Expanding capacity is substantially more effective than
+                    adjusting prices for reducing congestion.
+                  </p>
+                </div>
+              </div>
+
+              <div class="finding-card">
+                <div class="finding-num">03</div>
+                <div class="finding-body">
+                  <div class="finding-title">
+                    Profits Are Evenly Distributed
+                  </div>
+                  <p>
+                    Profit shares across the 51-station network are spread
+                    evenly throughout the day — no station captures a dominant
+                    share. During high-demand hours, profit concentration
+                    decreases slightly as competition intensifies. The corridor
+                    behaves like a near-perfectly-competitive market with
+                    limited pricing power.
+                  </p>
+                </div>
+              </div>
+
+              <div class="finding-card">
+                <div class="finding-num">04</div>
+                <div class="finding-body">
+                  <div class="finding-title">Algorithm Converges Stably</div>
+                  <p>
+                    The iterative best-response algorithm shows mild oscillation
+                    in early iterations followed by rapid stabilization —
+                    confirming the equilibrium is both mathematically stable and
+                    computationally tractable. Convergence threshold: 0.01 $/kWh
+                    max change per iteration.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Utilization visual summary -->
+          <div
+            class="util-visual"
+            aria-label="Capacity utilization summary visualization"
+          >
+            <div class="uv-header">
+              Capacity Utilization Pattern (Schematic)
+            </div>
+            <div class="uv-grid">
+              <div class="uv-labels">
+                <span>Hour 0</span><span>Hour 6</span><span>Hour 12</span
+                ><span>Hour 18</span><span>Hour 23</span>
+              </div>
+              <div class="uv-bars">
+                <div class="uv-bar" style="--h: 8%" data-label="Low"></div>
+                <div class="uv-bar" style="--h: 35%" data-label="Rising"></div>
+                <div class="uv-bar" style="--h: 80%" data-label="High"></div>
+                <div
+                  class="uv-bar uv-bar-over"
+                  style="--h: 100%"
+                  data-label="200-300%+ overload"
+                ></div>
+                <div
+                  class="uv-bar uv-bar-over"
+                  style="--h: 100%"
+                  data-label="Sustained overload"
+                ></div>
+              </div>
+              <div class="uv-legend">
+                <span class="uvl-ok">■ Normal</span>
+                <span class="uvl-over">■ Overloaded (&gt;100%)</span>
+              </div>
+            </div>
+            <div class="uv-note">
+              Based on capacity utilization heatmap results. Many stations
+              exceed rated capacity by 200–300% during afternoon and evening
+              hours.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── RESULTS SUMMARY ── -->
+      <section id="results" class="section" aria-labelledby="results-heading">
+        <div class="section-inner">
+          <div class="section-label">05 / Results</div>
+          <h2 id="results-heading">Combined Results</h2>
+
+          <div class="results-two-col">
+            <div class="results-col">
+              <div class="rc-header rc-header-f">Forecasting Performance</div>
+              <table
+                class="rt"
+                aria-label="LSTM forecasting performance metrics"
+              >
+                <thead>
+                  <tr>
+                    <th scope="col">Metric</th>
+                    <th scope="col">Value</th>
+                    <th scope="col">Context</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Test MAE</td>
+                    <td class="rv">~$10.99/MWh</td>
+                    <td>~5,567 out-of-sample forecasts</td>
+                  </tr>
+                  <tr>
+                    <td>Test RMSE</td>
+                    <td class="rv">~$16.05/MWh</td>
+                    <td>Aug 28 – Sep 18, 2025 window</td>
+                  </tr>
+                  <tr>
+                    <td>Test R²</td>
+                    <td class="rv">~0.48</td>
+                    <td>Explains ~half of variance</td>
+                  </tr>
+                  <tr>
+                    <td>Early stopping</td>
+                    <td class="rv">Epoch 18</td>
+                    <td>Best validation: Epoch 3</td>
+                  </tr>
+                  <tr>
+                    <td>Horizon</td>
+                    <td class="rv">24 hours</td>
+                    <td>Single-step ahead</td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="results-note">
+                Both LSTM and ARMA track daily troughs and ramps well. The
+                17–21h ramp window remains the primary challenge for both
+                approaches — reflecting a genuine limit of what market and
+                weather data can predict about abrupt grid stress events.
+              </div>
+            </div>
+
+            <div class="results-col">
+              <div class="rc-header rc-header-o">Optimization Findings</div>
+              <table class="rt" aria-label="Optimization model key findings">
+                <thead>
+                  <tr>
+                    <th scope="col">Finding</th>
+                    <th scope="col">Detail</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Price stability</td>
+                    <td class="rv">
+                      Stable despite peak demand surge at hour 18
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Peak utilization</td>
+                    <td class="rv">
+                      200–300%+ overcapacity at many stations (hours 6–23)
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Profit distribution</td>
+                    <td class="rv">Evenly spread across all 51 stations</td>
+                  </tr>
+                  <tr>
+                    <td>Algorithm</td>
+                    <td class="rv">
+                      Converges stably; &lt;0.01 $/kWh threshold met
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Policy implication</td>
+                    <td class="rv">
+                      Capacity expansion &gt; price regulation for congestion
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="results-note">
+                The corridor behaves as a near-competitive market. Price
+                regulation alone would be ineffective — the real lever for
+                improving service quality and reducing congestion is physical
+                infrastructure investment.
+              </div>
+            </div>
+          </div>
+
+          <!-- Joint insight -->
+          <div class="joint-insight">
+            <div class="ji-title">The Integrated Picture</div>
+            <p>
+              Taken together, the two modules tell a coherent story: real-time
+              electricity prices have predictable intraday structure that
+              operators can leverage for load-shifting decisions (forecasting),
+              but competitive pressure means the savings from smart timing
+              cannot easily be converted into pricing power over customers
+              (optimization). The binding constraint is physical capacity, not
+              information asymmetry.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── WHAT I LEARNED ── -->
+      <section
+        id="learned"
+        class="section section-warm"
+        aria-labelledby="learned-heading"
+      >
+        <div class="section-inner">
+          <div class="section-label">06 / Reflections</div>
+          <h2 id="learned-heading">What I Learned</h2>
+          <div class="learned-grid">
+            <div class="lc">
+              <div class="lc-icon">🔒</div>
+              <h3>Leakage in Electricity Markets Is Subtle</h3>
+              <p>
+                Day-ahead prices are so highly correlated with real-time prices
+                that including them produces unrealistically optimistic metrics.
+                Building automated verification checks into the pipeline — not
+                just applying a split — is the only reliable safeguard. The
+                discipline of leakage prevention should be architectured into
+                the data pipeline, not reviewed after the fact.
+              </p>
+            </div>
+
+            <div class="lc">
+              <div class="lc-icon">⚡</div>
+              <h3>The Hardest Hours Are a Feature, Not a Bug</h3>
+              <p>
+                The 17–21h ramp window — where both LSTM and ARMA struggled — is
+                not a modeling failure. It reflects a genuine information limit:
+                abrupt grid stress events during the duck curve ramp are driven
+                by conditions not well-represented in the available feature set.
+                Acknowledging this honestly in the paper strengthened the
+                analysis rather than undermining it.
+              </p>
+            </div>
+
+            <div class="lc">
+              <div class="lc-icon">🎯</div>
+              <h3>Classical Models as Diagnostic Tools</h3>
+              <p>
+                The ARMA benchmark served a purpose beyond performance
+                comparison — its residual diagnostics isolated exactly which
+                price dynamics are linear (persistence, 24-hour cycle) and which
+                are not (spikes, ramp events). Without this baseline, the LSTM's
+                contribution would be ambiguous. Building transparent baselines
+                first is a professional habit worth maintaining.
+              </p>
+            </div>
+
+            <div class="lc">
+              <div class="lc-icon">🎲</div>
+              <h3>Game Theory Changes What Questions You Ask</h3>
+              <p>
+                Framing the corridor as a Nash equilibrium problem forced a
+                different set of questions: not just "what is the optimal
+                price?" but "what is the equilibrium price given that all
+                competitors are also optimizing?" This distinction matters — and
+                the finding that competition naturally limits price spikes only
+                emerges from the equilibrium framing, not from optimizing a
+                single station in isolation.
+              </p>
+            </div>
+
+            <div class="lc">
+              <div class="lc-icon">📊</div>
+              <h3>Physical Constraints Beat Pricing Theory</h3>
+              <p>
+                The optimization result that 200–300% overutilization is the
+                dominant problem — not pricing power — was counterintuitive but
+                emerged directly from the data and model. Infrastructure
+                decisions are often framed as pricing problems. This analysis
+                provides a quantitative argument for why capacity investment
+                should precede pricing policy in corridor planning.
+              </p>
+            </div>
+
+            <div class="lc">
+              <div class="lc-icon">🔗</div>
+              <h3>Multi-Source Data Integration Is Underrated</h3>
+              <p>
+                Aligning CAISO prices, PeMS traffic, OpenChargeMap metadata,
+                DESL session records, and weather data to a common hourly index
+                required careful unit conversion, timestamp normalization, and
+                deduplication — and this work was invisible in the final
+                results. The discipline of building a clean, validated, merged
+                dataset is often where the real analytical work lives.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── SKILLS ── -->
+      <section id="skills" class="section" aria-labelledby="skills-heading">
+        <div class="section-inner">
+          <div class="section-label">07 / Skills</div>
+          <h2 id="skills-heading">Skills Demonstrated</h2>
+          <div class="skills-layout">
+            <div class="skill-group">
+              <div class="sg-label">Modeling</div>
+              <div class="sg-tags">
+                <span class="stag stag-primary">LSTM / Deep Learning</span>
+                <span class="stag stag-primary">ARIMA / SARIMA / ARIMAX</span>
+                <span class="stag stag-primary">Nash Equilibrium Modeling</span>
+                <span class="stag stag-primary">Discrete-Choice (Logit)</span>
+                <span class="stag stag-secondary">Nonlinear Optimization</span>
+                <span class="stag stag-secondary">Iterative Best-Response</span>
+              </div>
+            </div>
+            <div class="skill-group">
+              <div class="sg-label">Engineering</div>
+              <div class="sg-tags">
+                <span class="stag stag-primary"
+                  >Leakage-Controlled Pipelines</span
+                >
+                <span class="stag stag-primary"
+                  >Multi-Source Data Integration</span
+                >
+                <span class="stag stag-secondary">Feature Engineering</span>
+                <span class="stag stag-secondary"
+                  >Time Series Preprocessing</span
+                >
+                <span class="stag stag-secondary">Chronological CV</span>
+                <span class="stag stag-secondary">Target Transformation</span>
+              </div>
+            </div>
+            <div class="skill-group">
+              <div class="sg-label">Analysis</div>
+              <div class="sg-tags">
+                <span class="stag stag-primary"
+                  >Electricity Market Analysis</span
+                >
+                <span class="stag stag-primary"
+                  >Price Elasticity Calibration</span
+                >
+                <span class="stag stag-secondary">Residual Diagnostics</span>
+                <span class="stag stag-secondary">ACF / PACF Analysis</span>
+                <span class="stag stag-secondary">Model Benchmarking</span>
+                <span class="stag stag-secondary"
+                  >Game-Theoretic Reasoning</span
+                >
+              </div>
+            </div>
+            <div class="skill-group">
+              <div class="sg-label">Tools &amp; Stack</div>
+              <div class="sg-tags">
+                <span class="stag stag-secondary"
+                  >Python (TensorFlow/Keras)</span
+                >
+                <span class="stag stag-secondary"
+                  >SAS Viya / PROC OPTMODEL</span
+                >
+                <span class="stag stag-secondary">CAISO OASIS API</span>
+                <span class="stag stag-secondary">Caltrans PeMS</span>
+                <span class="stag stag-secondary">OpenChargeMap API</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── CTA ── -->
+      <section class="section cta-section" aria-labelledby="cta-heading">
+        <div class="section-inner cta-inner">
+          <div class="cta-award-badge" role="note">
+            <span aria-hidden="true">★</span> SAS Global Forum Curiosity Cup
+            2026 Finalist
+          </div>
+          <h2 id="cta-heading">Explore the Full Work</h2>
+          <p>
+            Full competition paper submissions are available below. For code and
+            notebooks, please contact me.
+          </p>
+          <div class="cta-buttons">
+            <a
+              href="ev-charging-intelligence/SAS Curiosity Cup 2026 - ORSOL_Forecasting.pdf"
+              class="cta-primary cta-lg"
+              target="_blank"
+              >Forecasting Paper ↗</a
+            >
+            <a
+              href="ev-charging-intelligence/SAS Curiosity Cup 2026- ORSOL_Optimization.pdf"
+              class="cta-lg"
+              style="
+                background-color: #ff7c3a;
+                color: white;
+                padding: 12px 24px;
+                text-decoration: none;
+                border-radius: 4px;
+                display: inline-block;
+              "
+              target="_blank"
+              >Optimization Paper ↗</a
+            >
+            <a
+              href="mailto:nakul.sreekanth@gmail.com"
+              class="cta-secondary cta-lg"
+              >Request Code</a
+            >
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer" role="contentinfo">
+      <div class="footer-inner">
+        <span>Nakul Sreekanth · Data Science Portfolio</span>
+        <span class="fsep">·</span>
+        <span
+          >SAS Global Forum Curiosity Cup 2026 Finalist · Purdue VIP-ORSOL</span
+        >
       </div>
-    </section>
+    </footer>
 
-    <!-- ── OPTIMIZATION MODULE ── -->
-    <section id="optimization" class="section section-warm" aria-labelledby="optim-heading">
-      <div class="section-inner">
-        <div class="section-label">04 / Module 2</div>
-        <h2 id="optim-heading">Market Equilibrium Optimization</h2>
-
-        <div class="problem-callout problem-callout-o">
-          <div class="pc-label">Formal Problem</div>
-          <p>Model strategic pricing interaction among 51 EV charging stations on the I-210 corridor, where each station's optimal price depends on its competitors. Compute Nash equilibrium prices via iterative best-response. Identify whether pricing power or physical capacity is the binding constraint on corridor performance.</p>
-        </div>
-
-        <!-- Mathematical framework -->
-        <div class="math-framework">
-          <h3>Mathematical Framework</h3>
-          <div class="math-grid">
-
-            <div class="math-card">
-              <div class="math-label">Driver Utility (Eq. 1)</div>
-              <div class="math-eq" role="img" aria-label="Utility of station s for driver i equals negative theta times e_i times p_s minus beta_VOT times d_i_s">
-                U<sub>i,s</sub> = −θe<sub>i</sub>p<sub>s</sub> − β<sub>VOT</sub>d<sub>i,s</sub>
-              </div>
-              <div class="math-note">Driver evaluates each station on price paid and detour distance. Outside option: home charging at $0.18/kWh.</div>
-            </div>
-
-            <div class="math-card">
-              <div class="math-label">Logit Choice (Eq. 2)</div>
-              <div class="math-eq" role="img" aria-label="Probability driver i chooses station s equals exp(U_i_s) divided by sum over all stations of exp(U_i_r)">
-                P<sub>i,s</sub> = exp(U<sub>i,s</sub>) / Σ<sub>r∈S∪{0}</sub> exp(U<sub>i,r</sub>)
-              </div>
-              <div class="math-note">Standard multinomial logit. Calibrated to published price elasticity values (as low as −1.5 in fast-charging contexts).</div>
-            </div>
-
-            <div class="math-card">
-              <div class="math-label">Expected Demand (Eq. 3)</div>
-              <div class="math-eq" role="img" aria-label="Expected energy demand at station s equals sum over all drivers of e_i times P_i_s">
-                E<sub>s</sub>(p) = Σ<sup>N</sup><sub>i=1</sub> e<sub>i</sub> · P<sub>i,s</sub>(p)
-              </div>
-              <div class="math-note">Aggregates choice probabilities across all N drivers in the corridor traffic stream.</div>
-            </div>
-
-            <div class="math-card math-card-highlight">
-              <div class="math-label">Profit Maximization (Eq. 5)</div>
-              <div class="math-eq math-eq-sm" role="img" aria-label="Maximize over price of (p_s minus c_t) times sum of e_i P_i_s plus gamma times capacity penalty term">
-                max<sub>p<sub>s</sub></sub> (p<sub>s</sub> − c<sub>t</sub>) Σe<sub>i</sub>P<sub>i,s</sub>(p) + γ(ΣP<sub>i,s</sub>·μ − uN<sub>s</sub>)
-              </div>
-              <div class="math-note">Smooth capacity penalty (γ) discourages prices that lead to overload. Solved via iterative best-response with damping factor until convergence.</div>
-            </div>
-
-          </div>
-        </div>
-
-        <!-- Results -->
-        <div class="optim-results">
-          <h3>Equilibrium Findings</h3>
-          <div class="optim-findings">
-
-            <div class="finding-card">
-              <div class="finding-num">01</div>
-              <div class="finding-body">
-                <div class="finding-title">Prices Stay Stable Under Peak Demand</div>
-                <p>Despite demand peaking sharply at hour 18 (evening commute surge), equilibrium prices remain stable throughout the day. Competition prevents any station from exploiting peak demand — stations cannot raise prices without losing customers to nearby alternatives, keeping the corridor affordable for drivers.</p>
-              </div>
-            </div>
-
-            <div class="finding-card">
-              <div class="finding-num">02</div>
-              <div class="finding-body">
-                <div class="finding-title">Physical Capacity Is the Binding Constraint</div>
-                <p>Stations operate below capacity during hours 0–6, but utilization rises sharply from hour 6 onward. Many afternoon and evening stations exceed their rated capacity by 200–300%, confirming that physical infrastructure — not pricing power — is the dominant performance driver. Expanding capacity is substantially more effective than adjusting prices for reducing congestion.</p>
-              </div>
-            </div>
-
-            <div class="finding-card">
-              <div class="finding-num">03</div>
-              <div class="finding-body">
-                <div class="finding-title">Profits Are Evenly Distributed</div>
-                <p>Profit shares across the 51-station network are spread evenly throughout the day — no station captures a dominant share. During high-demand hours, profit concentration decreases slightly as competition intensifies. The corridor behaves like a near-perfectly-competitive market with limited pricing power.</p>
-              </div>
-            </div>
-
-            <div class="finding-card">
-              <div class="finding-num">04</div>
-              <div class="finding-body">
-                <div class="finding-title">Algorithm Converges Stably</div>
-                <p>The iterative best-response algorithm shows mild oscillation in early iterations followed by rapid stabilization — confirming the equilibrium is both mathematically stable and computationally tractable. Convergence threshold: 0.01 $/kWh max change per iteration.</p>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-        <!-- Utilization visual summary -->
-        <div class="util-visual" aria-label="Capacity utilization summary visualization">
-          <div class="uv-header">Capacity Utilization Pattern (Schematic)</div>
-          <div class="uv-grid">
-            <div class="uv-labels">
-              <span>Hour 0</span><span>Hour 6</span><span>Hour 12</span><span>Hour 18</span><span>Hour 23</span>
-            </div>
-            <div class="uv-bars">
-              <div class="uv-bar" style="--h:8%"  data-label="Low"></div>
-              <div class="uv-bar" style="--h:35%" data-label="Rising"></div>
-              <div class="uv-bar" style="--h:80%" data-label="High"></div>
-              <div class="uv-bar uv-bar-over" style="--h:100%" data-label="200-300%+ overload"></div>
-              <div class="uv-bar uv-bar-over" style="--h:100%" data-label="Sustained overload"></div>
-            </div>
-            <div class="uv-legend">
-              <span class="uvl-ok">■ Normal</span>
-              <span class="uvl-over">■ Overloaded (&gt;100%)</span>
-            </div>
-          </div>
-          <div class="uv-note">Based on capacity utilization heatmap results. Many stations exceed rated capacity by 200–300% during afternoon and evening hours.</div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ── RESULTS SUMMARY ── -->
-    <section id="results" class="section" aria-labelledby="results-heading">
-      <div class="section-inner">
-        <div class="section-label">05 / Results</div>
-        <h2 id="results-heading">Combined Results</h2>
-
-        <div class="results-two-col">
-          <div class="results-col">
-            <div class="rc-header rc-header-f">Forecasting Performance</div>
-            <table class="rt" aria-label="LSTM forecasting performance metrics">
-              <thead>
-                <tr><th scope="col">Metric</th><th scope="col">Value</th><th scope="col">Context</th></tr>
-              </thead>
-              <tbody>
-                <tr><td>Test MAE</td><td class="rv">~$10.99/MWh</td><td>~5,567 out-of-sample forecasts</td></tr>
-                <tr><td>Test RMSE</td><td class="rv">~$16.05/MWh</td><td>Aug 28 – Sep 18, 2025 window</td></tr>
-                <tr><td>Test R²</td><td class="rv">~0.48</td><td>Explains ~half of variance</td></tr>
-                <tr><td>Early stopping</td><td class="rv">Epoch 18</td><td>Best validation: Epoch 3</td></tr>
-                <tr><td>Horizon</td><td class="rv">24 hours</td><td>Single-step ahead</td></tr>
-              </tbody>
-            </table>
-            <div class="results-note">Both LSTM and ARMA track daily troughs and ramps well. The 17–21h ramp window remains the primary challenge for both approaches — reflecting a genuine limit of what market and weather data can predict about abrupt grid stress events.</div>
-          </div>
-
-          <div class="results-col">
-            <div class="rc-header rc-header-o">Optimization Findings</div>
-            <table class="rt" aria-label="Optimization model key findings">
-              <thead>
-                <tr><th scope="col">Finding</th><th scope="col">Detail</th></tr>
-              </thead>
-              <tbody>
-                <tr><td>Price stability</td><td class="rv">Stable despite peak demand surge at hour 18</td></tr>
-                <tr><td>Peak utilization</td><td class="rv">200–300%+ overcapacity at many stations (hours 6–23)</td></tr>
-                <tr><td>Profit distribution</td><td class="rv">Evenly spread across all 51 stations</td></tr>
-                <tr><td>Algorithm</td><td class="rv">Converges stably; &lt;0.01 $/kWh threshold met</td></tr>
-                <tr><td>Policy implication</td><td class="rv">Capacity expansion &gt; price regulation for congestion</td></tr>
-              </tbody>
-            </table>
-            <div class="results-note">The corridor behaves as a near-competitive market. Price regulation alone would be ineffective — the real lever for improving service quality and reducing congestion is physical infrastructure investment.</div>
-          </div>
-        </div>
-
-        <!-- Joint insight -->
-        <div class="joint-insight">
-          <div class="ji-title">The Integrated Picture</div>
-          <p>Taken together, the two modules tell a coherent story: real-time electricity prices have predictable intraday structure that operators can leverage for load-shifting decisions (forecasting), but competitive pressure means the savings from smart timing cannot easily be converted into pricing power over customers (optimization). The binding constraint is physical capacity, not information asymmetry.</p>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ── WHAT I LEARNED ── -->
-    <section id="learned" class="section section-warm" aria-labelledby="learned-heading">
-      <div class="section-inner">
-        <div class="section-label">06 / Reflections</div>
-        <h2 id="learned-heading">What I Learned</h2>
-        <div class="learned-grid">
-
-          <div class="lc">
-            <div class="lc-icon">🔒</div>
-            <h3>Leakage in Electricity Markets Is Subtle</h3>
-            <p>Day-ahead prices are so highly correlated with real-time prices that including them produces unrealistically optimistic metrics. Building automated verification checks into the pipeline — not just applying a split — is the only reliable safeguard. The discipline of leakage prevention should be architectured into the data pipeline, not reviewed after the fact.</p>
-          </div>
-
-          <div class="lc">
-            <div class="lc-icon">⚡</div>
-            <h3>The Hardest Hours Are a Feature, Not a Bug</h3>
-            <p>The 17–21h ramp window — where both LSTM and ARMA struggled — is not a modeling failure. It reflects a genuine information limit: abrupt grid stress events during the duck curve ramp are driven by conditions not well-represented in the available feature set. Acknowledging this honestly in the paper strengthened the analysis rather than undermining it.</p>
-          </div>
-
-          <div class="lc">
-            <div class="lc-icon">🎯</div>
-            <h3>Classical Models as Diagnostic Tools</h3>
-            <p>The ARMA benchmark served a purpose beyond performance comparison — its residual diagnostics isolated exactly which price dynamics are linear (persistence, 24-hour cycle) and which are not (spikes, ramp events). Without this baseline, the LSTM's contribution would be ambiguous. Building transparent baselines first is a professional habit worth maintaining.</p>
-          </div>
-
-          <div class="lc">
-            <div class="lc-icon">🎲</div>
-            <h3>Game Theory Changes What Questions You Ask</h3>
-            <p>Framing the corridor as a Nash equilibrium problem forced a different set of questions: not just "what is the optimal price?" but "what is the equilibrium price given that all competitors are also optimizing?" This distinction matters — and the finding that competition naturally limits price spikes only emerges from the equilibrium framing, not from optimizing a single station in isolation.</p>
-          </div>
-
-          <div class="lc">
-            <div class="lc-icon">📊</div>
-            <h3>Physical Constraints Beat Pricing Theory</h3>
-            <p>The optimization result that 200–300% overutilization is the dominant problem — not pricing power — was counterintuitive but emerged directly from the data and model. Infrastructure decisions are often framed as pricing problems. This analysis provides a quantitative argument for why capacity investment should precede pricing policy in corridor planning.</p>
-          </div>
-
-          <div class="lc">
-            <div class="lc-icon">🔗</div>
-            <h3>Multi-Source Data Integration Is Underrated</h3>
-            <p>Aligning CAISO prices, PeMS traffic, OpenChargeMap metadata, DESL session records, and weather data to a common hourly index required careful unit conversion, timestamp normalization, and deduplication — and this work was invisible in the final results. The discipline of building a clean, validated, merged dataset is often where the real analytical work lives.</p>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- ── SKILLS ── -->
-    <section id="skills" class="section" aria-labelledby="skills-heading">
-      <div class="section-inner">
-        <div class="section-label">07 / Skills</div>
-        <h2 id="skills-heading">Skills Demonstrated</h2>
-        <div class="skills-layout">
-          <div class="skill-group">
-            <div class="sg-label">Modeling</div>
-            <div class="sg-tags">
-              <span class="stag stag-primary">LSTM / Deep Learning</span>
-              <span class="stag stag-primary">ARIMA / SARIMA / ARIMAX</span>
-              <span class="stag stag-primary">Nash Equilibrium Modeling</span>
-              <span class="stag stag-primary">Discrete-Choice (Logit)</span>
-              <span class="stag stag-secondary">Nonlinear Optimization</span>
-              <span class="stag stag-secondary">Iterative Best-Response</span>
-            </div>
-          </div>
-          <div class="skill-group">
-            <div class="sg-label">Engineering</div>
-            <div class="sg-tags">
-              <span class="stag stag-primary">Leakage-Controlled Pipelines</span>
-              <span class="stag stag-primary">Multi-Source Data Integration</span>
-              <span class="stag stag-secondary">Feature Engineering</span>
-              <span class="stag stag-secondary">Time Series Preprocessing</span>
-              <span class="stag stag-secondary">Chronological CV</span>
-              <span class="stag stag-secondary">Target Transformation</span>
-            </div>
-          </div>
-          <div class="skill-group">
-            <div class="sg-label">Analysis</div>
-            <div class="sg-tags">
-              <span class="stag stag-primary">Electricity Market Analysis</span>
-              <span class="stag stag-primary">Price Elasticity Calibration</span>
-              <span class="stag stag-secondary">Residual Diagnostics</span>
-              <span class="stag stag-secondary">ACF / PACF Analysis</span>
-              <span class="stag stag-secondary">Model Benchmarking</span>
-              <span class="stag stag-secondary">Game-Theoretic Reasoning</span>
-            </div>
-          </div>
-          <div class="skill-group">
-            <div class="sg-label">Tools &amp; Stack</div>
-            <div class="sg-tags">
-              <span class="stag stag-secondary">Python (TensorFlow/Keras)</span>
-              <span class="stag stag-secondary">SAS Viya / PROC OPTMODEL</span>
-              <span class="stag stag-secondary">CAISO OASIS API</span>
-              <span class="stag stag-secondary">Caltrans PeMS</span>
-              <span class="stag stag-secondary">OpenChargeMap API</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── CTA ── -->
-    <section class="section cta-section" aria-labelledby="cta-heading">
-      <div class="section-inner cta-inner">
-        <div class="cta-award-badge" role="note">
-          <span aria-hidden="true">★</span> SAS Global Forum Curiosity Cup 2026 Finalist
-        </div>
-        <h2 id="cta-heading">Explore the Full Work</h2>
-        <p>Full competition paper submissions are available below. For code and notebooks, please contact me.</p>
-        <div class="cta-buttons">
-          <a href="ev-charging-intelligence/SAS Curiosity Cup 2026 - ORSOL_Forecasting.pdf" class="cta-primary cta-lg" target="_blank">Forecasting Paper ↗</a>
-          <a href="ev-charging-intelligence/SAS Curiosity Cup 2026- ORSOL_Optimization.pdf" class="cta-lg" style="background-color: #ff7c3a; color: white; padding: 12px 24px; text-decoration: none; border-radius: 4px; display: inline-block;" target="_blank">Optimization Paper ↗</a>
-          <a href="mailto:nakul.sreekanth@gmail.com" class="cta-secondary cta-lg">Request Code</a>
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <footer class="footer" role="contentinfo">
-    <div class="footer-inner">
-      <span>Nakul Sreekanth · Data Science Portfolio</span>
-      <span class="fsep">·</span>
-      <span>SAS Global Forum Curiosity Cup 2026 Finalist · Purdue VIP-ORSOL</span>
-    </div>
-  </footer>
-
-  <script src="assets/js/ev-charging-intelligence.js"></script>
-</body>
+    <script src="assets/js/ev-charging-intelligence.js"></script>
+  </body>
 </html>

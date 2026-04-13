@@ -1,493 +1,878 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Self-directed study of Stanford CS229 Machine Learning — 10 algorithm implementations from scratch including ICA, EM/GMM, Value Iteration, PU Learning, and Naive Bayes. Undertaken independently as an Industrial Engineering undergraduate to build rigorous ML foundations." />
-  <meta name="keywords" content="Stanford CS229, machine learning theory, ICA, EM algorithm, Gaussian mixture models, value iteration, reinforcement learning, PU learning, Naive Bayes, SVM, independent study, self-taught" />
-  <meta name="author" content="Nakul Sreekanth" />
-  <meta property="og:title" content="Stanford CS229 Independent Study | Nakul Sreekanth" />
-  <meta property="og:description" content="Self-directed study of Stanford's graduate ML course: 10 algorithm implementations from mathematical first principles, undertaken independently as an IE undergraduate." />
-  <meta property="og:type" content="website" />
-  <title>Stanford CS229 Independent Study — Nakul Sreekanth</title>
-  <link rel="stylesheet" href="assets/css/cs229-independent-study.css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,700&family=Source+Code+Pro:wght@300;400;500;600&display=swap" rel="stylesheet">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Self-directed study of Stanford CS229 Machine Learning — 10 algorithm implementations from scratch including ICA, EM/GMM, Value Iteration, PU Learning, and Naive Bayes. Undertaken independently as an Industrial Engineering undergraduate to build rigorous ML foundations."
+    />
+    <meta
+      name="keywords"
+      content="Stanford CS229, machine learning theory, ICA, EM algorithm, Gaussian mixture models, value iteration, reinforcement learning, PU learning, Naive Bayes, SVM, independent study, self-taught"
+    />
+    <meta name="author" content="Nakul Sreekanth" />
+    <meta
+      property="og:title"
+      content="Stanford CS229 Independent Study | Nakul Sreekanth"
+    />
+    <meta
+      property="og:description"
+      content="Self-directed study of Stanford's graduate ML course: 10 algorithm implementations from mathematical first principles, undertaken independently as an IE undergraduate."
+    />
+    <meta property="og:type" content="website" />
+    <title>Stanford CS229 Independent Study — Nakul Sreekanth</title>
+    <link rel="stylesheet" href="assets/css/cs229-independent-study.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,700&family=Source+Code+Pro:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="page-texture" aria-hidden="true"></div>
+    <div class="margin-rule left-rule" aria-hidden="true"></div>
 
-  <div class="page-texture" aria-hidden="true"></div>
-  <div class="margin-rule left-rule" aria-hidden="true"></div>
-
-  <!-- ── NAV ── -->
-  <nav class="nav" role="navigation" aria-label="Page navigation">
-    <a href="https://github.com/nakulsree/CS229_MyWork" class="nav-brand" target="_blank" rel="noopener noreferrer">NS<span class="dot">.</span></a>
-    <div class="nav-links">
-      <a href="#context">Context</a>
-      <a href="#syllabus">Syllabus</a>
-      <a href="#foundations">Foundations</a>
-      <a href="#skills">Skills</a>
-    </div>
-    <div class="nav-badge" role="note">Independent Study</div>
-  </nav>
-
-  <!-- ── HEADER ── -->
-  <header class="page-header" role="banner">
-
-    <div class="header-ruling" aria-hidden="true"></div>
-
-    <div class="header-meta">
-      <span class="hm-label">Independent Self-Study</span>
-      <span class="hm-sep" aria-hidden="true">·</span>
-      <span class="hm-inst">Stanford CS229 — Machine Learning</span>
-      <span class="hm-sep" aria-hidden="true">·</span>
-      <span class="hm-date">2023–2024</span>
-    </div>
-
-    <h1 class="page-title">
-      <span class="pt-course">CS229</span>
-      <span class="pt-main">Machine Learning</span>
-      <span class="pt-sub">Algorithms from Mathematical First Principles</span>
-    </h1>
-
-    <p class="page-lede">
-      Not a project. Not coursework. An act of intellectual initiative — following Stanford's open-sourced CS229 video lectures, problem sets, and assignments independently, outside of any enrolled course, to build the theoretical foundations that an Industrial Engineering degree does not provide.
-    </p>
-
-    <div class="header-scope">
-      <div class="hs-item">
-        <div class="hs-num">10</div>
-        <div class="hs-desc">Algorithms implemented<br/>from scratch</div>
+    <!-- ── NAV ── -->
+    <nav class="nav" role="navigation" aria-label="Page navigation">
+      <a
+        href="https://github.com/nakulsree/CS229_MyWork"
+        class="nav-brand"
+        target="_blank"
+        rel="noopener noreferrer"
+        >NS<span class="dot">.</span></a
+      >
+      <div class="nav-links">
+        <a href="#context">Context</a>
+        <a href="#syllabus">Syllabus</a>
+        <a href="#foundations">Foundations</a>
+        <a href="#skills">Skills</a>
       </div>
-      <div class="hs-div" aria-hidden="true"></div>
-      <div class="hs-item">
-        <div class="hs-num">6</div>
-        <div class="hs-desc">Problem sets<br/>completed</div>
+      <div class="nav-badge" role="note">Independent Study</div>
+    </nav>
+
+    <!-- ── HEADER ── -->
+    <header class="page-header" role="banner">
+      <div class="header-ruling" aria-hidden="true"></div>
+
+      <div class="header-meta">
+        <span class="hm-label">Independent Self-Study</span>
+        <span class="hm-sep" aria-hidden="true">·</span>
+        <span class="hm-inst">Stanford CS229 — Machine Learning</span>
+        <span class="hm-sep" aria-hidden="true">·</span>
+        <span class="hm-date">2023–2024</span>
       </div>
-      <div class="hs-div" aria-hidden="true"></div>
-      <div class="hs-item">
-        <div class="hs-num">97.8<span class="hn-unit">%</span></div>
-        <div class="hs-desc">Naïve Bayes accuracy<br/>on spam test set</div>
-      </div>
-      <div class="hs-div" aria-hidden="true"></div>
-      <div class="hs-item">
-        <div class="hs-num">163</div>
-        <div class="hs-desc">Discrete MDP states<br/>for CartPole RL</div>
-      </div>
-    </div>
 
-    <div class="header-ctas">
-      <a href="https://github.com/nakulsree/Portofolio" class="btn-primary" target="_blank" rel="noopener noreferrer">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
-        View Implementations
-      </a>
-      <a href="#context" class="btn-ghost">Read the Context ↓</a>
-    </div>
+      <h1 class="page-title">
+        <span class="pt-course">CS229</span>
+        <span class="pt-main">Machine Learning</span>
+        <span class="pt-sub"
+          >Algorithms from Mathematical First Principles</span
+        >
+      </h1>
 
-    <div class="header-ruling bottom-ruling" aria-hidden="true"></div>
-  </header>
+      <p class="page-lede">
+        Not a project. Not coursework. An act of intellectual initiative —
+        following Stanford's open-sourced CS229 video lectures, problem sets,
+        and assignments independently, outside of any enrolled course, to build
+        the theoretical foundations that an Industrial Engineering degree does
+        not provide.
+      </p>
 
-  <main>
-
-    <!-- ── CONTEXT ── -->
-    <section id="context" class="section" aria-labelledby="context-heading">
-      <div class="section-inner">
-        <div class="section-number" aria-hidden="true">I</div>
-        <h2 id="context-heading">Why I Did This</h2>
-
-        <div class="context-layout">
-          <div class="context-text">
-            <p class="drop-cap">An Industrial Engineering degree teaches optimization, statistics, and operations research — but not the theory of machine learning. By the time I was building models on real projects, I kept hitting a wall: I could run algorithms, but I couldn't reason about <em>why</em> they worked, when they would fail, or how to diagnose problems at a mathematical level.</p>
-
-            <p>Stanford's CS229 was the answer. The course materials — lecture videos, lecture notes, and problem sets — are publicly available. The problem sets require implementing core algorithms from scratch, not calling library functions. That distinction matters: writing a Naive Bayes classifier by hand forces you to understand Laplace smoothing and log-likelihood in a way that <code>sklearn.naive_bayes</code> never will.</p>
-
-            <p>I worked through this in evenings and weekends over roughly a year. I wrote handwritten notes through each lecture. I implemented every algorithm between the <code>START CODE HERE</code> and <code>END CODE HERE</code> markers myself. The scaffolding was provided; the mathematical substance was mine to derive.</p>
-
-            <div class="honesty-note" role="note">
-              <div class="hn-icon" aria-hidden="true">◆</div>
-              <div class="hn-text"><strong>A note on framing:</strong> The problem structure and scaffolding belong to Stanford. What I contributed is the implementation of the mathematical core of each algorithm — and more importantly, the understanding of why each line of code is justified by the underlying theory. This page is an honest account of that.</div>
-            </div>
-          </div>
-
-          <div class="context-aside">
-            <div class="aside-block">
-              <div class="ab-title">What CS229 covers</div>
-              <div class="ab-body">CS229 is Stanford's graduate-level ML course. Unlike introductory ML courses that treat models as black boxes, CS229 derives everything from probabilistic foundations — maximum likelihood, exponential families, EM, kernel theory, MDPs. It is the course that trained a generation of Silicon Valley ML engineers.</div>
-            </div>
-            <div class="aside-block">
-              <div class="ab-title">What makes it different</div>
-              <div class="ab-body">The assignments require implementing algorithms numerically from their mathematical definitions — not using scikit-learn, not using PyTorch. Each problem set problem traces from theory to code: derive the update rule on paper, then implement it in Python.</div>
-            </div>
-            <div class="aside-block aside-block-connection">
-              <div class="ab-title">Connection to my projects</div>
-              <div class="ab-body">This theoretical grounding directly informs decisions in my applied work: understanding EM's convergence properties shaped how I thought about the routing ensemble in the outage forecasting project; understanding generative vs. discriminative tradeoffs informed model selection in the SpaceX classification pipeline.</div>
-            </div>
-          </div>
+      <div class="header-scope">
+        <div class="hs-item">
+          <div class="hs-num">10</div>
+          <div class="hs-desc">Algorithms implemented<br />from scratch</div>
+        </div>
+        <div class="hs-div" aria-hidden="true"></div>
+        <div class="hs-item">
+          <div class="hs-num">6</div>
+          <div class="hs-desc">Problem sets<br />completed</div>
+        </div>
+        <div class="hs-div" aria-hidden="true"></div>
+        <div class="hs-item">
+          <div class="hs-num">97.8<span class="hn-unit">%</span></div>
+          <div class="hs-desc">Naïve Bayes accuracy<br />on spam test set</div>
+        </div>
+        <div class="hs-div" aria-hidden="true"></div>
+        <div class="hs-item">
+          <div class="hs-num">163</div>
+          <div class="hs-desc">Discrete MDP states<br />for CartPole RL</div>
         </div>
       </div>
-    </section>
 
-    <!-- ── SYLLABUS ── -->
-    <section id="syllabus" class="section section-ruled" aria-labelledby="syllabus-heading">
-      <div class="section-inner">
-        <div class="section-number" aria-hidden="true">II</div>
-        <h2 id="syllabus-heading">What I Implemented</h2>
-        <p class="section-intro">Ten algorithms, each implemented from mathematical first principles. For each: the core idea, the key equation I implemented, and a snippet of the actual code.</p>
-
-        <!-- Topic 1 -->
-        <div class="topic-entry">
-          <div class="te-header">
-            <div class="te-num">01</div>
-            <div class="te-title">Logistic Regression via Newton's Method</div>
-            <div class="te-tags"><span>Supervised</span><span>Classification</span></div>
-          </div>
-          <div class="te-body">
-            <p>Gradient descent converges, but slowly — each step is the same size regardless of the curvature of the loss surface. Newton's method uses the Hessian to take a step proportional to the inverse curvature, achieving <em>quadratic convergence</em> near the optimum. The parameter update is θ := θ − H⁻¹∇θℓ(θ), where H = Xᵀ diag(h(xᵢ)(1−h(xᵢ))) X.</p>
-            <div class="te-equation" role="img" aria-label="Newton update rule: theta update equals theta minus H inverse times gradient of log-likelihood">
-              θ := θ − <strong>H</strong>⁻¹ ∇<sub>θ</sub> ℓ(θ) &nbsp;·&nbsp; <strong>H</strong> = <strong>X</strong>ᵀ diag(h<sub>i</sub>(1−h<sub>i</sub>)) <strong>X</strong>
-            </div>
-            <div class="te-code">
-              <span class="c-comment"># Hessian: H = X^T diag(h*(1-h)) X</span><br/>
-              H = X.T @ np.diag(h * (1 - h)) @ X<br/>
-              <span class="c-comment"># Newton step</span><br/>
-              theta -= np.linalg.solve(H, grad)
-            </div>
-            <div class="te-insight">The convergence difference vs. gradient descent on a poorly-conditioned dataset is dramatic — Newton's method converges in ~5–10 iterations where gradient descent needs thousands. This experience made "conditioning" feel concrete rather than abstract.</div>
-          </div>
-        </div>
-
-        <!-- Topic 2 -->
-        <div class="topic-entry">
-          <div class="te-header">
-            <div class="te-num">02</div>
-            <div class="te-title">Gaussian Discriminant Analysis (GDA)</div>
-            <div class="te-tags"><span>Generative</span><span>Classification</span></div>
-          </div>
-          <div class="te-body">
-            <p>GDA models the class-conditional distributions P(x|y) as Gaussians with separate means but shared covariance, then applies Bayes' rule. Unlike logistic regression (discriminative), GDA makes stronger assumptions about the data distribution — and pays off with closed-form MLE solutions when those assumptions hold.</p>
-            <div class="te-equation" role="img" aria-label="GDA MLE parameters">
-              μ<sub>j</sub> = Σ 𝟙[y⁽ⁱ⁾=j] x⁽ⁱ⁾ / Σ 𝟙[y⁽ⁱ⁾=j] &nbsp;·&nbsp; Σ = (1/m) Σ (x⁽ⁱ⁾−μ<sub>y⁽ⁱ⁾</sub>)(x⁽ⁱ⁾−μ<sub>y⁽ⁱ⁾</sub>)ᵀ
-            </div>
-            <div class="te-code">
-              mu_0 = X[y==0].mean(axis=0)<br/>
-              mu_1 = X[y==1].mean(axis=0)<br/>
-              phi = (y==1).mean()<br/>
-              diff = X - np.where(y[:,None]==1, mu_1, mu_0)<br/>
-              Sigma = (diff.T @ diff) / m
-            </div>
-            <div class="te-insight">The key insight: GDA's decision boundary is linear in x when the two classes share a covariance matrix — the same family as logistic regression — but logistic regression is more robust when the Gaussian assumption is violated. Knowing <em>when</em> each is appropriate requires understanding both.</div>
-          </div>
-        </div>
-
-        <!-- Topic 3 -->
-        <div class="topic-entry">
-          <div class="te-header">
-            <div class="te-num">03</div>
-            <div class="te-title">Positive-Unlabeled (PU) Learning</div>
-            <div class="te-tags"><span>Label Noise</span><span>Correction</span></div>
-          </div>
-          <div class="te-body">
-            <p>A rarely-taught but practically important problem: what if you only have positive labels — you know which examples are class 1, but you have no confirmed negatives, only unlabeled examples? Standard logistic regression on partial labels will systematically underestimate P(t=1|x). The correction: estimate α = P(y=1|t=1) on a validation set, then P(t=1|x) = h(x)/α.</p>
-            <div class="te-equation" aria-label="PU learning correction factor">
-              α = P(y=1|t=1) = E[h(x) | y=1] &nbsp;·&nbsp; P̂(t=1|x) = h(x) / α
-            </div>
-            <div class="te-code">
-              <span class="c-comment"># Estimate alpha on validation set</span><br/>
-              alpha = predict_val[y_val==1].mean()<br/>
-              <span class="c-comment"># Corrected probability</span><br/>
-              p_corrected = clf.predict(x_test) / alpha
-            </div>
-            <div class="te-insight">This problem structure appears constantly in practice: fraud detection (you know confirmed fraud, not confirmed non-fraud), medical diagnosis (confirmed positives, but negatives may be undetected positives). Understanding the correction factor is what separates a practitioner who can handle real data from one who assumes clean labels.</div>
-          </div>
-        </div>
-
-        <!-- Topic 4 -->
-        <div class="topic-entry">
-          <div class="te-header">
-            <div class="te-num">04</div>
-            <div class="te-title">Poisson Regression — Generalized Linear Models</div>
-            <div class="te-tags"><span>GLM</span><span>Count Data</span></div>
-          </div>
-          <div class="te-body">
-            <p>The exponential family framework unifies linear regression, logistic regression, Poisson regression, and others under a single derivation. For count targets, Poisson regression models y|x ~ Poisson(λ) with λ = exp(θᵀx), ensuring non-negative predictions. The gradient ascent update falls directly from the log-likelihood.</p>
-            <div class="te-equation" aria-label="Poisson GLM gradient">
-              ∂ℓ/∂θⱼ = Σᵢ (y⁽ⁱ⁾ − exp(θᵀx⁽ⁱ⁾)) x⁽ⁱ⁾ⱼ
-            </div>
-            <div class="te-code">
-              <span class="c-comment"># Gradient ascent (maximizing log-likelihood)</span><br/>
-              h = np.exp(x @ self.theta)<br/>
-              grad = x.T @ (y - h) / m<br/>
-              self.theta += self.step_size * grad
-            </div>
-            <div class="te-insight">This directly informed later project work. The outage forecasting problem — predicting integer counts with severe right skew — is exactly the distributional regime where Poisson or negative binomial regression is appropriate. Understanding GLM theory made the choice of loss functions principled rather than heuristic.</div>
-          </div>
-        </div>
-
-        <!-- Topic 5 -->
-        <div class="topic-entry">
-          <div class="te-header">
-            <div class="te-num">05</div>
-            <div class="te-title">EM Algorithm for Gaussian Mixture Models</div>
-            <div class="te-tags"><span>Unsupervised</span><span>Semi-Supervised</span></div>
-          </div>
-          <div class="te-body">
-            <p>EM alternates between assigning soft cluster memberships (E-step) and updating cluster parameters to maximize expected log-likelihood (M-step). I implemented both the unsupervised version (K=4 Gaussians, random initialization) and the semi-supervised extension that incorporates a weighted cross-entropy term for labeled examples. The semi-supervised version converges faster and is more robust to initialization.</p>
-            <div class="te-equation" aria-label="EM E-step soft assignment">
-              E-step: w<sub>j</sub>⁽ⁱ⁾ = φⱼ · N(x⁽ⁱ⁾; μⱼ, Σⱼ) / Σₖ φₖ · N(x⁽ⁱ⁾; μₖ, Σₖ)
-            </div>
-            <div class="te-code">
-              <span class="c-comment"># E-step: compute soft responsibilities</span><br/>
-              w[:,j] = phi[j] * multivariate_normal.pdf(x, mu[j], sigma[j])<br/>
-              w /= w.sum(axis=1, keepdims=True)<br/>
-              <span class="c-comment"># M-step: weighted MLE</span><br/>
-              mu[j] = (w[:,j,None] * x).sum(0) / w[:,j].sum()
-            </div>
-            <div class="te-insight">The semi-supervised EM result (convergence in far fewer iterations, better cluster assignments) was a direct empirical demonstration of why labeled data is valuable even in small quantities. The unsupervised version's sensitivity to initialization made "local optima in non-convex optimization" viscerally clear.</div>
-          </div>
-        </div>
-
-        <!-- Topic 6 -->
-        <div class="topic-entry">
-          <div class="te-header">
-            <div class="te-num">06</div>
-            <div class="te-title">Locally Weighted Regression</div>
-            <div class="te-tags"><span>Non-Parametric</span><span>Regression</span></div>
-          </div>
-          <div class="te-body">
-            <p>Standard linear regression fits a single global model. Locally weighted regression re-fits θ for every query point x, giving higher weight to training examples close to x. The bandwidth parameter τ controls the effective neighborhood size — a direct knob on the bias-variance tradeoff. I compared six values of τ and identified τ=0.05 as optimal on the validation set.</p>
-            <div class="te-equation" aria-label="Locally weighted regression kernel weights">
-              w⁽ⁱ⁾ = exp(−||x⁽ⁱ⁾−x||² / 2τ²) &nbsp;·&nbsp; θ = (XᵀWX)⁻¹XᵀWy
-            </div>
-            <div class="te-code">
-              <span class="c-comment"># Compute kernel weights for query point x_i</span><br/>
-              w = np.exp(-np.sum((X - x_i)**2, axis=1) / (2 * self.tau**2))<br/>
-              W = np.diag(w)<br/>
-              theta = np.linalg.solve(X.T @ W @ X, X.T @ W @ y)
-            </div>
-          </div>
-        </div>
-
-        <!-- Topic 7 -->
-        <div class="topic-entry">
-          <div class="te-header">
-            <div class="te-num">07</div>
-            <div class="te-title">Kernel Perceptron</div>
-            <div class="te-tags"><span>Kernels</span><span>Online Learning</span></div>
-          </div>
-          <div class="te-body">
-            <p>The kernel trick allows any algorithm that operates only through inner products to be "kernelized" — learning in an implicitly high-dimensional feature space without ever computing that representation. The perceptron in its dual form stores the training examples and makes predictions via f(x) = Σ αᵢ K(xᵢ, x), updating αᵢ only on misclassification.</p>
-            <div class="te-equation" aria-label="Kernel perceptron prediction">
-              f(x) = sign(Σᵢ αᵢ y⁽ⁱ⁾ K(x⁽ⁱ⁾, x)) &nbsp;·&nbsp; update: αᵢ += 1 if misclassified
-            </div>
-            <div class="te-code">
-              <span class="c-comment"># Predict using kernel dot products</span><br/>
-              score = sum(b * kernel(x_s, x_i)<br/>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for b, x_s in zip(state[0], state[1]))<br/>
-              <span class="c-comment"># Update: accumulate support vectors on mistake</span><br/>
-              state[0].append(y); state[1].append(x_i)
-            </div>
-          </div>
-        </div>
-
-        <!-- Topic 8 -->
-        <div class="topic-entry">
-          <div class="te-header">
-            <div class="te-num">08</div>
-            <div class="te-title">Independent Component Analysis (ICA)</div>
-            <div class="te-tags"><span>Unsupervised</span><span>Source Separation</span></div>
-          </div>
-          <div class="te-body">
-            <p>Given a set of mixed audio signals — each microphone recording a superposition of five simultaneous sound sources — ICA recovers the original independent sources by learning an unmixing matrix W. The Laplace distribution is used as the source prior (heavy-tailed, unlike Gaussian), and W is updated via gradient ascent on the log-likelihood. Applied to an actual five-channel audio mixing problem.</p>
-            <div class="te-equation" aria-label="ICA W update rule">
-              W := W + α ( (Wᵀ)⁻¹ − sign(Wx) xᵀ )
-            </div>
-            <div class="te-code">
-              <span class="c-comment"># Gradient ascent update on W</span><br/>
-              <span class="c-comment"># Laplace prior: g'(s) = sign(s)</span><br/>
-              updated_W = W + lr * (<br/>
-              &nbsp;&nbsp;np.linalg.inv(W).T<br/>
-              &nbsp;&nbsp;- (np.sign(W @ x))[:,None] @ x[:,None].T<br/>
-              )
-            </div>
-            <div class="te-insight">The key insight about ICA vs. PCA: PCA finds directions of maximum variance (decorrelation); ICA finds directions of statistical independence (much stronger condition). The Laplace prior is chosen specifically because Gaussian sources are fundamentally unidentifiable by ICA — a subtle theoretical constraint with practical consequences.</div>
-          </div>
-        </div>
-
-        <!-- Topic 9 -->
-        <div class="topic-entry">
-          <div class="te-header">
-            <div class="te-num">09</div>
-            <div class="te-title">Naïve Bayes Spam Classifier + SVM</div>
-            <div class="te-tags"><span>NLP</span><span>Classification</span></div>
-          </div>
-          <div class="te-body">
-            <p>A full text classification pipeline: tokenize SMS messages, build a vocabulary of words appearing in ≥5 messages, construct a word-count feature matrix, and fit a multinomial Naïve Bayes model with Laplace smoothing. Predictions via log-likelihood comparison to avoid floating-point underflow. Also implemented SVM radius hyperparameter search via validation set accuracy.</p>
-            <div class="te-equation" aria-label="Naive Bayes Laplace smoothed likelihood">
-              φ<sub>k|y=j</sub> = (Σ 𝟙[xᵢ=k ∧ yᵢ=j] + 1) / (Σ 𝟙[yᵢ=j] + |V|)
-            </div>
-            <div class="te-code">
-              <span class="c-comment"># Log-likelihood prediction (avoids underflow)</span><br/>
-              score_1 = np.log(phi_y) + X @ np.log(phi_one)<br/>
-              score_0 = np.log(1-phi_y) + X @ np.log(phi_zero)<br/>
-              return (score_1 > score_0).astype(int)
-            </div>
-            <div class="te-insight">
-              <strong>Results:</strong> Naïve Bayes achieved 97.8% test accuracy. Top 5 spam-indicative words: <em>claim, won, prize, tone, urgent!</em> SVM with optimal radius 0.1 achieved 96.9%. Naïve Bayes outperformed SVM on this dataset — consistent with the theoretical result that generative classifiers can outperform discriminative ones with limited data.
-            </div>
-          </div>
-        </div>
-
-        <!-- Topic 10 -->
-        <div class="topic-entry">
-          <div class="te-header">
-            <div class="te-num">10</div>
-            <div class="te-title">Reinforcement Learning — CartPole via Value Iteration</div>
-            <div class="te-tags"><span>MDP</span><span>Value Iteration</span></div>
-          </div>
-          <div class="te-body">
-            <p>Model-based RL on the classic CartPole problem: balance a pole on a cart by applying left or right force. The continuous state space (x, ẋ, θ, θ̇) is discretized into 163 states. The agent learns an MDP — estimated transition probabilities P̂(s'|s,a) and rewards R̂(s) — from experience, then applies value iteration to compute the optimal policy. The loop: act → observe → update model → re-run value iteration whenever the pole falls.</p>
-            <div class="te-equation" aria-label="Bellman optimality equation value iteration">
-              V(s) := R(s) + γ · max<sub>a</sub> Σ<sub>s'</sub> P(s'|s,a) V(s') &nbsp;·&nbsp; γ = 0.995
-            </div>
-            <div class="te-code">
-              <span class="c-comment"># Value iteration (Bellman update)</span><br/>
-              V_new = R + gamma * np.max(<br/>
-              &nbsp;&nbsp;V @ P[:,:,:],  <span class="c-comment"># shape: (states,actions)</span><br/>
-              &nbsp;&nbsp;axis=2).ravel()<br/>
-              converged = np.max(np.abs(V_new - V)) &lt; tol
-            </div>
-            <div class="te-insight">Convergence criterion: 20 consecutive value function computations all converging in a single iteration. This is the point where the agent's model of the world has stabilized — further failures yield negligible updates. The log of time-steps-to-failure increases monotonically as the agent improves, making learning directly visible.</div>
-          </div>
-        </div>
-
+      <div class="header-ctas">
+        <a
+          href="https://github.com/nakulsree"
+          class="btn-primary"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <svg
+            width="15"
+            height="15"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            aria-hidden="true"
+          >
+            <path
+              d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+            />
+          </svg>
+          View Implementations
+        </a>
+        <a href="#context" class="btn-ghost">Read the Context ↓</a>
       </div>
-    </section>
 
-    <!-- ── THEORETICAL FOUNDATIONS ── -->
-    <section id="foundations" class="section" aria-labelledby="foundations-heading">
-      <div class="section-inner">
-        <div class="section-number" aria-hidden="true">III</div>
-        <h2 id="foundations-heading">What This Built</h2>
-        <p class="section-intro">The value of this study isn't in the 10 implementations — it's in the cross-cutting theoretical frameworks that make all of them coherent.</p>
+      <div class="header-ruling bottom-ruling" aria-hidden="true"></div>
+    </header>
 
-        <div class="foundations-grid">
+    <main>
+      <!-- ── CONTEXT ── -->
+      <section id="context" class="section" aria-labelledby="context-heading">
+        <div class="section-inner">
+          <div class="section-number" aria-hidden="true">I</div>
+          <h2 id="context-heading">Why I Did This</h2>
 
-          <div class="fg-card">
-            <div class="fg-title">The MLE–MAP–Bayesian Hierarchy</div>
-            <p>Every supervised learning algorithm in CS229 can be situated within a single probabilistic framework. Maximum likelihood estimation (logistic regression, Poisson regression), maximum a posteriori with regularization (ridge, LASSO), and full Bayesian inference all emerge from different assumptions about priors. Seeing this unified picture changes how you diagnose overfitting — it's not a "trick," it's a prior.</p>
-          </div>
+          <div class="context-layout">
+            <div class="context-text">
+              <p class="drop-cap">
+                An Industrial Engineering degree teaches optimization,
+                statistics, and operations research — but not the theory of
+                machine learning. By the time I was building models on real
+                projects, I kept hitting a wall: I could run algorithms, but I
+                couldn't reason about <em>why</em> they worked, when they would
+                fail, or how to diagnose problems at a mathematical level.
+              </p>
 
-          <div class="fg-card">
-            <div class="fg-title">Discriminative vs. Generative Models</div>
-            <p>Logistic regression models P(y|x) directly. GDA models P(x|y) and P(y), then applies Bayes' rule. GDA uses more assumptions and pays off when they hold; logistic regression is more robust. This tradeoff — modeling efficiency vs. robustness to misspecification — recurs constantly in applied work and informs how I evaluate model choices.</p>
-          </div>
+              <p>
+                Stanford's CS229 was the answer. The course materials — lecture
+                videos, lecture notes, and problem sets — are publicly
+                available. The problem sets require implementing core algorithms
+                from scratch, not calling library functions. That distinction
+                matters: writing a Naive Bayes classifier by hand forces you to
+                understand Laplace smoothing and log-likelihood in a way that
+                <code>sklearn.naive_bayes</code> never will.
+              </p>
 
-          <div class="fg-card">
-            <div class="fg-title">The Exponential Family Unification</div>
-            <p>Linear regression, logistic regression, and Poisson regression are all instances of the same GLM framework: choose an exponential family distribution for y|x, use the canonical response function as your prediction, and gradient ascent on log-likelihood always has the same form: θⱼ := θⱼ + α(y⁽ⁱ⁾ − h(x⁽ⁱ⁾))xⱼ⁽ⁱ⁾. One derivation, many algorithms.</p>
-          </div>
+              <p>
+                I worked through this in evenings and weekends over roughly a
+                year. I wrote handwritten notes through each lecture. I
+                implemented every algorithm between the
+                <code>START CODE HERE</code> and
+                <code>END CODE HERE</code> markers myself. The scaffolding was
+                provided; the mathematical substance was mine to derive.
+              </p>
 
-          <div class="fg-card">
-            <div class="fg-title">The EM Framework and Local Optima</div>
-            <p>EM guarantees convergence to a local maximum of the log-likelihood — not the global maximum. This is not a limitation to apologize for; it's a feature of the landscape of latent variable models. Understanding that EM is coordinate ascent on a lower bound (Jensen's inequality applied to log-likelihood) makes the convergence proof intuitive, not magical.</p>
-          </div>
-
-          <div class="fg-card">
-            <div class="fg-title">Kernel Methods and the Dual Representation</div>
-            <p>Any algorithm expressible through inner products can be kernelized. This includes SVMs (via the dual Lagrangian), the perceptron (dual form), and kernel regression. The representer theorem says that the optimal solution lives in the span of the training data — a deep result that connects all of these. Kernel choice is a modeling decision about the geometry of the problem.</p>
-          </div>
-
-          <div class="fg-card">
-            <div class="fg-title">MDPs and the Bellman Equations</div>
-            <p>Value iteration is a contraction mapping. The Bellman optimality operator is guaranteed to converge to the unique fixed point V*. This is not just an algorithmic fact — it's why reinforcement learning with known dynamics is tractable. The CartPole implementation made the MDP framework concrete: states, actions, transition probabilities, rewards, discount factor — each is a meaningful modeling decision.</p>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- ── SKILLS ── -->
-    <section id="skills" class="section section-ruled" aria-labelledby="skills-heading">
-      <div class="section-inner">
-        <div class="section-number" aria-hidden="true">IV</div>
-        <h2 id="skills-heading">Theoretical Knowledge Demonstrated</h2>
-        <p class="section-intro">These are not skills acquired by calling library functions. Each was derived and implemented from mathematical first principles.</p>
-
-        <div class="skills-layout">
-          <div class="sg">
-            <div class="sg-head">Supervised Learning</div>
-            <div class="sg-tags">
-              <span class="stag stag-p">Newton's Method (Logistic Regression)</span>
-              <span class="stag stag-p">Gaussian Discriminant Analysis</span>
-              <span class="stag stag-p">Generalized Linear Models</span>
-              <span class="stag stag-p">Poisson Regression</span>
-              <span class="stag stag-s">Locally Weighted Regression</span>
-              <span class="stag stag-s">Kernel Perceptron</span>
-              <span class="stag stag-s">Naïve Bayes (Laplace Smoothing)</span>
-              <span class="stag stag-s">Support Vector Machines</span>
+              <div class="honesty-note" role="note">
+                <div class="hn-icon" aria-hidden="true">◆</div>
+                <div class="hn-text">
+                  <strong>A note on framing:</strong> The problem structure and
+                  scaffolding belong to Stanford. What I contributed is the
+                  implementation of the mathematical core of each algorithm —
+                  and more importantly, the understanding of why each line of
+                  code is justified by the underlying theory. This page is an
+                  honest account of that.
+                </div>
+              </div>
             </div>
-          </div>
-          <div class="sg">
-            <div class="sg-head">Unsupervised & Semi-Supervised</div>
-            <div class="sg-tags">
-              <span class="stag stag-p">EM Algorithm (GMM)</span>
-              <span class="stag stag-p">Independent Component Analysis</span>
-              <span class="stag stag-s">Semi-supervised EM</span>
-              <span class="stag stag-s">PU Learning & Label Correction</span>
-            </div>
-          </div>
-          <div class="sg">
-            <div class="sg-head">Reinforcement Learning</div>
-            <div class="sg-tags">
-              <span class="stag stag-p">Markov Decision Processes</span>
-              <span class="stag stag-p">Value Iteration (Bellman)</span>
-              <span class="stag stag-s">Model-Based RL</span>
-              <span class="stag stag-s">State Discretization</span>
-              <span class="stag stag-s">Policy Derivation</span>
-            </div>
-          </div>
-          <div class="sg">
-            <div class="sg-head">Theoretical Foundations</div>
-            <div class="sg-tags">
-              <span class="stag stag-p">Maximum Likelihood Estimation</span>
-              <span class="stag stag-p">Exponential Family Distributions</span>
-              <span class="stag stag-p">Kernel Theory & Representer Theorem</span>
-              <span class="stag stag-s">Hessian Computation & Optimization</span>
-              <span class="stag stag-s">Probabilistic Graphical Reasoning</span>
-              <span class="stag stag-s">Log-Likelihood & Numerical Stability</span>
+
+            <div class="context-aside">
+              <div class="aside-block">
+                <div class="ab-title">What CS229 covers</div>
+                <div class="ab-body">
+                  CS229 is Stanford's graduate-level ML course. Unlike
+                  introductory ML courses that treat models as black boxes,
+                  CS229 derives everything from probabilistic foundations —
+                  maximum likelihood, exponential families, EM, kernel theory,
+                  MDPs. It is the course that trained a generation of Silicon
+                  Valley ML engineers.
+                </div>
+              </div>
+              <div class="aside-block">
+                <div class="ab-title">What makes it different</div>
+                <div class="ab-body">
+                  The assignments require implementing algorithms numerically
+                  from their mathematical definitions — not using scikit-learn,
+                  not using PyTorch. Each problem set problem traces from theory
+                  to code: derive the update rule on paper, then implement it in
+                  Python.
+                </div>
+              </div>
+              <div class="aside-block aside-block-connection">
+                <div class="ab-title">Connection to my projects</div>
+                <div class="ab-body">
+                  This theoretical grounding directly informs decisions in my
+                  applied work: understanding EM's convergence properties shaped
+                  how I thought about the routing ensemble in the outage
+                  forecasting project; understanding generative vs.
+                  discriminative tradeoffs informed model selection in the
+                  SpaceX classification pipeline.
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- ── CTA ── -->
-    <section class="section cta-section" aria-labelledby="cta-heading">
-      <div class="section-inner cta-inner">
-        <div class="cta-ruling" aria-hidden="true"></div>
-        <h2 id="cta-heading">Implementations on GitHub</h2>
-        <p>All problem set implementations are available. The code reflects what I wrote between the scaffold markers — the mathematical core of each algorithm.</p>
-        <div class="cta-buttons">
-          <a href="https://github.com/nakulsree/CS229_MyWork" class="btn-primary btn-lg" target="_blank" rel="noopener noreferrer">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
-            View Code on GitHub
-          </a>
-          <a href="#context" class="btn-ghost btn-lg">Back to Top ↑</a>
+      <!-- ── SYLLABUS ── -->
+      <section
+        id="syllabus"
+        class="section section-ruled"
+        aria-labelledby="syllabus-heading"
+      >
+        <div class="section-inner">
+          <div class="section-number" aria-hidden="true">II</div>
+          <h2 id="syllabus-heading">What I Implemented</h2>
+          <p class="section-intro">
+            Ten algorithms, each implemented from mathematical first principles.
+            For each: the core idea, the key equation I implemented, and a
+            snippet of the actual code.
+          </p>
+
+          <!-- Topic 1 -->
+          <div class="topic-entry">
+            <div class="te-header">
+              <div class="te-num">01</div>
+              <div class="te-title">
+                Logistic Regression via Newton's Method
+              </div>
+              <div class="te-tags">
+                <span>Supervised</span><span>Classification</span>
+              </div>
+            </div>
+            <div class="te-body">
+              <p>
+                Gradient descent converges, but slowly — each step is the same
+                size regardless of the curvature of the loss surface. Newton's
+                method uses the Hessian to take a step proportional to the
+                inverse curvature, achieving <em>quadratic convergence</em> near
+                the optimum. The parameter update is θ := θ − H⁻¹∇θℓ(θ), where H
+                = Xᵀ diag(h(xᵢ)(1−h(xᵢ))) X.
+              </p>
+              <div
+                class="te-equation"
+                role="img"
+                aria-label="Newton update rule: theta update equals theta minus H inverse times gradient of log-likelihood"
+              >
+                θ := θ − <strong>H</strong>⁻¹ ∇<sub>θ</sub> ℓ(θ) &nbsp;·&nbsp;
+                <strong>H</strong> = <strong>X</strong>ᵀ
+                diag(h<sub>i</sub>(1−h<sub>i</sub>)) <strong>X</strong>
+              </div>
+              <div class="te-code">
+                <span class="c-comment"># Hessian: H = X^T diag(h*(1-h)) X</span
+                ><br />
+                H = X.T @ np.diag(h * (1 - h)) @ X<br />
+                <span class="c-comment"># Newton step</span><br />
+                theta -= np.linalg.solve(H, grad)
+              </div>
+              <div class="te-insight">
+                The convergence difference vs. gradient descent on a
+                poorly-conditioned dataset is dramatic — Newton's method
+                converges in ~5–10 iterations where gradient descent needs
+                thousands. This experience made "conditioning" feel concrete
+                rather than abstract.
+              </div>
+            </div>
+          </div>
+
+          <!-- Topic 2 -->
+          <div class="topic-entry">
+            <div class="te-header">
+              <div class="te-num">02</div>
+              <div class="te-title">Gaussian Discriminant Analysis (GDA)</div>
+              <div class="te-tags">
+                <span>Generative</span><span>Classification</span>
+              </div>
+            </div>
+            <div class="te-body">
+              <p>
+                GDA models the class-conditional distributions P(x|y) as
+                Gaussians with separate means but shared covariance, then
+                applies Bayes' rule. Unlike logistic regression
+                (discriminative), GDA makes stronger assumptions about the data
+                distribution — and pays off with closed-form MLE solutions when
+                those assumptions hold.
+              </p>
+              <div
+                class="te-equation"
+                role="img"
+                aria-label="GDA MLE parameters"
+              >
+                μ<sub>j</sub> = Σ 𝟙[y⁽ⁱ⁾=j] x⁽ⁱ⁾ / Σ 𝟙[y⁽ⁱ⁾=j] &nbsp;·&nbsp; Σ =
+                (1/m) Σ (x⁽ⁱ⁾−μ<sub>y⁽ⁱ⁾</sub>)(x⁽ⁱ⁾−μ<sub>y⁽ⁱ⁾</sub>)ᵀ
+              </div>
+              <div class="te-code">
+                mu_0 = X[y==0].mean(axis=0)<br />
+                mu_1 = X[y==1].mean(axis=0)<br />
+                phi = (y==1).mean()<br />
+                diff = X - np.where(y[:,None]==1, mu_1, mu_0)<br />
+                Sigma = (diff.T @ diff) / m
+              </div>
+              <div class="te-insight">
+                The key insight: GDA's decision boundary is linear in x when the
+                two classes share a covariance matrix — the same family as
+                logistic regression — but logistic regression is more robust
+                when the Gaussian assumption is violated. Knowing
+                <em>when</em> each is appropriate requires understanding both.
+              </div>
+            </div>
+          </div>
+
+          <!-- Topic 3 -->
+          <div class="topic-entry">
+            <div class="te-header">
+              <div class="te-num">03</div>
+              <div class="te-title">Positive-Unlabeled (PU) Learning</div>
+              <div class="te-tags">
+                <span>Label Noise</span><span>Correction</span>
+              </div>
+            </div>
+            <div class="te-body">
+              <p>
+                A rarely-taught but practically important problem: what if you
+                only have positive labels — you know which examples are class 1,
+                but you have no confirmed negatives, only unlabeled examples?
+                Standard logistic regression on partial labels will
+                systematically underestimate P(t=1|x). The correction: estimate
+                α = P(y=1|t=1) on a validation set, then P(t=1|x) = h(x)/α.
+              </p>
+              <div
+                class="te-equation"
+                aria-label="PU learning correction factor"
+              >
+                α = P(y=1|t=1) = E[h(x) | y=1] &nbsp;·&nbsp; P̂(t=1|x) = h(x) / α
+              </div>
+              <div class="te-code">
+                <span class="c-comment"># Estimate alpha on validation set</span
+                ><br />
+                alpha = predict_val[y_val==1].mean()<br />
+                <span class="c-comment"># Corrected probability</span><br />
+                p_corrected = clf.predict(x_test) / alpha
+              </div>
+              <div class="te-insight">
+                This problem structure appears constantly in practice: fraud
+                detection (you know confirmed fraud, not confirmed non-fraud),
+                medical diagnosis (confirmed positives, but negatives may be
+                undetected positives). Understanding the correction factor is
+                what separates a practitioner who can handle real data from one
+                who assumes clean labels.
+              </div>
+            </div>
+          </div>
+
+          <!-- Topic 4 -->
+          <div class="topic-entry">
+            <div class="te-header">
+              <div class="te-num">04</div>
+              <div class="te-title">
+                Poisson Regression — Generalized Linear Models
+              </div>
+              <div class="te-tags"><span>GLM</span><span>Count Data</span></div>
+            </div>
+            <div class="te-body">
+              <p>
+                The exponential family framework unifies linear regression,
+                logistic regression, Poisson regression, and others under a
+                single derivation. For count targets, Poisson regression models
+                y|x ~ Poisson(λ) with λ = exp(θᵀx), ensuring non-negative
+                predictions. The gradient ascent update falls directly from the
+                log-likelihood.
+              </p>
+              <div class="te-equation" aria-label="Poisson GLM gradient">
+                ∂ℓ/∂θⱼ = Σᵢ (y⁽ⁱ⁾ − exp(θᵀx⁽ⁱ⁾)) x⁽ⁱ⁾ⱼ
+              </div>
+              <div class="te-code">
+                <span class="c-comment"
+                  ># Gradient ascent (maximizing log-likelihood)</span
+                ><br />
+                h = np.exp(x @ self.theta)<br />
+                grad = x.T @ (y - h) / m<br />
+                self.theta += self.step_size * grad
+              </div>
+              <div class="te-insight">
+                This directly informed later project work. The outage
+                forecasting problem — predicting integer counts with severe
+                right skew — is exactly the distributional regime where Poisson
+                or negative binomial regression is appropriate. Understanding
+                GLM theory made the choice of loss functions principled rather
+                than heuristic.
+              </div>
+            </div>
+          </div>
+
+          <!-- Topic 5 -->
+          <div class="topic-entry">
+            <div class="te-header">
+              <div class="te-num">05</div>
+              <div class="te-title">
+                EM Algorithm for Gaussian Mixture Models
+              </div>
+              <div class="te-tags">
+                <span>Unsupervised</span><span>Semi-Supervised</span>
+              </div>
+            </div>
+            <div class="te-body">
+              <p>
+                EM alternates between assigning soft cluster memberships
+                (E-step) and updating cluster parameters to maximize expected
+                log-likelihood (M-step). I implemented both the unsupervised
+                version (K=4 Gaussians, random initialization) and the
+                semi-supervised extension that incorporates a weighted
+                cross-entropy term for labeled examples. The semi-supervised
+                version converges faster and is more robust to initialization.
+              </p>
+              <div class="te-equation" aria-label="EM E-step soft assignment">
+                E-step: w<sub>j</sub>⁽ⁱ⁾ = φⱼ · N(x⁽ⁱ⁾; μⱼ, Σⱼ) / Σₖ φₖ ·
+                N(x⁽ⁱ⁾; μₖ, Σₖ)
+              </div>
+              <div class="te-code">
+                <span class="c-comment"
+                  ># E-step: compute soft responsibilities</span
+                ><br />
+                w[:,j] = phi[j] * multivariate_normal.pdf(x, mu[j], sigma[j])<br />
+                w /= w.sum(axis=1, keepdims=True)<br />
+                <span class="c-comment"># M-step: weighted MLE</span><br />
+                mu[j] = (w[:,j,None] * x).sum(0) / w[:,j].sum()
+              </div>
+              <div class="te-insight">
+                The semi-supervised EM result (convergence in far fewer
+                iterations, better cluster assignments) was a direct empirical
+                demonstration of why labeled data is valuable even in small
+                quantities. The unsupervised version's sensitivity to
+                initialization made "local optima in non-convex optimization"
+                viscerally clear.
+              </div>
+            </div>
+          </div>
+
+          <!-- Topic 6 -->
+          <div class="topic-entry">
+            <div class="te-header">
+              <div class="te-num">06</div>
+              <div class="te-title">Locally Weighted Regression</div>
+              <div class="te-tags">
+                <span>Non-Parametric</span><span>Regression</span>
+              </div>
+            </div>
+            <div class="te-body">
+              <p>
+                Standard linear regression fits a single global model. Locally
+                weighted regression re-fits θ for every query point x, giving
+                higher weight to training examples close to x. The bandwidth
+                parameter τ controls the effective neighborhood size — a direct
+                knob on the bias-variance tradeoff. I compared six values of τ
+                and identified τ=0.05 as optimal on the validation set.
+              </p>
+              <div
+                class="te-equation"
+                aria-label="Locally weighted regression kernel weights"
+              >
+                w⁽ⁱ⁾ = exp(−||x⁽ⁱ⁾−x||² / 2τ²) &nbsp;·&nbsp; θ = (XᵀWX)⁻¹XᵀWy
+              </div>
+              <div class="te-code">
+                <span class="c-comment"
+                  ># Compute kernel weights for query point x_i</span
+                ><br />
+                w = np.exp(-np.sum((X - x_i)**2, axis=1) / (2 * self.tau**2))<br />
+                W = np.diag(w)<br />
+                theta = np.linalg.solve(X.T @ W @ X, X.T @ W @ y)
+              </div>
+            </div>
+          </div>
+
+          <!-- Topic 7 -->
+          <div class="topic-entry">
+            <div class="te-header">
+              <div class="te-num">07</div>
+              <div class="te-title">Kernel Perceptron</div>
+              <div class="te-tags">
+                <span>Kernels</span><span>Online Learning</span>
+              </div>
+            </div>
+            <div class="te-body">
+              <p>
+                The kernel trick allows any algorithm that operates only through
+                inner products to be "kernelized" — learning in an implicitly
+                high-dimensional feature space without ever computing that
+                representation. The perceptron in its dual form stores the
+                training examples and makes predictions via f(x) = Σ αᵢ K(xᵢ,
+                x), updating αᵢ only on misclassification.
+              </p>
+              <div
+                class="te-equation"
+                aria-label="Kernel perceptron prediction"
+              >
+                f(x) = sign(Σᵢ αᵢ y⁽ⁱ⁾ K(x⁽ⁱ⁾, x)) &nbsp;·&nbsp; update: αᵢ += 1
+                if misclassified
+              </div>
+              <div class="te-code">
+                <span class="c-comment"
+                  ># Predict using kernel dot products</span
+                ><br />
+                score = sum(b * kernel(x_s, x_i)<br />
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for b, x_s in
+                zip(state[0], state[1]))<br />
+                <span class="c-comment"
+                  ># Update: accumulate support vectors on mistake</span
+                ><br />
+                state[0].append(y); state[1].append(x_i)
+              </div>
+            </div>
+          </div>
+
+          <!-- Topic 8 -->
+          <div class="topic-entry">
+            <div class="te-header">
+              <div class="te-num">08</div>
+              <div class="te-title">Independent Component Analysis (ICA)</div>
+              <div class="te-tags">
+                <span>Unsupervised</span><span>Source Separation</span>
+              </div>
+            </div>
+            <div class="te-body">
+              <p>
+                Given a set of mixed audio signals — each microphone recording a
+                superposition of five simultaneous sound sources — ICA recovers
+                the original independent sources by learning an unmixing matrix
+                W. The Laplace distribution is used as the source prior
+                (heavy-tailed, unlike Gaussian), and W is updated via gradient
+                ascent on the log-likelihood. Applied to an actual five-channel
+                audio mixing problem.
+              </p>
+              <div class="te-equation" aria-label="ICA W update rule">
+                W := W + α ( (Wᵀ)⁻¹ − sign(Wx) xᵀ )
+              </div>
+              <div class="te-code">
+                <span class="c-comment"># Gradient ascent update on W</span
+                ><br />
+                <span class="c-comment"># Laplace prior: g'(s) = sign(s)</span
+                ><br />
+                updated_W = W + lr * (<br />
+                &nbsp;&nbsp;np.linalg.inv(W).T<br />
+                &nbsp;&nbsp;- (np.sign(W @ x))[:,None] @ x[:,None].T<br />
+                )
+              </div>
+              <div class="te-insight">
+                The key insight about ICA vs. PCA: PCA finds directions of
+                maximum variance (decorrelation); ICA finds directions of
+                statistical independence (much stronger condition). The Laplace
+                prior is chosen specifically because Gaussian sources are
+                fundamentally unidentifiable by ICA — a subtle theoretical
+                constraint with practical consequences.
+              </div>
+            </div>
+          </div>
+
+          <!-- Topic 9 -->
+          <div class="topic-entry">
+            <div class="te-header">
+              <div class="te-num">09</div>
+              <div class="te-title">Naïve Bayes Spam Classifier + SVM</div>
+              <div class="te-tags">
+                <span>NLP</span><span>Classification</span>
+              </div>
+            </div>
+            <div class="te-body">
+              <p>
+                A full text classification pipeline: tokenize SMS messages,
+                build a vocabulary of words appearing in ≥5 messages, construct
+                a word-count feature matrix, and fit a multinomial Naïve Bayes
+                model with Laplace smoothing. Predictions via log-likelihood
+                comparison to avoid floating-point underflow. Also implemented
+                SVM radius hyperparameter search via validation set accuracy.
+              </p>
+              <div
+                class="te-equation"
+                aria-label="Naive Bayes Laplace smoothed likelihood"
+              >
+                φ<sub>k|y=j</sub> = (Σ 𝟙[xᵢ=k ∧ yᵢ=j] + 1) / (Σ 𝟙[yᵢ=j] + |V|)
+              </div>
+              <div class="te-code">
+                <span class="c-comment"
+                  ># Log-likelihood prediction (avoids underflow)</span
+                ><br />
+                score_1 = np.log(phi_y) + X @ np.log(phi_one)<br />
+                score_0 = np.log(1-phi_y) + X @ np.log(phi_zero)<br />
+                return (score_1 > score_0).astype(int)
+              </div>
+              <div class="te-insight">
+                <strong>Results:</strong> Naïve Bayes achieved 97.8% test
+                accuracy. Top 5 spam-indicative words:
+                <em>claim, won, prize, tone, urgent!</em> SVM with optimal
+                radius 0.1 achieved 96.9%. Naïve Bayes outperformed SVM on this
+                dataset — consistent with the theoretical result that generative
+                classifiers can outperform discriminative ones with limited
+                data.
+              </div>
+            </div>
+          </div>
+
+          <!-- Topic 10 -->
+          <div class="topic-entry">
+            <div class="te-header">
+              <div class="te-num">10</div>
+              <div class="te-title">
+                Reinforcement Learning — CartPole via Value Iteration
+              </div>
+              <div class="te-tags">
+                <span>MDP</span><span>Value Iteration</span>
+              </div>
+            </div>
+            <div class="te-body">
+              <p>
+                Model-based RL on the classic CartPole problem: balance a pole
+                on a cart by applying left or right force. The continuous state
+                space (x, ẋ, θ, θ̇) is discretized into 163 states. The agent
+                learns an MDP — estimated transition probabilities P̂(s'|s,a) and
+                rewards R̂(s) — from experience, then applies value iteration to
+                compute the optimal policy. The loop: act → observe → update
+                model → re-run value iteration whenever the pole falls.
+              </p>
+              <div
+                class="te-equation"
+                aria-label="Bellman optimality equation value iteration"
+              >
+                V(s) := R(s) + γ · max<sub>a</sub> Σ<sub>s'</sub> P(s'|s,a)
+                V(s') &nbsp;·&nbsp; γ = 0.995
+              </div>
+              <div class="te-code">
+                <span class="c-comment"># Value iteration (Bellman update)</span
+                ><br />
+                V_new = R + gamma * np.max(<br />
+                &nbsp;&nbsp;V @ P[:,:,:],
+                <span class="c-comment"># shape: (states,actions)</span><br />
+                &nbsp;&nbsp;axis=2).ravel()<br />
+                converged = np.max(np.abs(V_new - V)) &lt; tol
+              </div>
+              <div class="te-insight">
+                Convergence criterion: 20 consecutive value function
+                computations all converging in a single iteration. This is the
+                point where the agent's model of the world has stabilized —
+                further failures yield negligible updates. The log of
+                time-steps-to-failure increases monotonically as the agent
+                improves, making learning directly visible.
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="cta-ruling" aria-hidden="true"></div>
+      </section>
+
+      <!-- ── THEORETICAL FOUNDATIONS ── -->
+      <section
+        id="foundations"
+        class="section"
+        aria-labelledby="foundations-heading"
+      >
+        <div class="section-inner">
+          <div class="section-number" aria-hidden="true">III</div>
+          <h2 id="foundations-heading">What This Built</h2>
+          <p class="section-intro">
+            The value of this study isn't in the 10 implementations — it's in
+            the cross-cutting theoretical frameworks that make all of them
+            coherent.
+          </p>
+
+          <div class="foundations-grid">
+            <div class="fg-card">
+              <div class="fg-title">The MLE–MAP–Bayesian Hierarchy</div>
+              <p>
+                Every supervised learning algorithm in CS229 can be situated
+                within a single probabilistic framework. Maximum likelihood
+                estimation (logistic regression, Poisson regression), maximum a
+                posteriori with regularization (ridge, LASSO), and full Bayesian
+                inference all emerge from different assumptions about priors.
+                Seeing this unified picture changes how you diagnose overfitting
+                — it's not a "trick," it's a prior.
+              </p>
+            </div>
+
+            <div class="fg-card">
+              <div class="fg-title">Discriminative vs. Generative Models</div>
+              <p>
+                Logistic regression models P(y|x) directly. GDA models P(x|y)
+                and P(y), then applies Bayes' rule. GDA uses more assumptions
+                and pays off when they hold; logistic regression is more robust.
+                This tradeoff — modeling efficiency vs. robustness to
+                misspecification — recurs constantly in applied work and informs
+                how I evaluate model choices.
+              </p>
+            </div>
+
+            <div class="fg-card">
+              <div class="fg-title">The Exponential Family Unification</div>
+              <p>
+                Linear regression, logistic regression, and Poisson regression
+                are all instances of the same GLM framework: choose an
+                exponential family distribution for y|x, use the canonical
+                response function as your prediction, and gradient ascent on
+                log-likelihood always has the same form: θⱼ := θⱼ + α(y⁽ⁱ⁾ −
+                h(x⁽ⁱ⁾))xⱼ⁽ⁱ⁾. One derivation, many algorithms.
+              </p>
+            </div>
+
+            <div class="fg-card">
+              <div class="fg-title">The EM Framework and Local Optima</div>
+              <p>
+                EM guarantees convergence to a local maximum of the
+                log-likelihood — not the global maximum. This is not a
+                limitation to apologize for; it's a feature of the landscape of
+                latent variable models. Understanding that EM is coordinate
+                ascent on a lower bound (Jensen's inequality applied to
+                log-likelihood) makes the convergence proof intuitive, not
+                magical.
+              </p>
+            </div>
+
+            <div class="fg-card">
+              <div class="fg-title">
+                Kernel Methods and the Dual Representation
+              </div>
+              <p>
+                Any algorithm expressible through inner products can be
+                kernelized. This includes SVMs (via the dual Lagrangian), the
+                perceptron (dual form), and kernel regression. The representer
+                theorem says that the optimal solution lives in the span of the
+                training data — a deep result that connects all of these. Kernel
+                choice is a modeling decision about the geometry of the problem.
+              </p>
+            </div>
+
+            <div class="fg-card">
+              <div class="fg-title">MDPs and the Bellman Equations</div>
+              <p>
+                Value iteration is a contraction mapping. The Bellman optimality
+                operator is guaranteed to converge to the unique fixed point V*.
+                This is not just an algorithmic fact — it's why reinforcement
+                learning with known dynamics is tractable. The CartPole
+                implementation made the MDP framework concrete: states, actions,
+                transition probabilities, rewards, discount factor — each is a
+                meaningful modeling decision.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── SKILLS ── -->
+      <section
+        id="skills"
+        class="section section-ruled"
+        aria-labelledby="skills-heading"
+      >
+        <div class="section-inner">
+          <div class="section-number" aria-hidden="true">IV</div>
+          <h2 id="skills-heading">Theoretical Knowledge Demonstrated</h2>
+          <p class="section-intro">
+            These are not skills acquired by calling library functions. Each was
+            derived and implemented from mathematical first principles.
+          </p>
+
+          <div class="skills-layout">
+            <div class="sg">
+              <div class="sg-head">Supervised Learning</div>
+              <div class="sg-tags">
+                <span class="stag stag-p"
+                  >Newton's Method (Logistic Regression)</span
+                >
+                <span class="stag stag-p">Gaussian Discriminant Analysis</span>
+                <span class="stag stag-p">Generalized Linear Models</span>
+                <span class="stag stag-p">Poisson Regression</span>
+                <span class="stag stag-s">Locally Weighted Regression</span>
+                <span class="stag stag-s">Kernel Perceptron</span>
+                <span class="stag stag-s">Naïve Bayes (Laplace Smoothing)</span>
+                <span class="stag stag-s">Support Vector Machines</span>
+              </div>
+            </div>
+            <div class="sg">
+              <div class="sg-head">Unsupervised & Semi-Supervised</div>
+              <div class="sg-tags">
+                <span class="stag stag-p">EM Algorithm (GMM)</span>
+                <span class="stag stag-p">Independent Component Analysis</span>
+                <span class="stag stag-s">Semi-supervised EM</span>
+                <span class="stag stag-s">PU Learning & Label Correction</span>
+              </div>
+            </div>
+            <div class="sg">
+              <div class="sg-head">Reinforcement Learning</div>
+              <div class="sg-tags">
+                <span class="stag stag-p">Markov Decision Processes</span>
+                <span class="stag stag-p">Value Iteration (Bellman)</span>
+                <span class="stag stag-s">Model-Based RL</span>
+                <span class="stag stag-s">State Discretization</span>
+                <span class="stag stag-s">Policy Derivation</span>
+              </div>
+            </div>
+            <div class="sg">
+              <div class="sg-head">Theoretical Foundations</div>
+              <div class="sg-tags">
+                <span class="stag stag-p">Maximum Likelihood Estimation</span>
+                <span class="stag stag-p"
+                  >Exponential Family Distributions</span
+                >
+                <span class="stag stag-p"
+                  >Kernel Theory & Representer Theorem</span
+                >
+                <span class="stag stag-s"
+                  >Hessian Computation & Optimization</span
+                >
+                <span class="stag stag-s"
+                  >Probabilistic Graphical Reasoning</span
+                >
+                <span class="stag stag-s"
+                  >Log-Likelihood & Numerical Stability</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── CTA ── -->
+      <section class="section cta-section" aria-labelledby="cta-heading">
+        <div class="section-inner cta-inner">
+          <div class="cta-ruling" aria-hidden="true"></div>
+          <h2 id="cta-heading">Implementations on GitHub</h2>
+          <p>
+            All problem set implementations are available. The code reflects
+            what I wrote between the scaffold markers — the mathematical core of
+            each algorithm.
+          </p>
+          <div class="cta-buttons">
+            <a
+              href="https://github.com/nakulsree/CS229_MyWork"
+              class="btn-primary btn-lg"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+                />
+              </svg>
+              View Code on GitHub
+            </a>
+            <a href="#context" class="btn-ghost btn-lg">Back to Top ↑</a>
+          </div>
+          <div class="cta-ruling" aria-hidden="true"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer" role="contentinfo">
+      <div class="footer-inner">
+        <span>Nakul Sreekanth · Data Science Portfolio</span>
+        <span class="fsep">·</span>
+        <span>Stanford CS229 Independent Study · 2023–2024</span>
       </div>
-    </section>
+    </footer>
 
-  </main>
-
-  <footer class="footer" role="contentinfo">
-    <div class="footer-inner">
-      <span>Nakul Sreekanth · Data Science Portfolio</span>
-      <span class="fsep">·</span>
-      <span>Stanford CS229 Independent Study · 2023–2024</span>
-    </div>
-  </footer>
-
-  <script src="assets/js/cs229-independent-study.js"></script>
-</body>
+    <script src="assets/js/cs229-independent-study.js"></script>
+  </body>
 </html>

@@ -68,7 +68,7 @@
       "best_params": {"algorithm": "auto", "n_neighbors": 10, "p": 1}
     }
   },
-  "github_url": "https://github.com/nakulsree/Portofolio",
+  "github_url": "https://github.com/nakulsree"
   "thumbnail": "assets/images/spacex-landing-thumbnail.svg",
   "portfolio_url": "spacex-landing.html",
   "featured": true,

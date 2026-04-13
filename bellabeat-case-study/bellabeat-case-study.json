@@ -19,14 +19,29 @@
     "Data Cleaning",
     "Google Data Analytics"
   ],
-  "tech_stack": ["R", "tidyverse", "ggplot2", "dplyr", "lubridate", "janitor", "ggpmisc", "BigQuery SQL", "Tableau"],
+  "tech_stack": [
+    "R",
+    "tidyverse",
+    "ggplot2",
+    "dplyr",
+    "lubridate",
+    "janitor",
+    "ggpmisc",
+    "BigQuery SQL",
+    "Tableau"
+  ],
   "data": {
     "source": "Kaggle: FitBit Fitness Tracker Data (Möbius)",
     "users": 33,
     "claimed_users": 30,
     "period": "2016-04-12 to 2016-05-12",
     "granularity": "Daily and hourly (minute-level discarded)",
-    "tables_retained": ["dailyActivity", "hourlyCalories", "hourlyIntensities", "hourlySteps"],
+    "tables_retained": [
+      "dailyActivity",
+      "hourlyCalories",
+      "hourlyIntensities",
+      "hourlySteps"
+    ],
     "tables_excluded": {
       "heartrate_seconds": "Only 7 unique users",
       "weight_log": "Only 8 unique users",
@@ -34,7 +49,7 @@
     }
   },
   "key_findings": {
-    "r2_intensity_vs_calories": 0.80,
+    "r2_intensity_vs_calories": 0.8,
     "r2_steps_vs_calories": 0.66,
     "pct_moderate_plus_active": 2.85,
     "aha_recommended_pct": 3.0,
@@ -42,7 +57,7 @@
     "active_minutes_breakdown": {
       "light": 84.74,
       "moderate": 5.96,
-      "intense": 9.30
+      "intense": 9.3
     },
     "peak_days": ["Tuesday", "Saturday"],
     "low_days": ["Sunday", "Thursday"],
@@ -55,7 +70,7 @@
     "Sunday/Thursday: send motivational reminders to increase workout duration and intensity",
     "2 PM: send targeted motivational prompt to combat the daily afternoon activity dip"
   ],
-  "github_url": "https://github.com/nakulsree/Portofolio",
+  "github_url": "https://github.com/nakulsree",
   "thumbnail": "assets/images/bellabeat-case-study-thumbnail.svg",
   "portfolio_url": "bellabeat-case-study.html",
   "featured": true,

@@ -3,7 +3,14 @@
   "title": "Supply Chain Intelligence Dashboard",
   "subtitle": "Full-Stack Role-Based Analytics Platform for Supply Chain Operations",
   "author": "Nakul Sreekanth",
-  "team": ["Domenica Forno", "Mark Rapp", "Laura Ortiz", "Jacob Lavra", "Aditya Kumar", "Nakul Sreekanth"],
+  "team": [
+    "Domenica Forno",
+    "Mark Rapp",
+    "Laura Ortiz",
+    "Jacob Lavra",
+    "Aditya Kumar",
+    "Nakul Sreekanth"
+  ],
   "institution": "Purdue University",
   "date": "2025",
   "tags": [
@@ -32,7 +39,14 @@
     "roles": [
       {
         "name": "Supply Chain Manager",
-        "pages": ["overview", "companies", "company_view", "disruptions", "transactions", "distributors"]
+        "pages": [
+          "overview",
+          "companies",
+          "company_view",
+          "disruptions",
+          "transactions",
+          "distributors"
+        ]
       },
       {
         "name": "Senior Manager",
@@ -51,12 +65,25 @@
     "Self-referential DependsOn table for upstream/downstream dependency traversal"
   ],
   "db_tables": [
-    "Company", "Manufacturer", "Distributor", "Retailer", "Location",
-    "Shipping", "Receiving", "InventoryAdjustment", "InventoryTransaction",
-    "Product", "SuppliesProduct", "FinancialReport",
-    "DisruptionEvent", "DisruptionCategory", "ImpactsCompany", "DependsOn", "OperatesLogistics"
+    "Company",
+    "Manufacturer",
+    "Distributor",
+    "Retailer",
+    "Location",
+    "Shipping",
+    "Receiving",
+    "InventoryAdjustment",
+    "InventoryTransaction",
+    "Product",
+    "SuppliesProduct",
+    "FinancialReport",
+    "DisruptionEvent",
+    "DisruptionCategory",
+    "ImpactsCompany",
+    "DependsOn",
+    "OperatesLogistics"
   ],
-  "github_url": "https://github.com/nakulsree/Portofolio",
+  "github_url": "https://github.com/nakulsree",
   "thumbnail": "assets/images/scm-dashboard-thumbnail.svg",
   "portfolio_url": "scm-dashboard.html",
   "featured": true,
