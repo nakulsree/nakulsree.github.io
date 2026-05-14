@@ -712,8 +712,7 @@ h2 {
   flex-direction: column;
   gap: 1.5rem;
 }
-.sp-section {
-}
+
 .sp-label {
   font-family: var(--font-mono);
   font-size: 0.6rem;
