@@ -13,9 +13,9 @@
   --border: #2d1f18;
   --border-2: #3d2b22;
 
-  --text: #f5ede5;
-  --text-2: #c0a098;
-  --text-3: #7a5f53;
+  --text: #fffbf7;
+  --text-2: #cdb5a8;
+  --text-3: #8a6f63;
 
   --rose: #e8916a;
   --rose-dim: rgba(232, 145, 106, 0.1);
@@ -49,6 +49,7 @@ body {
   background: var(--bg);
   color: var(--text);
   font-family: var(--font-mono);
+  font-weight: 500;
   line-height: 1.75;
   overflow-x: hidden;
 }

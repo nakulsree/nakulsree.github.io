@@ -11,9 +11,9 @@
   --border: #161a3a;
   --border-2: #252a60;
 
-  --text: #f0f2ff;
-  --text-2: #9099c8;
-  --text-3: #5a6080;
+  --text: #ffffff;
+  --text-2: #a8b3d8;
+  --text-3: #6a7090;
 
   --violet: #6349ff;
   --violet-2: #8b5cf6;
@@ -47,6 +47,7 @@ body {
   background: var(--bg);
   color: var(--text);
   font-family: var(--font-mono);
+  font-weight: 500;
   line-height: 1.7;
   overflow-x: hidden;
 }

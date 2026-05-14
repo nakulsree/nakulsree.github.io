@@ -13,9 +13,9 @@
   --border: #1a2f1f;
   --border-2: #253d2b;
 
-  --text: #f0f4f0;
-  --text-2: #8aab95;
-  --text-3: #5a7060;
+  --text: #ffffff;
+  --text-2: #9cbca7;
+  --text-3: #6a8070;
 
   --green: #2ecc71;
   --green-dim: rgba(46, 204, 113, 0.1);
@@ -50,6 +50,7 @@ body {
   background: var(--bg);
   color: var(--text);
   font-family: var(--font-mono);
+  font-weight: 500;
   line-height: 1.7;
   overflow-x: hidden;
 }

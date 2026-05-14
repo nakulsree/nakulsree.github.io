@@ -15,9 +15,9 @@
   --border-2: #3a3428;
   --ruling: rgba(180, 148, 80, 0.15);
 
-  --text: #f5ede0;
-  --text-2: #b5a895;
-  --text-3: #7a6f5f;
+  --text: #fffef8;
+  --text-2: #c5b8a5;
+  --text-3: #8a7f6f;
   --drop: #c4933f;
 
   --gold: #c4933f;
@@ -49,6 +49,7 @@ body {
   background: var(--bg);
   color: var(--text);
   font-family: var(--font-head);
+  font-weight: 500;
   line-height: 1.8;
   overflow-x: hidden;
 }

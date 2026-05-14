@@ -12,9 +12,9 @@
   --border: #1a2035;
   --border-2: #252e4a;
 
-  --text: #f0f4ff;
-  --text-2: #b0bdd4;
-  --text-3: #6b7590;
+  --text: #ffffff;
+  --text-2: #c5d3e8;
+  --text-3: #7a8a9f;
 
   /* Project accent colors */
   --c-outage: #00d4ff;
@@ -48,6 +48,7 @@ body {
   background: var(--bg);
   color: var(--text);
   font-family: var(--font-head);
+  font-weight: 500;
   line-height: 1.65;
   overflow-x: hidden;
 }
