@@ -272,6 +272,11 @@ em {
   color: #7c6cff;
   line-height: 1;
 }
+.hh-val[data-suffix="+"]::after {
+  content: "+";
+  font-family: var(--font-mono);
+  font-weight: 600;
+}
 .hh-label {
   font-family: var(--font-mono);
   font-size: 0.72rem;
