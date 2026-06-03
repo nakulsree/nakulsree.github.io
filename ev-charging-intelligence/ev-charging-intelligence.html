@@ -97,10 +97,11 @@
         </h1>
 
         <p class="hero-desc">
-          An end-to-end analytical framework combining 24-hour ahead electricity
-          price prediction with Nash equilibrium market optimization — enabling
-          EV charging operators to anticipate costs, shift load, and understand
-          competitive market dynamics along California's SP15 corridor.
+          I built a two-part system: forecast SP15 electricity prices 24 hours
+          ahead, then use those prices in a Nash equilibrium model for 51
+          stations on the I-210 corridor. The goal is practical: give operators
+          a next-day pricing signal and show whether congestion is a pricing
+          issue or a capacity issue.
         </p>
 
         <div class="hero-kpis">
@@ -183,34 +184,28 @@
           <div class="overview-grid">
             <div class="overview-text">
               <p>
-                California's push toward electrified transportation puts EV
-                charging operators in a difficult position: wholesale
-                electricity prices in the SP15 zone swing sharply intraday —
-                driven by solar generation's "duck curve" — while competitive
-                pressure from 50+ neighboring stations constrains pricing
-                flexibility. Acting on intuition alone is expensive.
+                The core question was: can operators reliably anticipate
+                next-day energy costs and understand how competitive pricing
+                plays out on a crowded corridor? In the SP15 zone, prices swing
+                hard with the duck curve, while 50+ nearby stations limit how
+                much any single operator can change price without losing demand.
               </p>
               <p>
-                This project, developed within Purdue University's VIP-ORSOL
-                initiative, builds an integrated analytical framework to address
-                both sides of this problem. A
-                <strong>leakage-controlled LSTM pipeline</strong> forecasts
-                real-time SP15 electricity prices 24 hours ahead using market,
-                weather, and fuel data, achieving a test MAE of ~$10.99/MWh and
-                R² of ~0.48 across 5,500+ out-of-sample observations. A
-                complementary
-                <strong>Nash equilibrium optimization model</strong> then
-                simulates how 51 competing stations price their services,
-                revealing that competition — not capacity pricing — keeps the
-                corridor affordable, and that physical infrastructure expansion
-                matters more than price adjustments for reducing congestion.
+                I built two connected modules. First, a
+                <strong>leakage-controlled LSTM</strong> forecasts real-time
+                SP15 prices 24 hours ahead using market, weather, and fuel data
+                (MAE ~$10.99/MWh, R² ~0.48 across 5,500+ out-of-sample points).
+                Second, a <strong>Nash equilibrium pricing model</strong>
+                simulates 51 stations on the I-210 corridor. The combined story
+                is clear: competition keeps prices stable, and capacity limits
+                drive congestion more than pricing does.
               </p>
               <p>
-                Submitted to the
-                <strong>SAS Global Forum Curiosity Cup 2026</strong>, the
-                forecasting component was awarded
-                <strong>Finalist</strong> recognition — validating both the
-                technical rigor and the practical framing of the problem.
+                The forecasting module was a
+                <strong>SAS Global Forum Curiosity Cup 2026 Finalist</strong>,
+                which was a good sanity check that the framing and execution
+                held up. Next, I would add probabilistic price forecasts and
+                real station-occupancy data to stress-test the optimization.
               </p>
             </div>
             <div class="overview-context">

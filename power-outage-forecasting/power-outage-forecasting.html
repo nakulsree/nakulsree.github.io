@@ -170,32 +170,29 @@
           <div class="summary-grid">
             <div class="summary-text">
               <p>
-                This project addresses a deceptively hard forecasting problem:
-                predicting hourly power outage counts across all 83 Michigan
-                counties, 48 hours ahead. The difficulty is structural — roughly
-                <strong>70% of county-hours record zero outages</strong>, yet
-                the rare extreme events (a single storm can spike a county to
-                23,346 outages in one hour) are precisely what utilities need to
-                anticipate.
+                The question was simple to ask and hard to solve: can we predict
+                hourly power outage counts 48 hours ahead for each of Michigan's
+                83 counties, not just for average days? The data is messy in the
+                worst way: about <strong>70% of county-hours are zero</strong>,
+                but rare storms can spike a county to 23,346 outages in a single
+                hour.
               </p>
               <p>
-                Rather than fitting one global model that inevitably
-                under-weights the tail, the approach partitions the prediction
-                problem into
-                <strong>four data-driven magnitude regimes</strong> and trains
-                specialized models for each. A LightGBM meta-learner then
-                refines the routing using out-of-fold disagreement signals
-                across all base models, correcting boundary misclassifications
-                at inference time.
+                A single global model kept under-weighting the tail, so I split
+                the target into <strong>four magnitude regimes</strong>
+                and trained specialized models for each. A LightGBM meta-learner
+                then uses out-of-fold disagreement between the base models to
+                fix boundary mistakes at inference time.
               </p>
               <p>
-                The resulting framework achieves an
+                The full system delivers an
                 <strong>89% reduction in Winkler score</strong> over a global
-                residual quantile baseline and a
+                baseline and a
                 <strong>43% reduction in normal-case RMSE</strong> from the
-                meta-learner alone — with prediction intervals calibrated to be
-                narrow during quiet periods and appropriately wide during
-                extreme events.
+                meta-learner alone. The intervals stay tight in calm hours and
+                widen during storms, which is exactly what operators need. Next
+                step would be adding more storm seasons and utility asset data
+                to improve recall on low-signal events.
               </p>
             </div>
             <div class="summary-aside">

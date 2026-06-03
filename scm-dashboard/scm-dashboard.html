@@ -77,11 +77,10 @@
         </h1>
 
         <p class="hero-desc">
-          A role-based analytical platform for supply chain operations — built
-          on PHP, PostgreSQL, and Chart.js. Supports two distinct user roles
-          with dedicated dashboards for on-time delivery tracking, disruption
-          risk scoring, financial health monitoring, and distributor route
-          analytics.
+          A role-based analytics platform built on PHP, PostgreSQL, and
+          Chart.js. The goal was simple: give operations teams and senior
+          managers different views of the same network, with real KPIs and
+          drill-downs instead of static reports.
         </p>
 
         <div class="hero-team" aria-label="Team members">
@@ -186,32 +185,26 @@
           <div class="overview-cols">
             <div class="overview-text">
               <p>
-                This project is a full-stack web application designed to give
-                supply chain operations teams analytical visibility across their
-                entire network. Built as a team of six at Purdue University, it
-                integrates data from multiple supply chain entities —
-                manufacturers, distributors, and retailers — into a unified
-                dashboard with role-specific views and real-time KPI
-                calculations.
+                This is a full-stack dashboard that turns a multi-tier supply
+                chain into something teams can actually monitor. Built in a team
+                of six at Purdue, it pulls manufacturers, distributors, and
+                retailers into one system with real-time KPIs and role-specific
+                views.
               </p>
               <p>
-                Two distinct user roles drive the design.
-                <strong>Supply Chain Managers</strong> access operational views:
-                company search and drill-down, shipment transactions,
-                distributor performance by route, and disruption monitoring with
-                active alerts. <strong>Senior Managers</strong> access strategic
-                views: financial health scoring across all companies and
-                regions, quarterly trend analysis, and a criticality scoring
-                algorithm that identifies which companies pose the highest
-                systemic risk if disrupted.
+                The split is intentional.
+                <strong>Supply Chain Managers</strong> get operational views
+                (shipments, disruptions, route performance).
+                <strong>Senior Managers</strong> get strategic views (financial
+                health, regional risk, and criticality scoring). Same data,
+                different questions.
               </p>
               <p>
-                All database interactions use
-                <strong>PDO prepared statements</strong>, enforcing
-                parameterized query execution throughout and preventing SQL
-                injection at every input boundary. XSS prevention via
-                <code>htmlspecialchars()</code> is applied consistently at all
-                output points.
+                Everything runs through <strong>PDO prepared statements</strong>
+                and consistent output escaping. It is not just a UI demo; it is
+                a real database-backed app built to be safe by default. Next
+                step would be an API layer for chart data plus pagination and
+                audit logs for production scale.
               </p>
             </div>
             <div class="overview-cards">

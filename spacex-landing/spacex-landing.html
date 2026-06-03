@@ -78,11 +78,9 @@
         </h1>
 
         <p class="hero-desc">
-          A complete data science workflow from raw API calls to
-          production-ready classification — predicting whether a Falcon 9
-          first-stage booster will successfully land after launch, informing
-          whether a mission can be reused at SpaceX's advertised price of
-          <strong>$62M</strong> vs competitors' <strong>$165M+</strong>.
+          A full pipeline from raw API calls to a working classifier. The
+          question: based on pre-launch mission details, can we predict whether
+          a Falcon 9 first-stage booster will land and be reusable?
         </p>
 
         <div class="hero-metrics">
@@ -293,35 +291,26 @@
           <div class="overview-grid">
             <div class="overview-text">
               <p>
-                The critical cost driver behind SpaceX's $62M Falcon 9 launch
-                price — roughly 60% cheaper than competitors — is first-stage
-                booster reuse. If the first stage lands successfully, it can be
-                refurbished and relaunched. If it doesn't, that unit is a
-                write-off. Knowing in advance whether a landing is likely
-                enables both operators and competitors to make informed pricing
-                and mission planning decisions.
+                The motivation is simple: reusability drives the Falcon 9 cost
+                advantage. If the booster lands, it can be reflown; if it does
+                not, it is a write-off. So the practical question is whether we
+                can predict landing success from information available before
+                launch.
               </p>
               <p>
-                This project builds an end-to-end data science pipeline that
-                answers this question:
-                <strong
-                  >given mission parameters available before launch, can we
-                  predict whether the Falcon 9 first stage will successfully
-                  land?</strong
-                >
-                Data is collected directly from the SpaceX REST API and
-                supplemented via Wikipedia web scraping; exploratory analysis is
-                conducted both in Python and SQL; geospatial patterns are
-                visualized with Folium; an interactive Plotly Dash app allows
-                live filtering; and four classification algorithms are compared
-                via 10-fold cross-validated GridSearchCV.
+                I built an end-to-end pipeline: SpaceX REST API + Wikipedia
+                scraping, Python + SQL EDA, Folium geospatial analysis, a Plotly
+                Dash dashboard, and four classifiers compared with 10-fold
+                GridSearchCV.
               </p>
               <p>
-                All four models converge to identical test accuracy of
-                <strong>83.3%</strong>, with the Decision Tree achieving the
-                highest cross-validation accuracy of <strong>88.9%</strong>. The
-                binary target (Class: 1 = successful landing, 0 = failed) was
-                engineered from raw outcome strings in the original dataset.
+                All four models land at the same test accuracy
+                (<strong>83.3%</strong>) on the small test set, while the
+                Decision Tree leads cross-validation at
+                <strong>88.9%</strong>. The target label is engineered from raw
+                outcome strings (1 = successful landing, 0 = failed). Next step
+                would be adding more recent launches and probability calibration
+                to move beyond accuracy.
               </p>
             </div>
             <div class="overview-aside">
