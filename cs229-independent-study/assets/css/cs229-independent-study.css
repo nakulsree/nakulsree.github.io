@@ -159,14 +159,15 @@ strong {
 .page-header {
   position: relative;
   z-index: 1;
-  padding: 100px 3rem 60px calc(var(--margin-w) + 2.5rem);
-  max-width: 900px;
+  padding: 100px clamp(1.5rem, 6vw, 6rem) 60px;
+  max-width: 1100px;
+  margin: 0 auto;
 }
 .header-ruling {
   height: 1px;
   background: var(--ruling);
   margin-bottom: 2rem;
-  margin-left: -2.5rem;
+  margin-left: 0;
 }
 .bottom-ruling {
   margin-top: 3rem;
@@ -334,13 +335,14 @@ strong {
 .section {
   position: relative;
   z-index: 1;
-  padding: 5rem 3rem 5rem calc(var(--margin-w) + 2.5rem);
+  padding: 70px clamp(1.5rem, 6vw, 6rem);
 }
 .section-ruled {
   border-top: 1px solid var(--ruling);
 }
 .section-inner {
-  max-width: 820px;
+  max-width: 1100px;
+  margin: 0 auto;
 }
 
 .section-number {
@@ -595,6 +597,57 @@ p strong {
   margin: 0;
 }
 
+/* ── Curriculum ── */
+.curriculum-grid {
+  margin-top: 2rem;
+  display: grid;
+  gap: 1.5rem;
+}
+@media (min-width: 900px) {
+  .curriculum-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+.cv-card {
+  border: 1px solid var(--border);
+  border-radius: var(--rl);
+  padding: 1.4rem;
+  background: var(--bg-card);
+  display: grid;
+  gap: 1rem;
+  min-height: 260px;
+  transition: transform var(--t), border-color var(--t), box-shadow var(--t);
+}
+.cv-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(196, 147, 63, 0.4);
+  box-shadow: 0 20px 40px rgba(196, 147, 63, 0.08);
+}
+.cv-card-title {
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+.cv-card-desc {
+  color: var(--text-2);
+  font-size: 0.95rem;
+}
+.cv-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+.cv-list span {
+  font-family: var(--font-code);
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0.25rem 0.55rem;
+  border-radius: 999px;
+  background: rgba(196, 147, 63, 0.1);
+  border: 1px solid rgba(196, 147, 63, 0.2);
+  color: var(--gold);
+}
+
 /* ── Skills ── */
 .skills-layout {
   display: grid;
@@ -672,10 +725,11 @@ p strong {
   position: relative;
   z-index: 1;
   border-top: 1px solid var(--ruling);
-  padding: 1.5rem 2rem 1.5rem calc(var(--margin-w) + 2.5rem);
+  padding: 1.5rem 2rem;
 }
 .footer-inner {
-  max-width: 820px;
+  max-width: 1100px;
+  margin: 0 auto;
   display: flex;
   align-items: center;
   gap: 0.8rem;
