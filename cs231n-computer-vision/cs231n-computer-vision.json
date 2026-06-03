@@ -1,0 +1,81 @@
+{
+  "id": "cs231n-computer-vision",
+  "title": "Stanford CS231n Computer Vision — Independent Study",
+  "subtitle": "Deep Learning for Visual Recognition",
+  "author": "Nakul Sreekanth",
+  "type": "independent_study",
+  "NOT_A_PROJECT": true,
+  "note": "This is self-directed study based on Stanford CS231n assignments. The scaffolding belongs to Stanford; the implementations and understanding are original work.",
+  "source_course": "Stanford CS231n: Convolutional Neural Networks for Visual Recognition",
+  "period": "2026",
+  "tags": [
+    "Computer Vision",
+    "Deep Learning",
+    "CS231n",
+    "Independent Study",
+    "CNNs",
+    "Transformers",
+    "Self-Supervised Learning",
+    "Diffusion Models",
+    "PyTorch"
+  ],
+  "assignments": [
+    {
+      "id": "A1",
+      "title": "Image Classification Pipeline",
+      "goals": [
+        "Understand train/val/test splits",
+        "Write efficient vectorized numpy",
+        "Implement kNN and softmax classifiers",
+        "Build a two-layer neural network",
+        "Use higher-level image features"
+      ],
+      "notebooks": [
+        "knn.ipynb",
+        "softmax.ipynb",
+        "two_layer_net.ipynb",
+        "features.ipynb",
+        "FullyConnectedNets.ipynb"
+      ]
+    },
+    {
+      "id": "A2",
+      "title": "Training Deep Networks",
+      "goals": [
+        "Implement batch norm and layer norm",
+        "Implement dropout",
+        "Build convolutional networks",
+        "Train a CNN in PyTorch",
+        "Implement RNN image captioning"
+      ],
+      "notebooks": [
+        "BatchNormalization.ipynb",
+        "Dropout.ipynb",
+        "ConvolutionalNetworks.ipynb",
+        "PyTorch.ipynb",
+        "RNN_Captioning_pytorch.ipynb"
+      ]
+    },
+    {
+      "id": "A3",
+      "title": "Modern Vision Models",
+      "goals": [
+        "Implement transformer captioning",
+        "Apply self-supervised pretraining",
+        "Implement DDPM diffusion models",
+        "Explore CLIP and DINO"
+      ],
+      "notebooks": [
+        "Transformer_Captioning.ipynb",
+        "Self_Supervised_Learning.ipynb",
+        "DDPM.ipynb",
+        "CLIP_DINO.ipynb"
+      ]
+    }
+  ],
+  "github_url": "https://github.com/nakulsree/CS231n_MyWork",
+  "thumbnail": "assets/images/cs231n-computer-vision-thumbnail.svg",
+  "portfolio_url": "cs231n-computer-vision.html",
+  "featured": false,
+  "portfolio_section": "foundations"
+}

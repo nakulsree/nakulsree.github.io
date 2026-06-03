@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-9VL42DFD4Z"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-9VL42DFD4Z");
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Independent study of Stanford CS231n Computer Vision. Three assignments covering kNN, softmax, CNNs, RNNs, transformers, self-supervised learning, diffusion models, and CLIP/DINO with PyTorch implementations."
+    />
+    <meta
+      name="keywords"
+      content="Stanford CS231n, computer vision, CNNs, transformers, diffusion, self-supervised learning, CLIP, DINO, PyTorch, image classification, independent study"
+    />
+    <meta name="author" content="Nakul Sreekanth" />
+    <meta
+      property="og:title"
+      content="Stanford CS231n Computer Vision | Nakul Sreekanth"
+    />
+    <meta
+      property="og:description"
+      content="Independent study of Stanford CS231n: end-to-end vision foundations from kNN and softmax to CNNs, transformers, self-supervised learning, diffusion models, and CLIP/DINO."
+    />
+    <meta property="og:type" content="website" />
+    <title>Stanford CS231n Computer Vision — Nakul Sreekanth</title>
+    <link rel="stylesheet" href="assets/css/cs231n-computer-vision.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="cv-grid" aria-hidden="true"></div>
+    <div class="cv-orb orb-1" aria-hidden="true"></div>
+    <div class="cv-orb orb-2" aria-hidden="true"></div>
+
+    <!-- ── NAV ── -->
+    <nav class="nav" role="navigation" aria-label="Page navigation">
+      <a href="#" class="nav-brand">Nakul Sreekanth</a>
+      <div class="nav-links">
+        <a href="#context">Context</a>
+        <a href="#curriculum">Curriculum</a>
+        <a href="#assignments">Assignments</a>
+        <a href="#skills">Skills</a>
+      </div>
+      <div class="nav-badge" role="note">Independent Study</div>
+    </nav>
+
+    <!-- ── HEADER ── -->
+    <header class="page-header" role="banner">
+      <div class="header-meta">
+        <span class="hm-label">Independent Self-Study</span>
+        <span class="hm-sep" aria-hidden="true">·</span>
+        <span class="hm-inst">Stanford CS231n — Computer Vision</span>
+        <span class="hm-sep" aria-hidden="true">·</span>
+        <span class="hm-date">2026</span>
+      </div>
+
+      <h1 class="page-title">
+        <span class="pt-course">CS231n</span>
+        <span class="pt-main">Computer Vision</span>
+        <span class="pt-sub">Deep Learning for Visual Recognition</span>
+      </h1>
+
+      <p class="page-lede">
+        Not a project. Not coursework. A deliberate, self-directed deep dive
+        through Stanford's CS231n assignments to build end-to-end fluency in
+        computer vision, from classic image classification pipelines to modern
+        transformers, self-supervised learning, and diffusion models.
+      </p>
+
+      <div class="header-scope">
+        <div class="scope-item">
+          <div class="scope-num">3</div>
+          <div class="scope-desc">Assignments completed</div>
+        </div>
+        <div class="scope-div" aria-hidden="true"></div>
+        <div class="scope-item">
+          <div class="scope-num">14</div>
+          <div class="scope-desc">Implementation notebooks</div>
+        </div>
+        <div class="scope-div" aria-hidden="true"></div>
+        <div class="scope-item">
+          <div class="scope-num">CIFAR-10</div>
+          <div class="scope-desc">Image classification benchmark</div>
+        </div>
+        <div class="scope-div" aria-hidden="true"></div>
+        <div class="scope-item">
+          <div class="scope-num">COCO</div>
+          <div class="scope-desc">Image captioning dataset</div>
+        </div>
+      </div>
+
+      <div class="header-ctas">
+        <a
+          href="https://github.com/nakulsree/CS231n_MyWork"
+          class="btn-primary"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <svg
+            width="15"
+            height="15"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            aria-hidden="true"
+          >
+            <path
+              d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+            />
+          </svg>
+          View Implementations
+        </a>
+        <a href="#curriculum" class="btn-ghost">Explore the Curriculum ↓</a>
+      </div>
+    </header>
+
+    <main>
+      <!-- ── CONTEXT ── -->
+      <section id="context" class="section" aria-labelledby="context-heading">
+        <div class="section-inner">
+          <div class="section-label">I</div>
+          <h2 id="context-heading">Why I Did This</h2>
+
+          <div class="context-grid">
+            <div class="context-text">
+              <p class="drop-cap">
+                After building forecasting and optimization systems, I wanted to
+                develop the same level of depth in visual learning. CS231n is
+                the canonical course for that. It starts with classic pipelines
+                and ends with modern representation learning, making it the
+                fastest path to rigorous, end-to-end computer vision fluency.
+              </p>
+              <p>
+                I implemented every section between the
+                <code>START CODE HERE</code> and <code>END CODE HERE</code>
+                markers on my own. Stanford provides the scaffolding, but the
+                model logic, gradients, and training loops are all handwritten.
+              </p>
+              <div class="honesty-note" role="note">
+                <div class="hn-icon" aria-hidden="true">◆</div>
+                <div class="hn-text">
+                  <strong>A note on framing:</strong> The assignments and
+                  problem structure belong to Stanford. This page documents my
+                  independent implementation of the mathematical core and my
+                  synthesis of the concepts across the full sequence.
+                </div>
+              </div>
+            </div>
+
+            <div class="context-aside">
+              <div class="aside-block">
+                <div class="ab-title">What CS231n covers</div>
+                <div class="ab-body">
+                  End-to-end vision: image classification pipelines, CNNs,
+                  optimization and regularization, sequence models for image
+                  captioning, transformers, self-supervised learning, and
+                  diffusion-based image generation.
+                </div>
+              </div>
+              <div class="aside-block">
+                <div class="ab-title">Why it matters</div>
+                <div class="ab-body">
+                  It connects representation learning, scalable optimization,
+                  and real-world vision datasets. This sequence forces you to
+                  derive gradients, implement backprop, and then scale up using
+                  PyTorch on real data.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── CURRICULUM ── -->
+      <section
+        id="curriculum"
+        class="section section-alt"
+        aria-labelledby="curriculum-heading"
+      >
+        <div class="section-inner">
+          <div class="section-label">II</div>
+          <h2 id="curriculum-heading">Curriculum Highlights</h2>
+          <p class="section-desc">
+            Three assignments that progress from classic classifiers to modern
+            generative and self-supervised learning.
+          </p>
+
+          <div class="curriculum-grid">
+            <article class="cv-card">
+              <div class="cv-card-title">Assignment 1 — Image Classification</div>
+              <p class="cv-card-desc">
+                Built the full image classification pipeline, implemented kNN
+                and softmax classifiers, a two-layer network, and higher-level
+                representations including HOG and color histograms.
+              </p>
+              <div class="cv-list">
+                <span>kNN classifier</span>
+                <span>Softmax classifier</span>
+                <span>Two-layer neural net</span>
+                <span>Feature engineering</span>
+                <span>Fully connected nets</span>
+              </div>
+            </article>
+
+            <article class="cv-card">
+              <div class="cv-card-title">Assignment 2 — Deep Nets and CNNs</div>
+              <p class="cv-card-desc">
+                Implemented batch norm and dropout, constructed convolutional
+                layers, trained CNNs in PyTorch, and built RNN-based image
+                captioning models.
+              </p>
+              <div class="cv-list">
+                <span>Batch normalization</span>
+                <span>Dropout</span>
+                <span>Convolutional networks</span>
+                <span>PyTorch on CIFAR-10</span>
+                <span>RNN captioning</span>
+              </div>
+            </article>
+
+            <article class="cv-card">
+              <div class="cv-card-title">Assignment 3 — Modern Vision Models</div>
+              <p class="cv-card-desc">
+                Built transformer-based captioning, experimented with
+                self-supervised learning, implemented DDPM diffusion models,
+                and explored CLIP and DINO for representation learning.
+              </p>
+              <div class="cv-list">
+                <span>Transformer captioning</span>
+                <span>Self-supervised learning</span>
+                <span>DDPM diffusion</span>
+                <span>CLIP</span>
+                <span>DINO</span>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── ASSIGNMENTS ── -->
+      <section id="assignments" class="section" aria-labelledby="assign-heading">
+        <div class="section-inner">
+          <div class="section-label">III</div>
+          <h2 id="assign-heading">Notebook Implementations</h2>
+
+          <div class="assignment-grid">
+            <div class="assignment-block">
+              <div class="ab-kicker">Assignment 1</div>
+              <h3>Image Classification Pipeline</h3>
+              <ul>
+                <li>k-Nearest Neighbor classifier</li>
+                <li>Softmax classifier</li>
+                <li>Two-layer neural network</li>
+                <li>Higher-level image features</li>
+                <li>Fully connected networks</li>
+              </ul>
+            </div>
+
+            <div class="assignment-block">
+              <div class="ab-kicker">Assignment 2</div>
+              <h3>Training Deep Networks</h3>
+              <ul>
+                <li>Batch normalization</li>
+                <li>Dropout regularization</li>
+                <li>Convolutional networks</li>
+                <li>PyTorch on CIFAR-10</li>
+                <li>Image captioning with RNNs</li>
+              </ul>
+            </div>
+
+            <div class="assignment-block">
+              <div class="ab-kicker">Assignment 3</div>
+              <h3>Modern Vision Models</h3>
+              <ul>
+                <li>Transformer captioning</li>
+                <li>Self-supervised learning</li>
+                <li>DDPM diffusion models</li>
+                <li>CLIP and DINO</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── SKILLS ── -->
+      <section id="skills" class="section section-alt" aria-labelledby="skills-heading">
+        <div class="section-inner">
+          <div class="section-label">IV</div>
+          <h2 id="skills-heading">Skills and Concepts</h2>
+          <div class="skill-grid">
+            <div class="skill-column">
+              <div class="skill-title">Foundations</div>
+              <div class="skill-chips">
+                <span>Image classification pipeline</span>
+                <span>Vectorized numpy</span>
+                <span>Gradient derivations</span>
+                <span>Regularization</span>
+                <span>Feature representations</span>
+              </div>
+            </div>
+            <div class="skill-column">
+              <div class="skill-title">Deep Learning</div>
+              <div class="skill-chips">
+                <span>CNN architectures</span>
+                <span>Batch norm</span>
+                <span>Dropout</span>
+                <span>PyTorch training loops</span>
+                <span>RNN captioning</span>
+              </div>
+            </div>
+            <div class="skill-column">
+              <div class="skill-title">Modern Vision</div>
+              <div class="skill-chips">
+                <span>Transformers</span>
+                <span>Self-supervised learning</span>
+                <span>Diffusion models</span>
+                <span>CLIP</span>
+                <span>DINO</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer" role="contentinfo">
+      <div class="footer-inner">
+        <div class="footer-left">
+          <div class="footer-name">Nakul Sreekanth</div>
+          <div class="footer-sub">Data Scientist · Purdue University</div>
+        </div>
+        <div class="footer-links">
+          <a
+            href="https://github.com/nakulsree"
+            target="_blank"
+            rel="noopener noreferrer"
+            >GitHub</a
+          >
+          <a
+            href="https://linkedin.com/in/nakulsree"
+            target="_blank"
+            rel="noopener noreferrer"
+            >LinkedIn</a
+          >
+          <a href="mailto:nakul.sreekanth@gmail.com">Email</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="assets/js/cs231n-computer-vision.js"></script>
+  </body>
+</html>

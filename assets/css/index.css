@@ -572,12 +572,23 @@ h2 {
   background: var(--bg-2);
 }
 
+.foundations-grid {
+  display: grid;
+  gap: 2rem;
+}
+
 .foundations-card {
+  --fc-accent: #c4933f;
+  --fc-accent-soft: rgba(196, 147, 63, 0.25);
+  --fc-accent-strong: rgba(196, 147, 63, 0.5);
+  --fc-accent-glow: rgba(196, 147, 63, 0.08);
+  --fc-accent-chip: rgba(196, 147, 63, 0.08);
+  --fc-accent-border: rgba(196, 147, 63, 0.2);
   display: grid;
   gap: 2rem;
   align-items: center;
   background: var(--bg-card);
-  border: 1px solid rgba(196, 147, 63, 0.25);
+  border: 1px solid var(--fc-accent-soft);
   border-radius: var(--rx);
   padding: 2.5rem;
   text-decoration: none;
@@ -585,15 +596,23 @@ h2 {
   position: relative;
   transition: all var(--t);
 }
+.foundations-card.fc-cv {
+  --fc-accent: #2fd7c4;
+  --fc-accent-soft: rgba(47, 215, 196, 0.25);
+  --fc-accent-strong: rgba(47, 215, 196, 0.5);
+  --fc-accent-glow: rgba(47, 215, 196, 0.08);
+  --fc-accent-chip: rgba(47, 215, 196, 0.08);
+  --fc-accent-border: rgba(47, 215, 196, 0.2);
+}
 @media (min-width: 800px) {
   .foundations-card {
     grid-template-columns: 1fr 280px;
   }
 }
 .foundations-card:hover {
-  border-color: rgba(196, 147, 63, 0.5);
+  border-color: var(--fc-accent-strong);
   transform: translateY(-3px);
-  box-shadow: 0 12px 40px rgba(196, 147, 63, 0.08);
+  box-shadow: 0 12px 40px var(--fc-accent-glow);
 }
 
 .fc-course {
@@ -601,7 +620,7 @@ h2 {
   font-size: 0.65rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: #c4933f;
+  color: var(--fc-accent);
   margin-bottom: 0.5rem;
 }
 .fc-title {
@@ -637,9 +656,9 @@ h2 {
   font-size: 0.62rem;
   letter-spacing: 0.05em;
   padding: 0.2rem 0.55rem;
-  background: rgba(196, 147, 63, 0.08);
-  border: 1px solid rgba(196, 147, 63, 0.2);
-  color: #c4933f;
+  background: var(--fc-accent-chip);
+  border: 1px solid var(--fc-accent-border);
+  color: var(--fc-accent);
   border-radius: 999px;
 }
 .fc-right {
@@ -662,7 +681,7 @@ h2 {
     transform var(--t);
 }
 .foundations-card:hover .fc-arrow {
-  color: #c4933f;
+  color: var(--fc-accent);
   transform: translateX(4px);
 }
 

@@ -1,0 +1,47 @@
+<svg width="960" height="720" viewBox="0 0 960 720" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#0b121b" />
+      <stop offset="100%" stop-color="#121e2b" />
+    </linearGradient>
+    <linearGradient id="accent" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#2fd7c4" />
+      <stop offset="100%" stop-color="#62f0dd" />
+    </linearGradient>
+  </defs>
+  <rect width="960" height="720" fill="url(#bg)" />
+
+  <g opacity="0.25" stroke="#2fd7c4" stroke-width="1">
+    <path d="M0 120H960" />
+    <path d="M0 240H960" />
+    <path d="M0 360H960" />
+    <path d="M0 480H960" />
+    <path d="M0 600H960" />
+    <path d="M160 0V720" />
+    <path d="M320 0V720" />
+    <path d="M480 0V720" />
+    <path d="M640 0V720" />
+    <path d="M800 0V720" />
+  </g>
+
+  <g transform="translate(160 140)">
+    <rect x="0" y="0" width="640" height="440" rx="28" fill="#0f1824" stroke="#2a3a4f" stroke-width="2" />
+    <rect x="40" y="60" width="560" height="320" rx="18" fill="#111f2f" stroke="#2a3a4f" stroke-width="1.5" />
+    <circle cx="320" cy="220" r="110" fill="none" stroke="url(#accent)" stroke-width="8" />
+    <circle cx="320" cy="220" r="64" fill="#0b121b" stroke="#62f0dd" stroke-width="4" />
+    <circle cx="320" cy="220" r="8" fill="#62f0dd" />
+
+    <g stroke="#2fd7c4" stroke-width="2" opacity="0.7">
+      <path d="M90 90H220" />
+      <path d="M90 130H200" />
+      <path d="M90 170H180" />
+    </g>
+    <g stroke="#f0b34a" stroke-width="2" opacity="0.7">
+      <path d="M420 290H550" />
+      <path d="M420 330H520" />
+    </g>
+  </g>
+
+  <text x="90" y="640" fill="#c5d3e8" font-family="Sora, sans-serif" font-size="34" font-weight="600">Stanford CS231n</text>
+  <text x="90" y="680" fill="#7b8aa1" font-family="IBM Plex Mono, monospace" font-size="20" letter-spacing="3">Computer Vision</text>
+</svg>
